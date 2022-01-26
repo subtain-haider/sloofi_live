@@ -28,6 +28,10 @@ class PermissionsSeeder extends Seeder
             ['name' => 'user_view','guard_name'=>'web'],
             ['name' => 'user_update','guard_name'=>'web'],
             ['name' => 'user_delete','guard_name'=>'web'],
+            ['name' => 'add_category','guard_name'=>'web'],
+            ['name' => 'edit_category','guard_name'=>'web'],
+            ['name' => 'view_category','guard_name'=>'web'],
+            ['name' => 'delete_category','guard_name'=>'web'],
         ];
         Permission::insert($permissions);
     }
