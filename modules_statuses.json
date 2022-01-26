@@ -2,5 +2,6 @@
     "RolePermission": true,
     "Dashboard": true,
     "User": true,
-    "Category": true
+    "Category": true,
+    "Warehouse": true
 }
