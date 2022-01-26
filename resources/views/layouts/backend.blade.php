@@ -61,6 +61,14 @@
                                 </a>
                             </li>
                             @endcan
+                            @can('user_view')
+                                <li class="nk-menu-item">
+                                    <a href="{{route('user.all')}}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                        <span class="nk-menu-text">Users</span>
+                                    </a>
+                                </li>
+                            @endcan
 
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}

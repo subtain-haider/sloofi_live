@@ -25,6 +25,9 @@ class PermissionsSeeder extends Seeder
             ['name' => 'add_permission','guard_name'=>'web'],
             ['name' => 'edit_permission','guard_name'=>'web'],
             ['name' => 'delete_permission','guard_name'=>'web'],
+            ['name' => 'user_view','guard_name'=>'web'],
+            ['name' => 'user_update','guard_name'=>'web'],
+            ['name' => 'user_delete','guard_name'=>'web'],
         ];
         Permission::insert($permissions);
     }
