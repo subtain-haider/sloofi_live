@@ -10,7 +10,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="{{url('/backend')}}/images/favicon.png">
     <!-- Page Title  -->
-    <title>e-Commerce Home | DashLite Admin Template</title>
+    <title>Sloofi Dashboard</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{url('/backend')}}/assets/css/dashlite.css?ver=2.9.0">
     <link id="skin-default" rel="stylesheet" href="{{url('/backend')}}/assets/css/theme.css?ver=2.9.0">
