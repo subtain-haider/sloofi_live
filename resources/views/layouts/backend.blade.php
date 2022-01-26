@@ -44,7 +44,24 @@
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                                     <span class="nk-menu-text">Dashboard</span>
                                 </a>
-                            </li><!-- .nk-menu-item -->
+                            </li>
+                            @can('view_roles')
+                            <li class="nk-menu-item">
+                                <a href="{{route('role.all')}}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                    <span class="nk-menu-text">Roles</span>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('view_permissions')
+                            <li class="nk-menu-item">
+                                <a href="{{route('permission.all')}}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                    <span class="nk-menu-text">Permissions</span>
+                                </a>
+                            </li>
+                            @endcan
+
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}
 {{--                                    <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>--}}
