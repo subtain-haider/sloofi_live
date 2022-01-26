@@ -88,6 +88,24 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
+                            @can('view_warehouse')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Warehouses</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        @can('add_warehouse')
+                                        <li class="nk-menu-item {{ Request::is('warehouse/create') ? 'active' : '' }}">
+                                            <a href="{{ route('warehouse.create') }}" class="nk-menu-link"><span class="">Add Warehouse</span></a>
+                                        </li>
+                                        @endcan
+                                        <li class="nk-menu-item {{ Request::is('warehouse') ? 'active' : '' }}">
+                                            <a href="{{route('warehouse.all')}}" class="nk-menu-link"><span class="">All Warehouses</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
 
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}
