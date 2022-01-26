@@ -69,6 +69,25 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('view_category')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Categories</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        @can('add_category')
+
+                                        <li class="nk-menu-item {{ Request::is('category/create') ? 'active' : '' }}">
+                                            <a href="{{ route('category.create') }}" class="nk-menu-link"><span class="">Add Category</span></a>
+                                        </li>
+                                        @endcan
+                                        <li class="nk-menu-item {{ Request::is('category') ? 'active' : '' }}">
+                                            <a href="{{route('category.all')}}" class="nk-menu-link"><span class="">All Categories</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
 
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}
