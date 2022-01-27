@@ -4,10 +4,10 @@ namespace Modules\Stock\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-class Stock extends Model
+use Spatie\Activitylog\Traits\LogsActivity;
+class Stock extends Model 
 {
-    use HasFactory;
+    use HasFactory,LogsActivity;
 
     protected $guarded = [];
 

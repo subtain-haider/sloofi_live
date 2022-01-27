@@ -4,6 +4,5 @@
     "User": true,
     "Category": true,
     "Warehouse": true,
-    "Stock": true,
-    "Migrate": true
+    "Stock": true
 }
