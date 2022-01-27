@@ -8,6 +8,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Modules\Category\Entities\Category;
+use Modules\Category\Http\Requests\CategoryRequest;
+use Modules\Category\Interfaces\CategoryInterface;
+use Modules\Category\Repositories\CategoryRepository;
 
 class CategoryController extends Controller
 {
@@ -15,13 +18,15 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request)
+    private $categoryRepository;
+
+   public function __construct(CategoryInterface $categoryRepository)
+   {
+       $this->categoryRepository = $categoryRepository;
+   }
+    public function index()
     {
-        $categories = new Category();
-        if ($request->search){
-            $categories = $categories->where('name', 'like', '%'.$request->search.'%');
-        }
-        $categories = $categories->get();
+        $categories= $this->categoryRepository->allCategory();
         return view('category::index',compact('categories'));
     }
 
@@ -31,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories= $this->categoryRepository->allCategory();
         return view('category::create',compact('categories'));
     }
 
@@ -40,19 +45,10 @@ class CategoryController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-        $category = Category::create($request->except(['token', 'icon', 'banner']));
-        if($request->hasFile('icon') && $request->file('icon')->isValid()){
-            $category->addMediaFromRequest('icon')->toMediaCollection('icon');
-        }
-        if($request->hasFile('banner') && $request->file('banner')->isValid()){
-            $category->addMediaFromRequest('banner')->toMediaCollection('banner');
-        }
-        return back()->with('success', 'Category Added Successfully');
+        $this->categoryRepository->createCategory($request->except('_token'));
+        return redirect('/category/all')->with('success', 'Category Added Successfully');
     }
 
     /**
@@ -70,11 +66,10 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function editCategory($id)
     {
-        $categories = Category::all();
-        $category= Category::find($id);
-        return view('category::edit',compact('categories', 'category'));
+        $data=$this->categoryRepository->edit($id);
+        return view('category::edit')->with($data);
     }
 
     /**
@@ -83,11 +78,9 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $category=Category::find($id);
-        $category->update($request->except('token'));
-        $category->save();
+        $this->categoryRepository->updateCategory($request->except('_token'),$id);
         return redirect('/category/all')->with('success', 'Category Updated Successfully');
     }
 
@@ -98,8 +91,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $categorydata = Category::find($id);
-        $categorydata->delete();
-        return back()->with('success', 'Category Deleted Successfully');
+        $this->categoryRepository->deleteCategory($id);
+        return redirect('/category/all')->with('success', 'Category Deleted Successfully');
     }
 }
