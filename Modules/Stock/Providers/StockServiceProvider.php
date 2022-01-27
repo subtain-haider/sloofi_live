@@ -1,20 +1,21 @@
 <?php
 
-namespace Modules\Category\Providers;
+namespace Modules\Stock\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-class CategoryServiceProvider extends ServiceProvider
+
+class StockServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'Category';
+    protected $moduleName = 'Stock';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'category';
+    protected $moduleNameLower = 'stock';
 
     /**
      * Boot the application events.
