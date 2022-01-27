@@ -68,8 +68,8 @@ class CategoryController extends Controller
      */
     public function editCategory($id)
     {
-        $data=$this->categoryRepository->edit($id);
-        return view('category::edit')->with($data);
+        $data=$this->categoryRepository->editCategory($id);
+        return view('category::edit',compact('data'));
     }
 
     /**
