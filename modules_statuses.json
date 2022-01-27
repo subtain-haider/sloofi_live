@@ -3,5 +3,6 @@
     "Dashboard": true,
     "User": true,
     "Category": true,
-    "Warehouse": true
+    "Warehouse": true,
+    "Product": true
 }
