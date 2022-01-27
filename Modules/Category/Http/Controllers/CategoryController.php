@@ -45,7 +45,13 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
-        Category::create($request->except('token'));
+        $category = Category::create($request->except(['token', 'icon', 'banner']));
+        if($request->hasFile('icon') && $request->file('icon')->isValid()){
+            $category->addMediaFromRequest('icon')->toMediaCollection('icon');
+        }
+        if($request->hasFile('banner') && $request->file('banner')->isValid()){
+            $category->addMediaFromRequest('banner')->toMediaCollection('banner');
+        }
         return back()->with('success', 'Category Added Successfully');
     }
 
@@ -95,40 +101,5 @@ class CategoryController extends Controller
         $categorydata = Category::find($id);
         $categorydata->delete();
         return back()->with('success', 'Category Deleted Successfully');
-    }
-    public function UserImageUpload($query){ // Taking input image as parameter
-        $image_name = time();
-        $ext = strtolower($query->getClientOriginalExtension()); // You can use also getClientOriginalName()
-        $image_full_name = $image_name.'.'.$ext;
-        $upload_path = 'admin/images/';    //Creating Sub directory in Public folder to put image
-        $image_url = $upload_path.$image_full_name;
-        $success = $query->move($upload_path,$image_full_name);
-
-        return $image_url; // Just return image
-    }
-    public function form_storeMedia(Request $request)
-    {
-        $file = $request->file('icon');
-        if($request->has('icon')){
-            $file = $request->file('icon');
-        }elseif($request->has('image')){
-            $file = $request->file('image');
-        }
-
-        $filePath = $this->UserImageUpload($file); //Passing $data->image as parameter to our created method
-
-        return response()->json([
-            'image'          => $filePath,
-            'original_image' => $file->getClientOriginalName(),
-        ]);
-    }
-
-    public function form_removeMedia(Request $request)
-    {
-        $name =  $request->get('image');
-        $filePath = $this->UserImageUpload($name); //Passing $data->image as parameter to our created method
-
-        unlink($filePath);
-        return response()->json(["success" =>true , "data" => $name,"msg" => "File has been successfully removed!!"]);
     }
 }
