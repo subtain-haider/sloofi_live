@@ -1,4 +1,4 @@
-@extends('rolepermission::layouts.master')
+@extends('category::layouts.master')
 
 @section('content')
 <div class="nk-content">
@@ -46,30 +46,25 @@
                         <input type="text" class="form-control" placeholder="Order Number (1 for first 9 for last)" name="order_level">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label form-label">Category Banner* <br><span style="color: red">1980 X 180</span></label>
-                    <div class="col-sm-10">
-                        <div class="upload-zone needsclick dropzone" id="image-dropzone" data-max-files="1">
-                            <div class="dz-message" data-dz-message>
-                                <span class="dz-message-text">Drag and drop file</span>
-                                <span class="dz-message-text">or</span>
-                                <span class="dz-message-text">Click to choose your file</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Category Icon*</label>
-                    <div class="col-sm-10">
-                         <div class="upload-zone needsclick dropzone" id="document-dropzone"  data-max-files="1">
-                            <div class="dz-message" data-dz-message>
-                                <span class="dz-message-text">Drag and drop file</span>
-                                <span class="dz-message-text">or</span>
-                                <span class="dz-message-text">Click to choose your file</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{{--                  <div class="form-group row">--}}
+{{--                      <label class="col-sm-2 col-form-label form-label">Category Icon <br><span style="color: red">1980 X 180</span></label>--}}
+{{--                      <div class="form-control-wrap">--}}
+{{--                          <div class="custom-file">--}}
+{{--                              <input type="file" class="custom-file-input" id="icon" name="icon">--}}
+{{--                              <label class="custom-file-label" for="icon">Choose file</label>--}}
+{{--                          </div>--}}
+{{--                      </div>--}}
+{{--                  </div>--}}
+{{--                  <div class="form-group row">--}}
+{{--                      <label class="col-sm-2 col-form-label form-label">Category Banner <br><span style="color: red">1980 X 180</span></label>--}}
+{{--                      <div class="form-control-wrap">--}}
+{{--                          <div class="custom-file">--}}
+{{--                              <input type="file" class="custom-file-input" id="banner" name="banner">--}}
+{{--                              <label class="custom-file-label" for="banner">Choose file</label>--}}
+{{--                          </div>--}}
+{{--                      </div>--}}
+{{--                  </div>--}}
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Meta Title</label>
                     <div class="col-sm-10">
@@ -130,150 +125,4 @@
 
     </div>
 </div>
-@endsection
-@section('js')
-<script>
-        var uploadedDocumentMap = {}
-        Dropzone.options.documentDropzone = {
-            paramName: "icon",
-            url: "{{ route('form.storeMedia') }}",
-            // maxFilesize: 2, // MB
-            addRemoveLinks: true,
-            timeout: 50000,
-             acceptedFiles: 'image/*',
-            dictRemoveFile: 'Delete',
-             maxFiles:1,
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            success: function(file, response) {
-                {{-- console.log(response.image); --}}
-                $('form').append('<input type="hidden" name="icon" value="'+response.image+'">')
-                uploadedDocumentMap[file.name] = response.image
-            },
-            removeFilePromise: function() {
-                return new Promise((resolve, reject) => {
-                    let rand = Math.floor(Math.random() * 3)
-                    console.log(rand);
-                    if (rand == 0) reject('didnt remove properly');
-                    if (rand > 0) resolve();
-                });
-            },
-            removedfile: function(file) {
-                console.log("In remove options");
-                var name = ''
-                if (typeof file.file_name !== 'undefined') {
-                    name = file.file_name
-                } else {
-                    name = uploadedDocumentMap[file.name]
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('form.removeMedia') }}",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        name: name
-                    },
-                    success: function(data) {
-                        console.log(data.msg);
-                        file.previewElement.remove()
-                        $('form').find('input[name="document[]"][value="' + name + '"]').remove()
-                    },
-                    error: function(jqxhr, status, exception) {
-                        console.log(JSON.stringify(jqxhr));
-                        console.log(exception);
-                    }
-                });
-            },
-            init: function() {
-                this.on("complete", function(file) {
-                    $(".dz-remove").html(
-                        "<div><span class='fa fa-trash text-danger' style='font-size: 1.5em'></span></div>"
-                    );
-                });
-                @if(isset($project) && $project -> document)
-                var files = {
-                    !!json_encode($project -> document) !!
-                }
-                for (var i in files) {
-                    var file = files[i]
-                    this.options.addedfile.call(this, file)
-                    file.previewElement.classList.add('dz-complete')
-                    $('form').append('<input type="hidden" name="icon" value="' + file.file_name + '">')
-                }
-                @endif
-            }
-        }
-         var uploadedDocumentMap = {}
-        Dropzone.options.imageDropzone = {
-            paramName: "image",
-            url: "{{ route('form.storeMedia') }}",
-            // maxFilesize: 2, // MB
-            addRemoveLinks: true,
-             acceptedFiles: 'image/*',
-            dictRemoveFile: 'Delete',
-             maxFiles:1,
-            timeout: 50000,
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            success: function(file, response) {
-                $('form').append('<input type="hidden" name="image" value="'+response.image+'">')
-                uploadedDocumentMap[file.name] = response.image
-            },
-            removeFilePromise: function() {
-                return new Promise((resolve, reject) => {
-                    let rand = Math.floor(Math.random() * 3)
-                    console.log(rand);
-                    if (rand == 0) reject('didnt remove properly');
-                    if (rand > 0) resolve();
-                });
-            },
-            removedfile: function(file) {
-                console.log("In remove options");
-                var name = ''
-                if (typeof file.file_name !== 'undefined') {
-                    name = file.file_name
-                } else {
-                    name = uploadedDocumentMap[file.name]
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('form.removeMedia') }}",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        name: name
-                    },
-                    success: function(data) {
-                        console.log(data.msg);
-                        file.previewElement.remove()
-                        $('form').find('input[name="document[]"][value="' + name + '"]').remove()
-                    },
-                    error: function(jqxhr, status, exception) {
-                        console.log(JSON.stringify(jqxhr));
-                        console.log(exception);
-                    }
-                });
-            },
-            init: function() {
-                this.on("complete", function(file) {
-                    $(".dz-remove").html(
-                        "<div><span class='fa fa-trash text-danger' style='font-size: 1.5em'></span></div>"
-                    );
-                });
-                @if(isset($project) && $project -> document)
-                var files = {
-                    !!json_encode($project -> document) !!
-                }
-                for (var i in files) {
-                    var file = files[i]
-                    this.options.addedfile.call(this, file)
-                    file.previewElement.classList.add('dz-complete')
-                    $('form').append('<input type="hidden" name="icon" value="' + file.file_name + '">')
-                }
-                @endif
-            }
-        }
-    </script>
-
 @endsection

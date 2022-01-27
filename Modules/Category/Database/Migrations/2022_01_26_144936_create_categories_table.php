@@ -18,8 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->integer('parent_category')->nullable();
             $table->integer('order_level')->nullable();
-            $table->string('banner')->nullable();
-            $table->string('icon')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('otp_id')->nullable();
