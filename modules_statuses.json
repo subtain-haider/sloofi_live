@@ -4,5 +4,6 @@
     "User": true,
     "Category": true,
     "Warehouse": true,
-    "Product": true
+    "Product": true,
+    "Stock": true
 }

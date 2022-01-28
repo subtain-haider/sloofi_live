@@ -29,8 +29,8 @@
                                             <th class="nk-tb-col"><span class="sub-text">Name</span></th>
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Parent Category</span></th>
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">Order level</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Banner</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Icon</span></th>
+{{--                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Banner</span></th>--}}
+{{--                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Icon</span></th>--}}
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">Meta title</span></th>
                                             <th class="nk-tb-col nk-tb-col-tools text-right">
                                             </th>
@@ -54,16 +54,16 @@
                                             <td class="nk-tb-col tb-col-md">
                                                 <span>{{$category->order_level}}</span>
                                             </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <div class="user-card">
-                                                    <span><img src="{{url('/')}}/{{$category->banner}}" height="60" width="60" alt=""></span>
-                                                </div>
-                                            </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <div class="user-card">
-                                                    <span><img src="{{url('/')}}/{{$category->icon}}" height="20" width="20" alt=""></span>
-                                                </div>
-                                            </td>
+{{--                                            <td class="nk-tb-col tb-col-md">--}}
+{{--                                                <div class="user-card">--}}
+{{--                                                    <span><img src="{{$category->getFirstMediaUrl('banner')}}" height="60" width="60" alt=""></span>--}}
+{{--                                                </div>--}}
+{{--                                            </td>--}}
+{{--                                            <td class="nk-tb-col tb-col-md">--}}
+{{--                                                <div class="user-card">--}}
+{{--                                                    <span><img src="{{$category->getFirstMediaUrl('icon')}}" height="20" width="20" alt=""></span>--}}
+{{--                                                </div>--}}
+{{--                                            </td>--}}
                                             <td class="nk-tb-col tb-col-md">
                                                 <span>{{$category->meta_title}}</span>
                                             </td>
