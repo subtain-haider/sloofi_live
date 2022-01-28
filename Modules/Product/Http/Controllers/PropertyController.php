@@ -5,24 +5,18 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Product\Interfaces\ProductInterface;
+use Modules\Product\Entities\Property;
 
-class ProductController extends Controller
+class PropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    private $productRepository;
-
-    public function __construct(ProductInterface $productRepository)
-    {
-        $this->productRepository = $productRepository;
-    }
     public function index()
     {
-        $products=$this->productRepository->allProduct();
-        return view('product::index',compact('products'));
+        $rows=Property::all();
+        return view('product::properties.index',compact('rows'));
     }
 
     /**
@@ -31,8 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data=$this->productRepository->createProduct();
-        return view('product::create')->with($data);
+        return view('product::properties.create');
     }
 
     /**
@@ -42,8 +35,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->productRepository->storeProduct($request->except('_token'));
-        return back()->with('success', 'Product Added Successfully');
+        Property::create(['name'=>$request->name]);
+        return redirect()->route('property.all')->with('success','Property Added Successfully');
     }
 
     /**
@@ -63,7 +56,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('product::edit');
+        $property=Property::findOrFail($id);
+        return view('product::properties.edit',compact('property'));
     }
 
     /**
@@ -74,7 +68,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Property::whereId($id)->update(['name'=>$request->name]);
+        return redirect()->route('property.edit',['id'=>$id])->with('success','Property Updated Successfully');
     }
 
     /**
@@ -84,6 +79,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Property::destroy($id);
+        return redirect()->route('property.all')->with('success','Property deleted Successfully');
     }
 }
