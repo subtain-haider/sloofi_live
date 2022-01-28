@@ -9,8 +9,9 @@ class Warehouse extends Model
 {
     use HasFactory;
 
+    //test comment
     protected $guarded = [];
-    
+
     protected static function newFactory()
     {
         return \Modules\Warehouse\Database\factories\WarehouseFactory::new();
