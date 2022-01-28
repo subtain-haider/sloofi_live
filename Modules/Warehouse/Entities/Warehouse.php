@@ -11,7 +11,6 @@ class Warehouse extends Model
     use HasFactory, LogsActivity;
 
     protected $guarded = [];
-    
     protected static function newFactory()
     {
         return \Modules\Warehouse\Database\factories\WarehouseFactory::new();
