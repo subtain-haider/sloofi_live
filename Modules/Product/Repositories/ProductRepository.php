@@ -8,6 +8,7 @@ use Modules\Product\Entities\Price;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Property;
 use Modules\Product\Interfaces\ProductInterface;
+use Modules\Stock\Entities\StockRequest;
 use Modules\Warehouse\Entities\Warehouse;
 use Auth;
 class ProductRepository implements ProductInterface
@@ -36,7 +37,7 @@ class ProductRepository implements ProductInterface
             $product->properties()->attach($ProductData['properties']);
         $product->categories()->attach([$ProductData['category_id']]);
         foreach ($ProductData['price'] as $key=>$price){
-            $price=Price::create(['qty'=>$key,'value'=>$price,'type'=>'internal']);
+            $price=Price::create(['qty'=>$key,'value'=>$price,'type'=>'amount']);
             $product->prices()->save($price);
         }
         if($ProductData['thumbnail'] && $ProductData['thumbnail']){
@@ -68,7 +69,42 @@ class ProductRepository implements ProductInterface
     }
     public function deleteProduct($ProductId)
     {
-        return Product::destory($ProductId);
+        return Product::destroy($ProductId);
+    }
+    public function addStock(array $stockData){
+        $product = Product::find($stockData['product_id']);
+        $user = Auth::user();
+        if($stockData['quantity']<100){
+            $price=$product->prices->where('qty',1)->first();
+        }elseif($stockData['quantity'] >= 100 && $stockData['quantity']<1000){
+            $price=$product->prices->where('qty',100)->first();
+            if(count($price)==0)
+                $price=$product->prices->where('qty',1)->first();
+
+        }elseif ($stockData['quantity'] >= 1000){
+            $price=$product->prices->where('qty',1000)->first();
+            if(count($price)==0)
+                $price=$product->prices->where('qty',100)->first();
+            if(count($price)==0)
+                $price=$product->prices->where('qty',1)->first();
+        }
+        $price=$price->value;
+        $total = $price *  $stockData['quantity'];
+
+        $stock = StockRequest::where('status', 'pending')->where('product_id', $stockData['product_id'])->where('warehouse_id', $stockData['warehouse_id'])->first();
+        if (!$stock){
+            StockRequest::create([
+                'user_id' => $user->id,
+                'type' => 'internal',
+                'product_id' => $stockData['product_id'],
+                'quantity' => $stockData['quantity'],
+                'warehouse_id' => $stockData['warehouse_id'],
+                'amount' => $total,
+            ]);
+        }else{
+            $stock->increment('quantity', $stockData['quantity']);
+        }
+        return redirect()->route('product.all')->with('success', 'Stock Request Generated Successfully, Please wait for admin approval');
     }
 }
 

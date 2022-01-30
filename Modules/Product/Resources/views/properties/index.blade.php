@@ -1,4 +1,4 @@
-@extends('rolepermission::layouts.master')
+@extends('product::layouts.master')
 
 @section('content')
     <div class="nk-content" style="width: 100%;">

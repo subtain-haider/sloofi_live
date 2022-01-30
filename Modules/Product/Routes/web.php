@@ -18,11 +18,12 @@ Route::prefix('product')->middleware(['auth'])->group(function() {
         Route::post('store', 'store')->name('product.store');
 //        Route::get('edit/{id}', 'edit')->name('category.edit');
 //        Route::put('update/{id}', 'update')->name('category.update');
-//        Route::delete('delete/{id}', 'destroy')->name('category.delete');
-        Route::post('upload/image', 'form_storeMedia')->name('product.form.storeMedia');
-        Route::post('remove/image', 'form_removeMedia')->name('product.form.storeMediaProduct');
-        Route::delete('remove/image', 'form_removeMedia')->name('product.form.storeMediaProduct');
-        Route::post('remove/image', 'form_removeMedia')->name('product.form.removeMediaProduct');
+        Route::delete('delete/{id}', 'destroy')->name('product.delete');
+        Route::post('add/stock', 'addStock')->name('product.add-stock');
+//        Route::post('upload/image', 'form_storeMedia')->name('product.form.storeMedia');
+//        Route::post('remove/image', 'form_removeMedia')->name('product.form.storeMediaProduct');
+//        Route::delete('remove/image', 'form_removeMedia')->name('product.form.storeMediaProduct');
+//        Route::post('remove/image', 'form_removeMedia')->name('product.form.removeMediaProduct');
     });
 });
 Route::prefix('property')->middleware(['auth'])->group(function() {

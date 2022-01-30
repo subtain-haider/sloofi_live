@@ -1,4 +1,4 @@
-@extends('rolepermission::layouts.master')
+@extends('product::layouts.master')
 
 @section('content')
 @section('content')
@@ -36,15 +36,7 @@
                                             <th class="nk-tb-col"><span class="sub-text">Thumbnail</span></th>
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Name</span></th>
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Category</span></th>
-                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Added By</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Tags</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Featured</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Published</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Cash on Delivery</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Shipping type</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Shipping Cost</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Shipping Days</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Sales</span></th>
                                             <th class="nk-tb-col nk-tb-col-tools text-right">
                                             </th>
 
@@ -74,40 +66,6 @@
                                                 <td class="nk-tb-col tb-col-md">
                                                     <span>{{$product->tags}}</span>
                                                 </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    @if($product->featured)
-                                                        <span class="tb-status text-success">Yes</span>
-                                                    @else
-                                                        <span class="tb-status text-danger">No</span>
-                                                    @endif
-                                                </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    @if($product->published)
-                                                        <span class="tb-status text-success">Yes</span>
-                                                    @else
-                                                        <span class="tb-status text-danger">No</span>
-                                                    @endif
-                                                </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    @if($product->cod)
-                                                        <span class="tb-status text-success">Yes</span>
-                                                    @else
-                                                        <span class="tb-status text-danger">No</span>
-                                                    @endif
-                                                </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    <span>{{$product->shipping_type}}</span>
-                                                </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    <span>{{$product->shipping_cost}}</span>
-                                                </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    <span>{{$product->shipping_days}}</span>
-                                                </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    <span>{{$product->sales}}</span>
-                                                </td>
-
                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                     <ul class="nk-tb-actions gx-1">
                                                         <li class="nk-tb-action-hidden">
@@ -126,7 +84,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="nk-tb-action-hidden">
-                                                            <form action="/admin/products/{{$product->id}}" method="POST">
+                                                            <form action="{{route('product.delete',['id'=>$product->id])}}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button  type="submit" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -183,7 +141,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="POST" action="/admin/add_to_stock_simple">
+                                                                    <form method="POST" action="{{route('product.add-stock')}}">
                                                                         @csrf
                                                                         <input type="hidden" name="product_id" value="{{$product->id}}">
                                                                         <div class="form-group">

@@ -10,4 +10,5 @@ interface ProductInterface
     public function editProduct($ProductId);
     public function updateProduct(array $ProductData,$ProductId);
     public function deleteProduct($ProductId);
+    public function addStock(array $stockData);
 }

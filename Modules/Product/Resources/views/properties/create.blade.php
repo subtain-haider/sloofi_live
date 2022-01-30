@@ -1,4 +1,4 @@
-@extends('rolepermission::layouts.master')
+@extends('product::layouts.master')
 
 @section('content')
     <div class="components-preview wide-md mx-auto">

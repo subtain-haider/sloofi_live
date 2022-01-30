@@ -43,7 +43,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->productRepository->storeProduct($request->except('_token'));
-        return back()->with('success', 'Product Added Successfully');
+        return redirect()->route('product.all')->with('success', 'Product Added Successfully');
     }
 
     /**
@@ -84,6 +84,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->productRepository->deleteProduct($id);
+        return redirect()->route('product.all')->with('success', 'Product Deleted Successfully');
+    }
+    public function addStock(Request $request){
+        $this->productRepository->addStock($request->except('_token'));
+        return redirect()->route('product.all')->with('success', 'Product Deleted Successfully');
     }
 }
