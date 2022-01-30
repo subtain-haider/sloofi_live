@@ -21,8 +21,8 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $products=$this->productRepository->allProduct();
-        return view('product::index',compact('products'));
+        $data=$this->productRepository->allProduct();
+        return view('product::index',)->with($data);
     }
 
     /**

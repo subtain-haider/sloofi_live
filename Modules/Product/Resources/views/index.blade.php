@@ -61,7 +61,7 @@
                                                 </td>
                                                 <td class="nk-tb-col">
                                                     <div class="user-card">
-                                                        <span><img src="{{url('/')}}/{{$product->thumbnail}}" height="100" width="100" alt=""></span>
+                                                        <span><img src="{{$product->getFirstMediaUrl('thumbnail')}}" height="100" width="100" alt=""></span>
                                                     </div>
                                                 </td>
 
@@ -69,10 +69,7 @@
                                                     <span>{{$product->name}}</span>
                                                 </td>
                                                 <td class="nk-tb-col tb-col-md">
-                                                    <span>{{$product->category->name}}</span>
-                                                </td>
-                                                <td class="nk-tb-col tb-col-md">
-                                                    <span>{{$product->user->name}}</span>
+                                                    <span>{{$product->categories[0]->name??''}}</span>
                                                 </td>
                                                 <td class="nk-tb-col tb-col-md">
                                                     <span>{{$product->tags}}</span>
@@ -161,7 +158,7 @@
                                                                                 <tbody>
                                                                                 @foreach($product->stocks as $stock)
                                                                                     <tr>
-                                                                                        <td>{{$stock->warehouse->name}}</td>
+                                                                                        <td>{{$stock->warehouse->name??''}}</td>
                                                                                         <td>{{$stock->quantity}}</td>
                                                                                     </tr>
                                                                                 @endforeach
