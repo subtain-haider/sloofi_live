@@ -5,21 +5,24 @@ namespace Modules\Warehouse\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Warehouse\Entities\Warehouse;
-
+use Modules\Warehouse\Http\Requests\WarehouseRequest;
+use Modules\Warehouse\Interfaces\WarehouseInterface;
 class WarehouseController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request)
+    private $warehouseRepository;
+
+    public function __construct(WarehouseInterface $warehouseRepository)
     {
-        $warehouses = new Warehouse();
-        if ($request->search){
-            $warehouses = $warehouses->where('name', 'like', '%'.$request->search.'%');
-        }
-        $warehouses = $warehouses->get();
+        $this->warehouseRepository = $warehouseRepository;
+    }
+
+    public function index()
+    {
+        $warehouses = $this->warehouseRepository->allWarehouse();
         return view('warehouse::index', compact('warehouses'));
     }
 
@@ -37,22 +40,9 @@ class WarehouseController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(WarehouseRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'country' => 'required',
-            'monthly' => 'required',
-        ]);
-        $warehouse = new Warehouse;
-        $warehouse->name = $request->name;
-        $warehouse->address = $request->address;
-        $warehouse->city = $request->city;
-        $warehouse->country = $request->country;
-        $warehouse->monthly = $request->monthly;
-        $warehouse->save();
+        $this->warehouseRepository->createWarehouse($request->except('_token'));
         return back()->with('success', 'Warehouse Added Successfully');
     }
 
@@ -73,7 +63,7 @@ class WarehouseController extends Controller
      */
     public function edit($id)
     {
-        $warehouse=Warehouse::find($id);
+        $warehouse=$this->warehouseRepository->editWarehouse($id);
         return view('warehouse::edit',compact('warehouse'));
     }
 
@@ -83,14 +73,8 @@ class WarehouseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
-    {   $warehouse=Warehouse::find($id);
-        $warehouse->name = $request->name;
-        $warehouse->address = $request->address;
-        $warehouse->city = $request->city;
-        $warehouse->country = $request->country;
-        $warehouse->monthly = $request->monthly;
-        $warehouse->save();
+    public function update(WarehouseRequest $request, $id)
+    {   $this->warehouseRepository->updateWarehouse($request->except('_token','_method'),$id);
         return redirect('/warehouse/all')->with('success', 'Warehouse Updated Successfully');
     }
 
@@ -101,8 +85,7 @@ class WarehouseController extends Controller
      */
     public function destroy($id)
     {
-        $warehouse=Warehouse::find($id);
-        $warehouse->delete();
+        $this->warehouseRepository->deleteWarehouse($id);
         return back()->with('success', 'Warehouse Deleted Successfully');
     }
 }

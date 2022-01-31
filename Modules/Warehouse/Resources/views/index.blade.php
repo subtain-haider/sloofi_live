@@ -30,11 +30,11 @@
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Country</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Monthly Charge (USD)</span></th>
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">Manage Stock</span></th>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                                            @can('view_warehouse')
                                             <th class="nk-tb-col nk-tb-col-tools text-right">
                                             </th>
-                                            @endif
-                                            
+                                            @endcan
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,14 +65,17 @@
                                                 <span><a href="/admin/manage_stock/{{$warehouse->id}}" class="btn btn-primary btn-sm">Manage Stock</a></span>
                                             </td>
 
-                                            @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                                            @can('view_warehouse')
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
+                                                    @can('edit_warehouse')
                                                     <li class="nk-tb-action-hidden">
                                                         <a href="{{ route('warehouse.edit',['id'=>$warehouse->id]) }}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Edit">
                                                             <em class="icon ni ni-edit-fill"></em>
                                                         </a>
                                                     </li>
+                                                    @endcan
+                                                        @can('delete_warehouse')
                                                     <li class="nk-tb-action-hidden">
                                                         <form action="{{ route('warehouse.delete',['id'=>$warehouse->id]) }}" method="POST">
                                                             @csrf
@@ -82,9 +85,10 @@
                                                             </button>
                                                         </form>
                                                     </li>
+                                                        @endcan
                                                 </ul>
                                             </td>
-                                            @endif
+                                            @endcan
                                         </tr>
                                         @endforeach
                                     </tbody>
