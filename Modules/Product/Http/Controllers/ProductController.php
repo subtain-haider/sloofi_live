@@ -63,7 +63,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('product::edit');
+        $data= $this->productRepository->editProduct($id);
+        return view('product::edit')->with($data);
     }
 
     /**
@@ -74,7 +75,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->productRepository->updateProduct($request->except('_token'),$id);
+        return redirect()->route('product.all')->with('success', 'Product Updated Successfully');
     }
 
     /**

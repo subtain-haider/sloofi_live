@@ -32,6 +32,7 @@ class ProductRepository implements ProductInterface
         $product->description = $ProductData['description'];
         $product->meta_description = $ProductData['meta_description'];
         $product->purchase_price = $ProductData['purchase_price'];
+        $product->meta_title = $ProductData['meta_title'];
         $product->save();
         if(isset($ProductData['properties']) && count($ProductData['properties'])>0)
             $product->properties()->attach($ProductData['properties']);
@@ -59,13 +60,38 @@ class ProductRepository implements ProductInterface
         return $product;
     }
     public function editProduct($ProductId){
-        $data['categories'] = Product::all();
-        $data['Product']= Product::findOrFail($ProductId);
+        $data['categories'] = Category::all();
+        $data['product']= Product::findOrFail($ProductId);
+        $data['properties']=Property::all();
+        $data['warehouses']=Warehouse::all();
         return $data;
     }
     public function updateProduct(array $ProductData, $ProductId)
     {
-        return Product::whereId($ProductId)->update($ProductData);
+//        dd($ProductData);
+        $product=Product::find($ProductId);
+        $product->name = $ProductData['name'];
+        $product->tags = $ProductData['tags'] ?? '';
+        $product->description = $ProductData['description'];
+        $product->meta_description = $ProductData['meta_description'];
+        $product->purchase_price = $ProductData['purchase_price'];
+        $product->meta_title = $ProductData['meta_title'];
+        $product->save();
+        if(isset($ProductData['properties']) && count($ProductData['properties'])>0)
+            $product->properties()->sync($ProductData['properties']);
+        $product->categories()->sync([$ProductData['category_id']]);
+
+        foreach ($ProductData['price'] as $key=>$price){
+            $product->prices->where('qty',$key)->first()->update(['value'=>$price]);
+        }
+
+        if(isset($ProductData['thumbnail']) && $ProductData['thumbnail']){
+            $product->addMediaFromRequest('thumbnail')->toMediaCollection('thumbnail');
+        }
+        if(isset($ProductData['images']) && $ProductData['images']){
+            $product->addMediaFromRequest('images')->toMediaCollection('images');
+        }
+        return $product;
     }
     public function deleteProduct($ProductId)
     {

@@ -18,13 +18,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                @if(session()->has('success'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{ session()->get('success') }}
-                                    </div>
-                                @endif
-                            </div>
                             <div class="card card-preview">
                                 <div class="card-inner">
                                     <table style="width: 100%;" class="datatable-init-export nk-tb-list nk-tb-ulist" data-export-title="Export" data-auto-responsive="false">
@@ -69,7 +62,7 @@
                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                     <ul class="nk-tb-actions gx-1">
                                                         <li class="nk-tb-action-hidden">
-                                                            <a href="/admin/products/{{$product->id}}/edit" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                            <a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                 <em class="icon ni ni-edit-fill"></em>
                                                             </a>
                                                         </li>
