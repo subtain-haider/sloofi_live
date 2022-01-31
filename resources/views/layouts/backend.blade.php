@@ -463,6 +463,13 @@
                 <div class="container-fluid">
                     <div class="nk-content-inner">
                         <div class="nk-content-body">
+                            <div class="col-lg-12">
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                @endif
+                            </div>
                             @yield('content')
                         </div>
                     </div>
