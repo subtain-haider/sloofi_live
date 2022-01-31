@@ -91,6 +91,6 @@ class ProductController extends Controller
     }
     public function addStock(Request $request){
         $this->productRepository->addStock($request->except('_token'));
-        return redirect()->route('product.all')->with('success', 'Product Deleted Successfully');
+        return redirect()->route('product.all')->with('success', 'Stock added Successfully');
     }
 }
