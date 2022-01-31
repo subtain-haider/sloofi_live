@@ -33,7 +33,7 @@ class CategoryRepository implements CategoryInterface
     }
     public function deleteCategory($categoryId)
     {
-        return Category::destory($categoryId);
+        return Category::destroy($categoryId);
     }
 }
 
