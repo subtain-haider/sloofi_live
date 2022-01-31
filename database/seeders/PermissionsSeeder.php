@@ -36,6 +36,11 @@ class PermissionsSeeder extends Seeder
             ['name' => 'edit_warehouse','guard_name'=>'web'],
             ['name' => 'view_warehouse','guard_name'=>'web'],
             ['name' => 'delete_warehouse','guard_name'=>'web'],
+            ['name' => 'view_property','guard_name'=>'web'],
+            ['name' => 'update_property','guard_name'=>'web'],
+            ['name' => 'delete_property','guard_name'=>'web'],
+
+
         ];
         Permission::insert($permissions);
     }

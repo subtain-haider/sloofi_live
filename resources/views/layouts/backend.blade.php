@@ -106,6 +106,28 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
+{{--                            @can('view_warehouse')--}}
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Products</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+{{--                                        @can('add_warehouse')--}}
+                                            <li class="nk-menu-item {{ Request::is('property') ? 'active' : '' }}">
+                                                <a href="{{route('property.all')}}" class="nk-menu-link"><span class="">All Properties</span></a>
+                                            </li>
+                                            <li class="nk-menu-item {{ Request::is('product/create') ? 'active' : '' }}">
+                                                <a href="{{ route('product.create') }}" class="nk-menu-link"><span class="">Add Product</span></a>
+                                            </li>
+{{--                                        @endcan--}}
+                                        <li class="nk-menu-item {{ Request::is('product') ? 'active' : '' }}">
+                                            <a href="{{route('product.all')}}" class="nk-menu-link"><span class="">All Products</span></a>
+                                        </li>
+
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+{{--                            @endcan--}}
 
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}
@@ -441,6 +463,13 @@
                 <div class="container-fluid">
                     <div class="nk-content-inner">
                         <div class="nk-content-body">
+                            <div class="col-lg-12">
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                @endif
+                            </div>
                             @yield('content')
                         </div>
                     </div>
