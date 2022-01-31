@@ -104,9 +104,10 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 @php
-                                $price1=$product->prices->where('qty',1)->first()->value;
-                                $price100=$product->prices->where('qty',100)->first()->value;
-                                $price1000=$product->prices->where('qty',1000)->first()->value;
+
+                                $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
+                                $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
+                                $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
                                 @endphp
                                 <div class="col">
                                     1 Piece Price*:<input type="number" class="form-control" placeholder="1 Piece Price" name="price[1]" value="{{$price1}}" required>
