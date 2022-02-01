@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Stock\Entities\Stock;
+use Modules\Woocommerce\Entities\Woocommerce;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -47,5 +48,9 @@ class User extends Authenticatable
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+    public function woocommerce()
+    {
+        return $this->hasMany(Woocommerce::class);
     }
 }
