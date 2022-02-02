@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Property;
+use Modules\Product\Entities\Product;
 
 class FrontendController extends Controller
 {
@@ -79,5 +80,9 @@ class FrontendController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function productDetail($id){
+        $product=Product::find($id);
+        return view('frontend::product-detail',compact('product'));
     }
 }

@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', 'FrontendController@index');
+Route::get('/product/detail/{id}', 'FrontendController@productDetail')->name('frontend.product-detail');
 Route::prefix('frontend')->group(function() {
     Route::get('/home', 'FrontendController@index');
 });

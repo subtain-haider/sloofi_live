@@ -263,6 +263,6 @@
     <!-- Load JS siles -->
     <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
     <script src="{{ asset('frontend/js/script.js') }}"></script>
-    
+    @yield('js')
   </body>
 </html>

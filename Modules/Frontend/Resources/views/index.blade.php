@@ -99,10 +99,10 @@
             @foreach($property->products as $product)
                 <li class="item">
             <div class="product_list">
-              <div class="product_img"><img @if($product->getMedia('thumbnail')->first()) src="{{$product->getMedia('thumbnail')->first()->getUrl()}}" @else src="images/deal_img.jpg" @endif></div>
+              <div class="product_img"><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}"><img @if($product->getMedia('thumbnail')->first()) src="{{$product->getMedia('thumbnail')->first()->getUrl()}}" @else src="images/deal_img.jpg" @endif></a></div>
               <div class="product_box">
                 <div class="product_info">
-                  <h4>{{$product->name}}</h4>
+                  <h4><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}">{{$product->name}}</a></h4>
                   <p>{{$product->categories[0]->name??''}}</p>
                     @php
                         $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
