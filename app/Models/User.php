@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\Stock;
+use Modules\Woocommerce\Entities\Woocommerce;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -52,5 +53,9 @@ class User extends Authenticatable
     public function shopify()
     {
         return $this->hasMany(Shopify::class);
+    }
+    public function woocommerce()
+    {
+        return $this->hasMany(Woocommerce::class);
     }
 }
