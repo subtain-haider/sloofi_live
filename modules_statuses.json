@@ -6,6 +6,7 @@
     "Warehouse": true,
     "Product": true,
     "Stock": true,
+    "Frontend": true,
     "Shopify": true,
     "Woocommerce": true
 }
