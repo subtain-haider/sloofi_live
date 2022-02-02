@@ -99,29 +99,36 @@
                         <textarea rows="5" cols="5" class="form-control" name="meta_description" placeholder="Meta description">{{$category->meta_description}}</textarea>
                     </div>
                 </div>
+                  @php
+                      $price1=$category->prices->where('qty',1)->first()?$category->prices->where('qty',1)->first()->value:0;
+                      $price500=$category->prices->where('qty',500)->first()?$category->prices->where('qty',500)->first()->value:0;
+                      $price1000=$category->prices->where('qty',1000)->first()?$category->prices->where('qty',1000)->first()->value:0;
+                      $increased_by=$category->prices->where('qty',1)->first();
+                  @endphp
                   <div class="form-group row">
                       <label class="col-sm-2 col-form-label">Price increment for third parties</label>
                       <div class="col-sm-4">
                           <label for="quantity">Increment By </label>
                           <select name="price_increment_type" class="form-control">
-                              <option value="amount">By Amount</option>
-                              <option value="percentage">By Percentage</option>
+                              <option @if(isset($increased_by->type) && $increased_by->type=='amount') selected @endif value="amount">By Amount</option>
+                              <option @if(isset($increased_by->type) && $increased_by->type=='percentage') selected @endif value="percentage">By Percentage</option>
                           </select>
                       </div>
+
                       <div class="form-group col-md-2 px-2">
                           <label for="quantity">For 1 Product</label>
-                          <input type="number" step="any" value="{{ $category->price_1 }}"
-                                 class="form-control" id="price_1" name="price_1">
+                          <input type="number" step="any" value="{{ $price1 }}"
+                                 class="form-control" id="price_1" name="price[1]">
                       </div>
                       <div class="form-group col-md-2 px-2">
                           <label for="quantity">For 500 </label>
-                          <input type="number" step="any" value="{{ $category->price_500 }}"
-                                 class="form-control" id="price_500" name="price_500">
+                          <input type="number" step="any" value="{{ $price500 }}"
+                                 class="form-control" id="price_500" name="price[500]">
                       </div>
                       <div class="form-group col-md-2 px-2">
                           <label for="quantity">For 1000 and above</label>
-                          <input type="number" step="any" value="{{ $category->price_1000 }}"
-                                 class="form-control" id="price_1000" name="price_1000">
+                          <input type="number" step="any" value="{{ $price1000 }}"
+                                 class="form-control" id="price_1000" name="price[1000]">
                       </div>
                   </div>
                   <div class="form-group row">
