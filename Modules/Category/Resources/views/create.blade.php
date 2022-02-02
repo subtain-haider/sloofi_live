@@ -88,15 +88,15 @@
                       </div>
                       <div class="form-group col-md-2 px-2">
                           <label for="quantity">For 1 Product</label>
-                          <input type="number" step="any" class="form-control" id="price_1"  name="price_1" >
+                          <input type="number" step="any" class="form-control" id="price_1"  name="price[1]" >
                       </div>
                       <div class="form-group col-md-2 px-2">
                           <label for="quantity">For 500 </label>
-                          <input type="number" step="any" class="form-control" id="price_500" name="price_500" >
+                          <input type="number" step="any" class="form-control" id="price_500" name="price[500]" >
                       </div>
                       <div class="form-group col-md-2 px-2">
                           <label for="quantity">For 1000 and above</label>
-                          <input type="number" step="any" class="form-control" id="price_1000" name="price_1000" >
+                          <input type="number" step="any" class="form-control" id="price_1000" name="price[1000]" >
                       </div>
                   </div>
                   <div class="form-group row">
