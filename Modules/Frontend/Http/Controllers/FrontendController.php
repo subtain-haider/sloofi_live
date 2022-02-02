@@ -87,29 +87,21 @@ class FrontendController extends Controller
         return view('frontend::product-detail',compact('product'));
     }
     public function addToCart(Request $request){
-        $products=Session::get('cart');
-        // dd($products);
-        $exist=0;
-        if(isset($products) && count($products)){
-            foreach($products as $key=>$product){
-                if($product['id']==$request->id){
-                    $product['qty']= $product['qty']+$request->qty;
-                    $exist=1;
-                    $products[$key]=$product;
-                }
-            }
+        $cart = session()->get('cart', []);
+
+        if(isset($cart[$request->id])) {
+            $cart[$request->id]['quantity'] = $cart[$request->id]['quantity'] + $request->qty;
+        } else {
+            $cart[$request->product_id] = [
+                "quantity" => $request->qty,
+                "type" => $request->shipping_method,
+            ];
         }
-        if(!$exist){
-            $data['id']=$request->id;
-            $data['shipping_from1']=$request->shipping_from1;
-            $data['shipping_from2']=$request->shipping_from2;
-            $data['platform']=$request->platform;
-            $data['shipping_to']=$request->shipping_to;
-            $data['shipping_method']=$request->shipping_method;
-            $data['qty']=$request->qty;
-            $products[$products?count($products):0]=$data;
-        }
-        Session::put(['cart'=>$products]);
         return redirect()->route('frontend.product-detail',['id'=>$request->id])->with('success','Product add successfully');
+    }
+    public function cartList(){
+        $cartItems = \Cart::getContent();
+        // dd($cartItems);
+        return view('cart', compact('cartItems'));
     }
 }
