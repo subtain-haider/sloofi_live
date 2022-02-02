@@ -1,0 +1,408 @@
+@charset "utf-8";
+/* CSS Document */
+
+ 
+/*********************************************
+		base css
+*********************************************/
+*{margin:0; padding:0;}
+body{font-family: 'Conv_Arialn'; letter-spacing: 1px;}
+img{max-width:100%; transition: all 0.4s ease; -webkit-transition: all 0.4s ease; -moz-transition: all 0.4s ease;}
+a{transition:0.4s ease-in; -webkit-transition:0.4s ease-in; -moz-transition:0.4s ease-in; -ms-transition:0.4s ease-in; -o-transition:0.4s ease-in;}
+h1,h2, h3, h4, h5, h6{font-family: 'Conv_Arialn';}
+ul, ol{list-style:none; padding: 0;}
+h1{margin:0; font-size:42px; text-transform:uppercase; font-weight:400; position:relative; margin-bottom:60px; color: #000;}
+h1 span{color:#00214c; font-weight:bold;}
+h1:before {content: ""; background:url(../images/headong-line.png) no-repeat; height:27px; width:140px; position:absolute; bottom:-40px; left:0;}
+p {font-size: 16px; line-height: 24px; color: #818080;}
+ 
+
+
+ @font-face {
+	font-family: 'Conv_Arialn';
+	src: url('../webfonts/Arialn.eot');
+	src: local('☺'), url('../webfonts/Arialn.woff') format('woff'), url('../webfonts/Arialn.ttf') format('truetype'), url('../webfonts/Arialn.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+.container-fluid{padding: 0 100px;}
+
+
+/************************************
+		Topbar Css
+************************************/ 
+.topbar-wrap{background: #d93644; padding: 8px 0;}
+.language{color: #fff; font-size: 18px; display: flex; justify-content: space-between;}
+.topbar-wrap .btn-secondary{padding: 0; background: none; border: none; box-shadow: none;}
+.navbar{padding: 0;}
+.navbar-expand-lg .navbar-nav .nav-link{color: #fff; padding: 0 15px;}
+.navbar-expand-lg .navbar-nav .nav-link:hover{color: #fff;}
+.navbar-nav li{position: relative;}
+.navbar-nav > li:before{content: ""; background: #fff; width: 1px; height: 18px; position: absolute; top:4px; left: 0;}
+.navbar-nav > li:first-child:before{display: none;}
+.slolfi_btn{background: #fff;
+    color: #000 !important;
+    font-weight: 700;
+    padding: 2px 15px !important;
+    margin-left: 20px;
+}
+.sign-wrap{text-align: right;}
+.sign-wrap a{color: #fff; text-decoration: none;}
+.sign-wrap .register{margin-left: 12px;}
+.sign-wrap .register a{padding: 5px 20px; border: 1px solid #fff;}
+.header_btns{margin-top: 22px;}
+.header_btns ul{display: flex; justify-content: space-between;}
+.header_btns ul li:first-child a {width: 46px; height: 45px;}
+.header_btns ul li a{background: #d9242d; padding:12px 12px; font-size: 14px; text-decoration: none; color: #fff; display: inline-block;}
+.header_btns ul li a:hover{background: #000;}
+
+
+
+
+/************************************
+		Header Css
+************************************/ 
+.header-wrap{padding: 10px 0;}
+.input-group{margin-top: 20px;}
+.input-group>.form-control{height: 56px; font-weight: 100; border: 2px solid #d93644; background: #f0f0f0; letter-spacing: 2px;}
+.input-group-text{ border: 2px solid #d93644; background: #d93644; color: #fff;}
+.btns{margin-top: 24px;}
+
+::-webkit-input-placeholder { /* Edge */
+  color: #a4a3a3 !important;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #a4a3a3 !important;
+}
+
+::placeholder {
+  color: #a4a3a3 !important;
+}
+
+
+
+/************************************
+		Slider Section Css
+************************************/ 
+.sliderSec-wrap{background: #e6e6e6; padding-top: 20px;}
+.categories_wrp h3{background: #d93644; margin-bottom: 0; color: #fff; padding: 10px 25px; text-align: center;}
+.categoryList{background: #fff; padding: 10px 25px;}
+.categoryList li{ line-height: 34px;}
+.categoryList li a{text-decoration: none; color: #000; font-size: 18px;}
+.categoryList li a:hover{color: #d93644;}
+.carousel-indicators{background: #2b2b2b; border-radius: 30px;}
+.carousel-indicators [data-bs-target]{width: 15px; height: 15px; border-radius: 100%;}
+
+/************************************
+		Welcome Css
+************************************/ 
+.welcome_box{background: #d93644; text-align: center; padding:30px;}
+.sloofi-icon img{border-radius: 100%; background: #fff; width: 112px; height: 112px; display: inline-block;}
+.welcome_box h3{margin-top: 20px; color: #fff;}
+.sign_btns{margin-top: 20px;}
+.sign_btns span{margin: 0 15px;}
+.sign_btns a{text-decoration: none; display: inline-block; background: #fff; padding: 10px 30px; border-radius: 30px; color: #000; font-size: 18px;}
+
+/************************************
+		Help Center Css
+************************************/ 
+.help_center{/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e1e1e+0,505150+59,505150+83,3c3c3c+100 */
+background: #1e1e1e; /* Old browsers */
+background: -moz-linear-gradient(top,  #1e1e1e 0%, #505150 59%, #505150 83%, #3c3c3c 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #1e1e1e 0%,#505150 59%,#505150 83%,#3c3c3c 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #1e1e1e 0%,#505150 59%,#505150 83%,#3c3c3c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e1e1e', endColorstr='#3c3c3c',GradientType=0 ); /* IE6-9 */
+padding:20px 30px;
+margin-top: 15px;
+}
+
+.help_center h4{color: #fff;}
+.help_heading{display: flex; justify-content: space-between;}
+.view_more a{color: #fff; text-decoration: none;a}
+.help_center ul{margin-bottom: 0;}
+.help_center ul li{color: #fff; font-weight: normal; line-height: 27px; position: relative; padding-left: 20px}
+.help_center ul li:before{content: ""; width: 10px; height: 10px; background: #b52d39; border-radius: 100%; position: absolute; top: 8px; left: 0;}
+
+
+/************************************
+		Products Css
+************************************/ 
+.products-wrap{background: #e6e6e6; padding:20px 0;}
+.product_sec{background: #fff; padding: 20px; margin-bottom: 20px;}
+.product_list{border:1px solid transparent; padding:7px; overflow: hidden; position: relative;}
+.product_list:before, .product_list:after {
+    bottom: 0px;
+    content: "";
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    -webkit-transition: opacity 0.35s ease 0s, -webkit-transform 0.35s ease 0s;
+    transition: opacity 0.35s ease 0s, -webkit-transform 0.35s ease 0s;
+    -o-transition: opacity 0.35s ease 0s, transform 0.35s ease 0s;
+    transition: opacity 0.35s ease 0s, transform 0.35s ease 0s;
+    transition: opacity 0.35s ease 0s, transform 0.35s ease 0s, -webkit-transform 0.35s ease 0s;
+    
+}
+.product_list:before {
+    border-bottom: 1px solid;
+    border-top: 1px solid;
+    -webkit-transform: scale(0, 1);
+    -ms-transform: scale(0, 1);
+    transform: scale(0, 1);
+    border-color: #d93644;
+}
+.product_list:after {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    -webkit-transform: scale(1, 0);
+    -ms-transform: scale(1, 0);
+    border-color: #d93644;
+    transform: scale(1, 0);
+}
+.product_list:hover:before, .product_list:hover:after {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+
+.product_box{height:190px; background: #fff; width: 100%; position: relative; z-index: 1000; position: relative;}
+.product_info{ background: #fff; position: absolute; display:block; height:100%;
+top:0;
+    z-index: 99; 
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+    transition: all .4s ease-out;}
+
+.product_list:hover .product_info{top:-60px; }
+.product_img{margin: 0 1px;}
+.product_sec h3{border-bottom: 1px solid #e2e2e2; padding-bottom: 15px;}
+.product_list h4{font-size: 20px; margin-top: 10px;}
+.readmore{margin-top: 15px;}
+.readmore a{border: 1px solid #d93644; font-size: 15px; text-decoration: none; color: #d93644; padding: 7px 14px; display: inline-block;}
+.pricetext{font-size: 20px; font-weight: 600; color: #d93644;}
+.btn_bg{background: #d93644 !important; color: #fff !important;}
+.queue_btn a{width: 100%; text-align: center; font-size: 20px; color: #d93644;}
+ .owl-controls{display: none;}
+.readmore a:hover{background: #d93644; color: #fff;}
+.queue_btn a:hover, .btn_bg:hover{background: #000 !important; color: #fff; border-color: #000;}
+
+.hot_selling{text-align: center;}
+.hot_selling h4{font-size: 18px; z-index: 1000; position: relative;}
+.hot_selling h4 a{text-decoration: none; color: #000;}
+.product_list:hover h4 a{color: #d93644;}
+.globelWrp{background: #fff1dc; padding:20px 6px 6px 6px;}
+.globelWrp .product_info{padding: 7px;}
+.globelWrp .product_box{height: 204px;}
+
+
+/************************************
+        App Css
+************************************/
+.app_wrap{padding: 40px 0;}
+.app_wrap h3{font-size: 72px !important; font-weight: bold; color: #484848; letter-spacing: 4px; margin-bottom: 30px;}
+.app_sec{display: flex; justify-content: space-between;} 
+.scanText{font-size: 20px; margin-top: 20px;}
+.qr_check{margin-right: 30px;}
+.appstore span{margin-top: 10px; display: inline-block;}
+
+
+.app_wrap{}
+.app_wrap h3{ font-size: 20px;}
+.app_wrap h3 span{display: block;}
+.tagline{font-size: 24px; text-align: center; margin-bottom: 50px;}
+
+
+.shipmentWrp h3, .partner_wrp h3{text-align: center; font-size: 60px; font-weight: bold;}
+.shipmentWrp h3 span{display: block;}
+.warehouse_info{background: #f8f8f8; border: 2px solid #d93644; padding: 20px;}
+.shipmentWrp h5{color: #d93644;}
+.service_heading{font-size: 42px; font-weight: bold; text-align: center;}
+
+
+.track_wrp{padding: 60px 0;}
+.mt-120{margin-top: 120px;}
+.ship_btn a{font-size:24px !important; padding: 14px 46px; font-weight: bold;}
+.track_wrp .input-group>.form-control{border-color: #eee;}
+
+.partner_wrp{background: #f8f8f8; padding: 60px 0;}
+.partner_wrp h3{text-align: left; margin-top: 50px;}
+.partner_wrp h3 span{display: block;}
+.partner_wrp .readmore a{padding: 12px 36px; font-size: 18px; margin-right: 20px;}
+.partnerships_img{margin-top: 15px;}
+.partnerships_img:hover{margin-top: -3px; -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+    transition: all .4s ease-out;} 
+
+.mobile_categories{display: none;}
+.carousel-control-next-icon, .carousel-control-prev-icon{display: none;}
+.navbar-toggler{display: none;}
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1200px) {
+.globelWrp .product_list h4{font-size: 18px;}
+.globelWrp .readmore a{font-size: 12px; padding: 6px 8px;}
+.navbar-expand-lg .navbar-nav .nav-link, .language{font-size: 14px;}
+.language{display: none;}
+.navbar-expand-lg .navbar-nav .nav-link{padding: 0 10px}
+.navbar-nav > li:before{height: 12px;}
+.sloofi-logo img{width: 250px;}
+.sloofi-logo{text-align: center;}
+.help_center{display: none;}
+.welcome_box{margin-top: 30px;}
+.categoryList{column-count: 3}
+.header_btns ul{justify-content: center;}
+.header_btns ul li{margin: 0 5px;}
+.partner_wrp .readmore a{padding: 12px 18px;}
+.product_box{height: 170px;}
+.product_img img{width: 100%;}
+
+}
+
+
+@media screen and (max-width: 990px) {
+.sign-wrap{display: none;}
+.topbar-wrap{padding: 0;}
+.navbar-toggler{display: block;}
+.sliderSec-wrap{background: none;}
+.product_box {
+    height: 190px;
+}
+.navbar-collapse {
+    position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 100%;
+    width: 60%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    visibility: hidden;
+    background-color: rgba(0,0,0,0.8);
+    transition: visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, visibility .3s ease-in-out;
+    transition: transform .3s ease-in-out, visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    z-index: 10000;
+}
+.navbar-collapse.show {
+    visibility: visible;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+.navbar .navbar-collapse {
+    justify-content: flex-end;
+}
+.close-toggler {
+    background: none;
+    color: #fff;
+    padding: 5px;
+    border: none;
+    margin-top: 10px;
+    font-size: 24px;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    display: block;
+}
+.navbar-nav{padding-top: 70px;}
+.navbar-nav li a + i {
+    display: block;
+} 
+.navbar-nav .dropdown-menu{border-radius: 0 0 .25rem .25rem;}
+.navbar-nav > li:before{display: none;}
+.navbar-expand-lg .navbar-nav .nav-link{padding: 10px 10px; font-size: 16px;}
+.navbar-expand-lg .navbar-nav .nav-link:hover{background: #d93644;}
+.header_btns{display: none;}
+.header-wrap .input-group{margin-top: 0; display: none;}
+.navbar-light .navbar-toggler{position: absolute; top: 15px; right: 20px;}
+.navbar-light .navbar-toggler{background: #d93644;}
+.categoryList, .categories_wrp h3{display: none;}
+.navbar-light{position: relative;}
+.sloofi-logo{text-align: left;}
+.welcome_box{display: none;}
+.mobile_categories{display: flex; text-align: center; justify-content: center;}
+.mobile_categories span{display: block; }
+.mobile_categories a{text-decoration: none; color: #000; }
+.mobile_categories li{margin-top: 20px;}
+.carousel-control-next-icon, .carousel-control-prev-icon{display: block;}
+.app_wrap h3, .shipmentWrp h3, .partner_wrp h3{font-size: 36px !important;}
+.app_wrap{text-align: center;}
+.shipmentWrp{display: none;}
+.globelWrp .product_box{height: 190px;}
+.slolfi_btn{display: inline-block; margin-left: 0;}
+ 
+
+}
+
+@media screen and (max-width: 767px) {
+.container-fluid{padding: 0 15px;}
+.sloofi-logo img{width: 200px;}
+
+
+
+}
+
+@media screen and (max-width: 480px) {
+.product_img img{width: 100%;}
+.product_box{height: 168px;}
+.globelWrp .readmore a{font-size: 14px; padding: 10px 20px;}
+.globelWrp .product_box{height: 180px;}
+.partner_wrp{padding: 20px 0;}
+ .app_wrap h3, .shipmentWrp h3, .partner_wrp h3 {
+    font-size: 20px !important;
+}
+.qr_check {
+    margin-right: 0px;
+}
+.ship_btn a {
+    font-size: 18px !important;
+    padding: 14px 22px;
+    font-weight: bold;
+}
+.partner_wrp .readmore a {
+    padding: 12px 19px;
+    font-size: 14px;
+    margin-right: 1px;
+}
+.mt-120 {
+    margin-top: 70px;
+}
+
+}
+
+
+@media screen and (max-width:375px) {
+.product_box {
+    height: 188px;
+}
+.globelWrp .product_box {
+    height: 204px;
+}
+
+}
+
+
+
+@media screen and (max-width:320px) {
+.globelWrp .readmore a {
+    font-size: 14px;
+    padding: 10px 18px;
+}
+
+
+}
