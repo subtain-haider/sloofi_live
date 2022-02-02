@@ -5,6 +5,8 @@ namespace Modules\Frontend\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Category\Entities\Category;
+use Modules\Product\Entities\Property;
 
 class FrontendController extends Controller
 {
@@ -14,7 +16,9 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        return view('frontend::index');
+        $categories=Category::all();
+        $properties=Property::all();
+        return view('frontend::index',compact('categories','properties'));
     }
 
     /**
