@@ -12,6 +12,7 @@
 */
 Route::get('/', 'FrontendController@index');
 Route::get('/product/detail/{id}', 'FrontendController@productDetail')->name('frontend.product-detail');
+Route::any('/add-to-cart/{id}', 'FrontendController@addToCart')->name('frontend.add-to-cart');
 Route::prefix('frontend')->group(function() {
     Route::get('/home', 'FrontendController@index');
 });

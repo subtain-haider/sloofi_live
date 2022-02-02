@@ -89,7 +89,8 @@
                             </div>
                         </div>
                     </div>
-                    <form class="productInfoo">
+                    <form class="productInfoo" id="addToCart" method="get" action="{{ route('frontend.add-to-cart',['id'=>$product->id]) }}">
+                       <input type="hidden" name="id" value="{{ $product->id }}">
                         <div class="row align-items-center pb-3 pt-4">
                             <div class="col-lg-3 col-md-3">
                                 <label for="inputPassword6" class="col-form-label">Color:</label>
@@ -171,6 +172,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row align-items-center pb-4">
                             <div class="col-lg-3 col-md-3">
                                 <label for="inputPassword6" class="col-form-label">Shipping From:</label>
@@ -178,10 +180,10 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="text" aria-describedby="text">
+                                        <input type="text" class="form-control" id="text" name="shipping_from1" aria-describedby="text">
                                     </div>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="text2" aria-describedby="text2">
+                                        <input type="text" class="form-control" name="shipping_from2" id="text2" aria-describedby="text2">
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +195,7 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="text" aria-describedby="text">
+                                        <input type="text"  name="platform" class="form-control" id="text" aria-describedby="text">
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +207,7 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="text" aria-describedby="text">
+                                        <input type="text"  name="shipping_to" class="form-control" id="text" aria-describedby="text">
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +219,7 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="text" aria-describedby="text">
+                                        <input type="text"  name="shipping_method" class="form-control" id="text" aria-describedby="text">
                                     </div>
                                 </div>
                             </div>
@@ -237,9 +239,9 @@
                             </div>
                             <div class="col-lg-9 col-md-9">
                                 <div class="quantity text-center">
-                                    <input type="button" class="minus priceCal" value="-">
-                                    <input type="text" class="input-text qty text" title="Qty" value="1" name="quantity">
-                                    <input type="button" class="plus priceCal" value="+">
+                                    {{-- <input type="button" class="minus priceCal" value="-"> --}}
+                                    <input type="text" class="input-text qty text" name="qty" title="Qty" value="1" name="quantity">
+                                    {{-- <input type="button" class="plus priceCal" value="+"> --}}
                                 </div>
                             </div>
                         </div>
@@ -267,7 +269,7 @@
                                 <div class="readmore-second"><a href="#">Add To SKU List</a></div>
                             </div> --}}
                             <div class="col-lg-4 col-md-4">
-                                <div class="readmore-second"><a class="active" href="#">Buy Now</a></div>
+                                <div class="readmore-second"><a onclick='$("#addToCart").submit()'  class="active" >Buy Now</a></div>
                             </div>
                         </div>
                     </form>
@@ -363,15 +365,15 @@
                         <div class="row">
                             <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
                                 <label>Name *</label>
-                                <input type="text" name="name" value="" placeholder="" required="">
+                                <input type="text" name="name" value="" placeholder="" >
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
                                 <label>Email *</label>
-                                <input type="email" name="email" value="" placeholder="" required="">
+                                <input type="email" name="email" value="" placeholder="" >
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
                                 <label>Website *</label>
-                                <input type="text" name="website" value="" placeholder="" required="">
+                                <input type="text" name="website" value="" placeholder="" >
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
                                 <label>Rating </label>
@@ -402,5 +404,7 @@
 //     alert(2);
 // });
 </script>
+<script defer src="{{ asset('/frontend/js/jquery.flexslider.js') }}"></script>
+<script defer src="{{ asset('/frontend/js/common.js') }}"></script>
 
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Property;
 use Modules\Product\Entities\Product;
+use Session;
 
 class FrontendController extends Controller
 {
@@ -84,5 +85,31 @@ class FrontendController extends Controller
     public function productDetail($id){
         $product=Product::find($id);
         return view('frontend::product-detail',compact('product'));
+    }
+    public function addToCart(Request $request){
+        $products=Session::get('cart');
+        // dd($products);
+        $exist=0;
+        if(isset($products) && count($products)){
+            foreach($products as $key=>$product){
+                if($product['id']==$request->id){
+                    $product['qty']= $product['qty']+$request->qty;
+                    $exist=1;
+                    $products[$key]=$product;
+                }
+            }
+        }
+        if(!$exist){
+            $data['id']=$request->id;
+            $data['shipping_from1']=$request->shipping_from1;
+            $data['shipping_from2']=$request->shipping_from2;
+            $data['platform']=$request->platform;
+            $data['shipping_to']=$request->shipping_to;
+            $data['shipping_method']=$request->shipping_method;
+            $data['qty']=$request->qty;
+            $products[$products?count($products):0]=$data;
+        }
+        Session::put(['cart'=>$products]);
+        return redirect()->route('frontend.product-detail',['id'=>$request->id])->with('success','Product add successfully');
     }
 }
