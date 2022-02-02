@@ -18,6 +18,16 @@ class CreatePropertiesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+        $properties = [
+            ['name' => 'Super Deals'],
+            ['name' => 'Trending Products'],
+            ['name' => 'New Products'],
+            ['name' => 'Hot Selling Categories'],
+            ['name' => 'New Products'],
+            ['name' => 'Print on Demand'],
+            ['name' => 'Recommended Products'],
+        ];
+        \Modules\Product\Entities\Property::insert($properties);
     }
 
     /**

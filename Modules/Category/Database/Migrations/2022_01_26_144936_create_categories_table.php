@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Category\Entities\Category;
 
 class CreateCategoriesTable extends Migration
 {
@@ -30,6 +31,22 @@ class CreateCategoriesTable extends Migration
 //            $table->float('shipping_cost_1000')->nullable();
             $table->timestamps();
         });
+        $categories = [
+            ['name' => 'Computer & Office'],
+            ['name' => 'Bags & Shoes'],
+            ['name' => 'Jewelry & Watches'],
+            ['name' => 'Health, Beauty & Hair'],
+            ['name' => 'Women Clothing'],
+            ['name' => 'Sports & Outdoors'],
+            ['name' => 'Home, Garden & Furniture'],
+            ['name' => 'Home Improvement'],
+            ['name' => 'Automobiles & Motorcycles'],
+            ['name' => 'Toys, Kids & Babies'],
+            ['name' => 'Men Clothing'],
+            ['name' => 'Consumer Electronics'],
+            ['name' => 'Phones & Accessories'],
+        ];
+        Category::insert($categories);
     }
 
     /**
