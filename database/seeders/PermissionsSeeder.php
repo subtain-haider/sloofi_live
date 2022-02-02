@@ -36,9 +36,15 @@ class PermissionsSeeder extends Seeder
             ['name' => 'edit_warehouse','guard_name'=>'web'],
             ['name' => 'view_warehouse','guard_name'=>'web'],
             ['name' => 'delete_warehouse','guard_name'=>'web'],
-            ['name' => 'view_property','guard_name'=>'web'],
+            ['name' => 'view_properties','guard_name'=>'web'],
             ['name' => 'update_property','guard_name'=>'web'],
             ['name' => 'delete_property','guard_name'=>'web'],
+            ['name' => 'view_products','guard_name'=>'web'],
+            ['name' => 'update_product','guard_name'=>'web'],
+            ['name' => 'delete_product','guard_name'=>'web'],
+            ['name' => 'view_woocommerces','guard_name'=>'web'],
+            ['name' => 'add_woocommerce','guard_name'=>'web'],
+            ['name' => 'delete_woocommerce','guard_name'=>'web'],
 
 
         ];

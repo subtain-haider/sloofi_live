@@ -106,28 +106,72 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
-{{--                            @can('view_warehouse')--}}
+                            @can('view_products')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
                                         <span class="nk-menu-text">Products</span>
                                     </a>
                                     <ul class="nk-menu-sub">
-{{--                                        @can('add_warehouse')--}}
+                                        @can('view_properties')
                                             <li class="nk-menu-item {{ Request::is('property') ? 'active' : '' }}">
                                                 <a href="{{route('property.all')}}" class="nk-menu-link"><span class="">All Properties</span></a>
                                             </li>
+                                        @endcan
+                                            @can('add_product')
                                             <li class="nk-menu-item {{ Request::is('product/create') ? 'active' : '' }}">
                                                 <a href="{{ route('product.create') }}" class="nk-menu-link"><span class="">Add Product</span></a>
                                             </li>
-{{--                                        @endcan--}}
-                                        <li class="nk-menu-item {{ Request::is('product') ? 'active' : '' }}">
-                                            <a href="{{route('product.all')}}" class="nk-menu-link"><span class="">All Products</span></a>
-                                        </li>
+                                        @endcan
+                                            @can('view_products')
+                                                <li class="nk-menu-item {{ Request::is('product') ? 'active' : '' }}">
+                                                    <a href="{{route('product.all')}}" class="nk-menu-link"><span class="">All Products</span></a>
+                                                </li>
+                                            @endcan
 
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
-{{--                            @endcan--}}
+                            @endcan
+                             @can('view_woocommerces')
+                            <li class="nk-menu-item">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                    <span class="nk-menu-text">Woocommerce</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    <li class="nk-menu-item {{ Request::is('woocommerce/create') ? 'active' : '' }}">
+                                        <a href="{{ route('woocommerce.create') }}" class="nk-menu-link"><span class="">Add Woocommerce Store</span></a>
+                                    </li>
+                                    {{--                                        @endcan--}}
+                                    <li class="nk-menu-item {{ Request::is('woocommerce') ? 'active' : '' }}">
+                                        <a href="{{route('woocommerce.all')}}" class="nk-menu-link"><span class="">All Woocommerce Stores</span></a>
+                                    </li>
+                                    <li class="nk-menu-item {{ Request::is('woocommerce') ? 'active' : '' }}">
+                                        <a href="{{route('my.woocommerce.products')}}" class="nk-menu-link"><span class="">My Woocommerces Products</span></a>
+                                    </li>
+
+                            <li class="nk-menu-item">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                    <span class="nk-menu-text">Shopify</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    {{--                                        @can('add_warehouse')--}}
+                                    <li class="nk-menu-item {{ Request::is('shopify/create') ? 'active' : '' }}">
+                                        <a href="{{ route('shopify.create') }}" class="nk-menu-link"><span class="">Add Shopify Store</span></a>
+                                    </li>
+                                    <li class="nk-menu-item {{ Request::is('shopify') ? 'active' : '' }}">
+                                        <a href="{{route('shopify.all')}}" class="nk-menu-link"><span class="">All Shopify Stores</span></a>
+                                    </li>
+
+                                    {{--                                        @endcan--}}
+                                    <li class="nk-menu-item {{ Request::is('shopify') ? 'active' : '' }}">
+                                        <a href="{{route('my.shopify.products')}}" class="nk-menu-link"><span class="">My All Shopify Products</span></a>
+                                    </li>
+
+                                </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                            {{--                            @endcan--}}
 
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}

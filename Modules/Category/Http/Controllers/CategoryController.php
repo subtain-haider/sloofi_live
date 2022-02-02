@@ -66,10 +66,10 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function editCategory($id)
+    public function edit($id)
     {
         $data=$this->categoryRepository->editCategory($id);
-        return view('category::edit',compact('data'));
+        return view('category::edit')->with($data);
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $this->categoryRepository->updateCategory($request->except('_token'),$id);
+        $this->categoryRepository->updateCategory($request->except('_token','_method'),$id);
         return redirect('/category/all')->with('success', 'Category Updated Successfully');
     }
 
