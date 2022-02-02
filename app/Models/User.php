@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\Stock;
 use Modules\Woocommerce\Entities\Woocommerce;
 use Spatie\Permission\Traits\HasRoles;
@@ -48,6 +49,10 @@ class User extends Authenticatable
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+    public function shopify()
+    {
+        return $this->hasMany(Shopify::class);
     }
     public function woocommerce()
     {

@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->register( \Modules\Category\Providers\RepositoryServiceProvider::class);
         $this->app->register( \Modules\Warehouse\Providers\RepositoryServiceProvider::class);
         $this->app->register( \Modules\Product\Providers\RepositoryServiceProvider::class);
+        $this->app->register( \Modules\Shopify\Providers\RepositoryServiceProvider::class);
         $this->app->register( \Modules\Woocommerce\Providers\RepositoryServiceProvider::class);
 
     }
