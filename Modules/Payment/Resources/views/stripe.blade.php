@@ -119,7 +119,7 @@
 
             if (!$form.data('cc-on-file')) {
                 e.preventDefault();
-                Stripe.setPublishableKey('');
+                Stripe.setPublishableKey('pk_test_SnF4S8soL7H8c6JokJRL0GxS');
                 Stripe.createToken({
                     number: $('.card-number').val(),
                     cvc: $('.card-cvc').val(),

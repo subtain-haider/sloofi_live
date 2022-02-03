@@ -22,7 +22,7 @@ Route::prefix('frontend')->group(function() {
         Route::get('cart', 'cart')->name('frontend.cart');
         Route::get('checkout', 'checkout')->name('frontend.checkout');
         Route::get('remove/cart/{id}', 'removeCart')->name('frontend.removeCart');
-        Route::post('payment-page', 'paymentPage')->name('frontend.payment-page');
+        Route::any('payment-page', 'paymentPage')->name('frontend.payment-page');
 
     });
 });

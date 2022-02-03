@@ -85,7 +85,7 @@ class PaymentController extends Controller
     }
     public function stripePost(Request $request)
     {
-        Stripe\Stripe::setApiKey('');
+        Stripe\Stripe::setApiKey('sk_test_wcBdkjNQv3hpOHjTSaFI0TEt');
         $order=Order::find($request->order_id);
         Stripe\Charge::create ([
             "amount" => $order->total * 100,
@@ -97,7 +97,7 @@ class PaymentController extends Controller
 
         $order->status='paid';
         $order->save();
-        return back();
+        return redirect('/');
     }
     public function createTransaction()
     {

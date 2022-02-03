@@ -315,7 +315,7 @@ class FrontendController extends Controller
         return view('frontend::cart', compact('cartItems'));
     }
     public function paymentPage(Request $request){
-        $cartItems = session()->get('cart');
+        $cartItems = session()->get('cart',[]);
 
         $total = 0;
         if (count($cartItems) <= 0){

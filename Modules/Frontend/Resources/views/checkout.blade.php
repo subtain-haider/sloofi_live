@@ -47,7 +47,7 @@
 
 
                             <div class="input-group">
-                                <input type="text" class="form-control" name="name" placeholder="NAME" name="">
+                                <input type="text" class="form-control" name="name" placeholder="NAME" required>
                             </div>
 {{--                            <div class="input-group">--}}
 {{--                                <input type="text" class="form-control" placeholder="ENTER CREDIT CARD NUMBER" name="">--}}
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="input-group">
-                                <input type="text" name="country" class="form-control" placeholder="COUNTRY" name="">
+                                <input type="text" name="country" class="form-control" placeholder="COUNTRY" required>
                             </div>
 
 {{--                            <div class="input-group">--}}
@@ -83,11 +83,11 @@
 
 
                             <div class="input-group">
-                                <input type="text" name="address" class="form-control" placeholder="ADDRESS" name="">
+                                <input type="text" name="address" class="form-control" placeholder="ADDRESS" required>
                             </div>
 
                             <div class="input-group checkbox">
-                                <input type="checkbox" name="img" value="yes" id="3dgraphic">
+                                <input type="checkbox" name="img" value="yes" required id="3dgraphic">
                                 <label for="3dgraphic"></label>
                                 by confirming this box, i agree to the terms and conditions, privicy policy</div>
 
