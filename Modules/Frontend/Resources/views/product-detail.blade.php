@@ -486,10 +486,12 @@
                 </div>
                 <div class="modal-body">
                     <table class="table border">
+                        @if(\Illuminate\Support\Facades\Auth::user())
                         <tr>
                             <th>Wallet Balance: ${{\Illuminate\Support\Facades\Auth::user()->wallet}}</th>
                             <th></th>
                         </tr>
+                        @endif
                         <tr>
                             <td>Price 1 pcs:</td>
                             <td>${{price_internal_product($product->id, 1)}}</td>
