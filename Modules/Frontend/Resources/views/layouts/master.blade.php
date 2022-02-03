@@ -117,7 +117,7 @@
 
           <div class="header_btns">
             <ul>
-              <li><a href="#"><img src="{{ asset('/frontend/images/cart.png')}}"></a></li>
+              <li><a href="{{route('frontend.cart')}}"><img src="{{ asset('/frontend/images/cart.png')}}"></a></li>
               <li><a href="#">Source More</a></li>
               <li><a href="#">Categories</a></li>
               <li><a href="#">Our Services</a></li>
@@ -136,7 +136,7 @@
             </div>
         @endif
     </div>
-    @yield('content')
+
     </div>
   @yield('content')
   <!-- Products End -->

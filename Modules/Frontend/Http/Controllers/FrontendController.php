@@ -97,15 +97,15 @@ class FrontendController extends Controller
     }
     public function addToCart(Request $request){
         $cart = session()->get('cart', []);
-
         if(isset($cart[$request->id])) {
             $cart[$request->id]['quantity'] = $cart[$request->id]['quantity'] + $request->qty;
         } else {
-            $cart[$request->product_id] = [
+            $cart[$request->id] = [
                 "quantity" => $request->qty,
                 "type" => $request->shipping_method,
             ];
         }
+        session()->put('cart', $cart);
         return redirect()->route('frontend.product-detail',['id'=>$request->id])->with('success','Product add successfully');
     }
     public function cartList(){
@@ -275,5 +275,15 @@ class FrontendController extends Controller
             $stock->increment('quantity', $request->quantity);
         }
         return back()->with('success', 'Stock Request Generated Successfully, Please wait for admin approval');
+    }
+    public function cart(){
+        $cartItems=[];
+        $count=0;
+        foreach (session()->get('cart', []) as $key=>$qty){
+            $cartItems[$count]['product']=Product::find($key);
+            $cartItems[$count]['qty']=$qty['quantity'];
+            $count++;
+        }
+        return view('frontend::cart', compact('cartItems'));
     }
 }

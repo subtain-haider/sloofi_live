@@ -19,6 +19,8 @@ Route::prefix('frontend')->group(function() {
         Route::post('product/connect/woocommerce', 'connectToWoocommerce')->name('frontend.woocommerce.products.connect');
         Route::post('add-stock', 'addStock')->name('frontend.add_to_stock_simple');
         Route::get('category_products/{category}/{f_size?}', 'category_products')->name('category.products');
+        Route::get('cart', 'cart')->name('frontend.cart');
+        Route::get('checkout', 'checkout')->name('frontend.checkout');
 
     });
 });
