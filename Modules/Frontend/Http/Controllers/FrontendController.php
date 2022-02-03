@@ -392,7 +392,7 @@ class FrontendController extends Controller
             $basket->product_id = $key;
             $order->baskets()->save($basket);
         }
-//        session()->forget('cart');
+        session()->forget('cart');
             if($request->payment_method=='stripe'){
                 return view('payment::stripe',compact('order'));
             }else{
