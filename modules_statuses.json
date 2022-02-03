@@ -9,5 +9,6 @@
     "Payment": true,
     "Frontend": true,
     "Shopify": true,
-    "Woocommerce": true
+    "Woocommerce": true,
+    "ThirdPartyApi": true
 }

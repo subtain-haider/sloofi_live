@@ -1,0 +1,13 @@
+{
+    "name": "ThirdPartyApi",
+    "alias": "thirdpartyapi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ThirdPartyApi\\Providers\\ThirdPartyApiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

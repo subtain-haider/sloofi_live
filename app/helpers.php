@@ -18,6 +18,25 @@ if (!function_exists('get_tp_api')){
         return false;
     }
 }
+if (!function_exists('get_tp_categories')){
+    function get_tp_categories($id){
+        $instance_key = env('otp_instanceKey');
+        $url = 'http://otapi.net/service-json/GetCategorySubcategoryInfoList?instanceKey='.$instance_key.'&parentCategoryId='.$id;
+        // Configure curl client and execute request
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        $results = json_decode($result, true);
+        if($results['ErrorCode'] == 'Ok'){
+            $results = $results['CategoryInfoList'];
+            $results = $results['Content'];
+            return $results;
+        }
+        return false;
+    }
+}
 if (!function_exists('external_product')){
     function external_product($product_id){
         $instance_key = env('otp_instanceKey');
