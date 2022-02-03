@@ -28,33 +28,33 @@
                         <input type="text" class="form-control" name="name" placeholder="Name" autofocus required>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Parent Category</label>
-                    <div class="col-sm-10">
-                        <select class="form-select select2-hidden-accessible" name="parent_category" data-search="on" data-select2-id="6" tabindex="-1" aria-hidden="true">
-                            <option value=" " disabled selected >Select category</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
-                            @endforeach
-                        </select>
+{{--                <div class="form-group row">--}}
+{{--                    <label class="col-sm-2 col-form-label">Parent Category</label>--}}
+{{--                    <div class="col-sm-10">--}}
+{{--                        <select class="form-select select2-hidden-accessible" name="parent_category" data-search="on" data-select2-id="6" tabindex="-1" aria-hidden="true">--}}
+{{--                            <option value=" " selected disabled>Select Parent Category, leave empty if none</option>--}}
+{{--                            @foreach($categories as $category)--}}
+{{--                                <option value="{{$category->id}}">{{$category->name}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
 
-                    </div>
-                </div>
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Order Number (1 for first 9 for last)</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" placeholder="Order Number (1 for first 9 for last)" name="order_level">
                     </div>
                 </div>
-{{--                  <div class="form-group row">--}}
-{{--                      <label class="col-sm-2 col-form-label form-label">Category Icon <br><span style="color: red">1980 X 180</span></label>--}}
-{{--                      <div class="form-control-wrap">--}}
-{{--                          <div class="custom-file">--}}
-{{--                              <input type="file" class="custom-file-input" id="icon" name="icon">--}}
-{{--                              <label class="custom-file-label" for="icon">Choose file</label>--}}
-{{--                          </div>--}}
-{{--                      </div>--}}
-{{--                  </div>--}}
+                  <div class="form-group row">
+                      <label class="col-sm-2 col-form-label form-label">Category Icon <br><span style="color: red">1980 X 180</span></label>
+                      <div class="form-control-wrap">
+                          <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="icon" name="icon">
+                              <label class="custom-file-label" for="icon">Choose file</label>
+                          </div>
+                      </div>
+                  </div>
 {{--                  <div class="form-group row">--}}
 {{--                      <label class="col-sm-2 col-form-label form-label">Category Banner <br><span style="color: red">1980 X 180</span></label>--}}
 {{--                      <div class="form-control-wrap">--}}

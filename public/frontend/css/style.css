@@ -911,7 +911,12 @@ input[type=radio]:after {
 .welcome_box{display: none;}
 .mobile_categories{display: flex; text-align: center; justify-content: center;}
 .mobile_categories span{display: block; }
-.mobile_categories a{text-decoration: none; color: #000; }
+.mobile_categories a{
+    text-decoration: none;
+    color: #000;
+    font-size: 12px;
+    line-height: 10px;
+}
 .mobile_categories li{margin-top: 20px;}
 .carousel-control-next-icon, .carousel-control-prev-icon{display: block;}
 .app_wrap h3, .shipmentWrp h3, .partner_wrp h3{font-size: 36px !important;}

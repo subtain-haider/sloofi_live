@@ -231,28 +231,28 @@
                 <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img2.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img3.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img4.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img5.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img6.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img7.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img8.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img9.png')}}"></div>
               </div>
             </div>
           </div>

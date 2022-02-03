@@ -36,40 +36,32 @@
                         <input type="text" class="form-control" name="name" placeholder="Name" value="{{$category->name}}" required>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Parent Category</label>
-                    <div class="col-sm-10">
-                         <select class="form-select select2-hidden-accessible" name="parent_category"  data-search="on" data-select2-id="6" tabindex="-1" aria-hidden="true"><option value="default_option" data-select2-id="8">Default Option</option>
-                             <option value="" selected disabled>Select Parent Category, leave empty if none</option>
-                            @foreach($categories as $cat)
-                                <option value="{{$cat->id}}" @if($cat->id == $category->parent_category) selected @endif>{{$cat->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+{{--                <div class="form-group row">--}}
+{{--                    <label class="col-sm-2 col-form-label">Parent Category</label>--}}
+{{--                    <div class="col-sm-10">--}}
+{{--                         <select class="form-select select2-hidden-accessible" name="parent_category"  data-search="on" data-select2-id="6" tabindex="-1" aria-hidden="true"><option value="default_option" data-select2-id="8">Default Option</option>--}}
+{{--                             <option value=" " selected disabled>Select Parent Category, leave empty if none</option>--}}
+{{--                            @foreach($categories as $cat)--}}
+{{--                                <option value="{{$cat->id}}" @if($cat->id == $category->parent_category) selected @endif>{{$cat->name}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Order Number (1 for first 9 for last)</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" value="{{$category->order_level}}" placeholder="Order Number (1 for first 9 for last)" name="order_level">
                     </div>
                 </div>
-{{--                <div class="form-group row">--}}
-{{--                    <label class="col-sm-2 col-form-label">Category Banner* <br><span style="color: red">1980 X 180</span></label>--}}
-{{--                    <div class="col-sm-10">--}}
-{{--                          <div class="upload-zone needsclick dropzone" id="image-dropzone" data-max-files="1">--}}
-{{--                            <div class="dz-message" data-dz-message>--}}
-{{--                                <span class="dz-message-text">Drag and drop file</span>--}}
-{{--                                <span class="dz-message-text">or</span>--}}
-{{--                                <span class="dz-message-text">Click to shoose your file</span>--}}
-
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        --}}{{-- <div class="needsclick dropzone" id="image-dropzone">--}}
-
-{{--                         </div> --}}
-{{--                        --}}{{-- <input type="file" class="form-control" name="banner" > --}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                  <div class="form-group row">
+                      <label class="col-sm-2 col-form-label form-label">Category Icon <br><span style="color: red">1980 X 180</span></label>
+                      <div class="form-control-wrap">
+                          <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="icon" name="icon">
+                              <label class="custom-file-label" for="icon">Choose file</label>
+                          </div>
+                      </div>
+                  </div>
 {{--                <div class="form-group row">--}}
 {{--                    <label class="col-sm-2 col-form-label">Category Icon*</label>--}}
 {{--                    <div class="col-sm-10">--}}
