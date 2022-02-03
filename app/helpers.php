@@ -37,6 +37,31 @@ if (!function_exists('get_tp_categories')){
         return false;
     }
 }
+if (!function_exists('get_tp_products')){
+    function get_tp_products($e_categories, $size){
+        $e_products = [];
+        foreach ($e_categories as $cat){
+            $instance_key = env('otp_instanceKey');
+            $url = 'http://otapi.net/service-json/BatchSearchItemsFrame?instanceKey='.$instance_key. '&language=en&signature=&timestamp=&sessionId=&xmlParameters=<SearchItemsParameters><CategoryId>'.$cat->external_id.'<%2FCategoryId><%2FSearchItemsParameters>&framePosition='.$size.'&frameSize=20&blockList=';
+            // Configure curl client and execute request
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            $results = json_decode($result, true);
+
+            if ($results['ErrorCode'] == 'Ok'){
+                $results = $results['Result'];
+                $results = $results['Items'];
+                $results = $results['Items'];
+                $results = $results['Content'];
+                $e_products[$cat->provider_type] = $results;
+            }
+        }
+        return $e_products;
+    }
+}
 if (!function_exists('external_product')){
     function external_product($product_id){
         $instance_key = env('otp_instanceKey');
