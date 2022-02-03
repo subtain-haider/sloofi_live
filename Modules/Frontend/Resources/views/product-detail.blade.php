@@ -416,6 +416,17 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="warehouse">Price Incraese by</label>
+                            <select class="form-control" name="increased_by">
+                                <option value="by_amount">By Amount</option>
+                                <option value="by_percencate">By Percentage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add In Price</label>
+                            <input type="number" class="form-control" name="increment_in_price" required>
+                        </div>
                         <button type="submit" class="btn btn-primary mb-2">Connect</button>
                     </form>
                 </div>
@@ -444,6 +455,17 @@
                                     <option value="{{$woocommerce->id}}">{{$woocommerce->url}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="warehouse">Price Incraese by</label>
+                            <select class="form-control" name="increased_by">
+                                <option value="by_amount">By Amount</option>
+                                <option value="by_percencate">By Percentage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add In Price</label>
+                            <input type="number" class="form-control" name="increment_in_price" required>
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Connect</button>
                     </form>
