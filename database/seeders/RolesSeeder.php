@@ -17,6 +17,8 @@ class RolesSeeder extends Seeder
         Role::insert([
             ['name' => 'super_admin','guard_name'=>'web'],
             ['name' => 'admin','guard_name'=>'web'],
+            ['name' => 'vendor','guard_name'=>'web'],
+            ['name' => 'dropshipper','guard_name'=>'web'],
             ['name' => 'user','guard_name'=>'web'],
         ]);
         $user = \App\Models\User::find(1);

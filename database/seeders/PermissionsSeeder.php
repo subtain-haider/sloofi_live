@@ -25,16 +25,16 @@ class PermissionsSeeder extends Seeder
             ['name' => 'add_permission','guard_name'=>'web'],
             ['name' => 'edit_permission','guard_name'=>'web'],
             ['name' => 'delete_permission','guard_name'=>'web'],
-            ['name' => 'user_view','guard_name'=>'web'],
+            ['name' => 'view_users','guard_name'=>'web'],
             ['name' => 'user_update','guard_name'=>'web'],
             ['name' => 'user_delete','guard_name'=>'web'],
             ['name' => 'add_category','guard_name'=>'web'],
             ['name' => 'edit_category','guard_name'=>'web'],
-            ['name' => 'view_category','guard_name'=>'web'],
+            ['name' => 'view_categories','guard_name'=>'web'],
             ['name' => 'delete_category','guard_name'=>'web'],
             ['name' => 'add_warehouse','guard_name'=>'web'],
             ['name' => 'edit_warehouse','guard_name'=>'web'],
-            ['name' => 'view_warehouse','guard_name'=>'web'],
+            ['name' => 'view_warehouses','guard_name'=>'web'],
             ['name' => 'delete_warehouse','guard_name'=>'web'],
             ['name' => 'view_properties','guard_name'=>'web'],
             ['name' => 'update_property','guard_name'=>'web'],
@@ -45,8 +45,12 @@ class PermissionsSeeder extends Seeder
             ['name' => 'view_woocommerces','guard_name'=>'web'],
             ['name' => 'add_woocommerce','guard_name'=>'web'],
             ['name' => 'delete_woocommerce','guard_name'=>'web'],
-
-
+            ['name' => 'sync_woocommerce_products','guard_name'=>'web'],
+            ['name' => 'view_shopifies','guard_name'=>'web'],
+            ['name' => 'add_shopify','guard_name'=>'web'],
+            ['name' => 'delete_shopify','guard_name'=>'web'],
+            ['name' => 'sync_shopify_products','guard_name'=>'web'],
+            ['name' => 'view_third_paty_api','guard_name'=>'web'],
         ];
         Permission::insert($permissions);
     }
