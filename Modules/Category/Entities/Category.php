@@ -5,6 +5,8 @@ namespace Modules\Category\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Product\Entities\Price;
+use Modules\Product\Entities\Product;
+use Modules\ThirdPartyApi\Entities\ApiCategory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -22,7 +24,7 @@ class Category extends Model implements HasMedia
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     public function getParentCategory(){

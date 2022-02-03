@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Property;
 use Modules\Product\Entities\Product;
+use Modules\ThirdPartyApi\Entities\ApiCategory;
 use Session;
 
 class FrontendController extends Controller
@@ -103,5 +104,19 @@ class FrontendController extends Controller
         $cartItems = \Cart::getContent();
         // dd($cartItems);
         return view('cart', compact('cartItems'));
+    }
+
+    public function category_products(Category $category, $f_size=0){
+        if ($f_size <= 1){
+            $size = 0;
+        }else{
+            $size = $f_size * 20;
+        }
+        $products= $category->products()->skip($size)->take(20)->get();
+
+        $e_categories = ApiCategory::where('category_id', $category->id)->get();
+        $e_products = get_tp_products($e_categories, $size);
+
+        return view('frontend::category_products', compact('category', 'products', 'e_products', 'f_size'));
     }
 }

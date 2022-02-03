@@ -18,7 +18,7 @@ class Property extends Model
         return \Modules\Product\Database\factories\PropertyFactory::new();
     }
     public function products(){
-        return $this->belongsToMany(Product::class,'products_properties');
+        return $this->belongsToMany(Product::class);
     }
 
 }

@@ -21,10 +21,10 @@ class Product extends Model implements HasMedia
         return \Modules\Product\Database\factories\ProductFactory::new();
     }
     public function properties(){
-        return $this->belongsToMany(Property::class,'products_properties');
+        return $this->belongsToMany(Property::class);
     }
     public function categories(){
-        return $this->belongsToMany(Category::class,'categories_products');
+        return $this->belongsToMany(Category::class);
     }
     public function prices()
     {

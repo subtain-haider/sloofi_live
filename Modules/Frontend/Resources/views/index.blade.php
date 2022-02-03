@@ -8,12 +8,12 @@
             <h3>All Categories</h3>
             <ul class="categoryList">
                 @foreach($categories as $category)
-              <li><a href="#">{{$category->name}}</a></li>
+              <li><a href="{{route('category.products', $category->id)}}}">{{$category->name}}</a></li>
                 @endforeach
             </ul>
             <ul class="mobile_categories row">
               @foreach($categories as $category)
-              <li class="col-md-4 col-6"><span><img src="{{url('/frontend')}}/images/cateImg.png"></span><a href="{{$category->id}}"> {{$category->name}}</a></li>
+              <li class="col-md-4 col-6"><span><img src="{{url('/frontend')}}/images/cateImg.png"></span><a href="{{route('category.products', $category->id)}}}"> {{$category->name}}</a></li>
                 @endforeach
 
             </ul>
@@ -100,24 +100,8 @@
         <ul class="owl-carousel">
             @foreach($property->products as $product)
                 <li class="item">
-            <div class="product_list">
-              <div class="product_img"><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}"><img @if($product->getMedia('thumbnail')->first()) src="{{$product->getMedia('thumbnail')->first()->getUrl()}}" @else src="{{url('/frontend')}}/images/deal_img.jpg" @endif></a></div>
-              <div class="product_box">
-                <div class="product_info">
-                  <h4><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}">{{$product->name}}</a></h4>
-                  <p>{{$product->categories[0]->name??''}}</p>
-                    @php
-                        $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
-                        $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
-                        $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
-                    @endphp
-                  <div class="pricetext">${{$price1}} @if($price100 || $price1000)-{{$price1000>0?$price1000:$price100}} @endif</div>
-                  <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                  <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                </div>
-              </div>
-            </div>
-          </li>
+                  @include('frontend::includes.product_card')
+                </li>
             @endforeach
         </ul>
       </div>
