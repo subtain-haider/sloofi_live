@@ -8,12 +8,12 @@
             <h3>All Categories</h3>
             <ul class="categoryList">
                 @foreach($categories as $category)
-              <li><a href="{{route('category.products', $category->id)}}}">{{$category->name}}</a></li>
+              <li><a href="{{route('category.products', $category->id)}}">{{$category->name}}</a></li>
                 @endforeach
             </ul>
             <ul class="mobile_categories row">
               @foreach($categories as $category)
-              <li class="col-md-4 col-6"><span><img src="{{url('/frontend')}}/images/cateImg.png"></span><a href="{{route('category.products', $category->id)}}}"> {{$category->name}}</a></li>
+              <li class="col-md-4 col-6"><span><img src="{{url('/frontend')}}/images/cateImg.png"></span><a href="{{route('category.products', $category->id)}}"> {{$category->name}}</a></li>
                 @endforeach
 
             </ul>
