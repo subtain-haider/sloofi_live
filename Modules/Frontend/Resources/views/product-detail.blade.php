@@ -18,9 +18,7 @@
     <div class="container-fluid">
         <div class="page-title-content">
             <ul class="breadcrumb-nav">
-                <li><a href="/">Parent Category</a></li>
-                <li><a href="/">Child Category</a></li>
-                <li class="active">Exact Category</li>
+                <li><a href="/">{{$product->categories[0]->name}}</a></li>
             </ul>
         </div>
     </div>
@@ -51,7 +49,7 @@
                                @foreach ($images as $image)
                                <li><img src="{{ $image->getUrl()}}" /></li>
                                @endforeach
-                                
+
                             </ul>
                             <div class="downloadLink"><a href="images/slider-img.png')}}" download="Saloofi"><i class="fas fa-download"></i></a></div>
                         </div>
@@ -172,7 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row align-items-center pb-4">
                             <div class="col-lg-3 col-md-3">
                                 <label for="inputPassword6" class="col-form-label">Shipping From:</label>
@@ -240,7 +238,7 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="quantity text-center">
                                     {{-- <input type="button" class="minus priceCal" value="-"> --}}
-                                    <input type="text" class="input-text qty text" name="qty" title="Qty" value="1" name="quantity">
+                                    <input type="number" class="input-text qty text" data-price1="{{$price1}}" data-price100="{{$price100}}" data-price1000="{{$price1000}}" id="qty" name="qty" title="Qty" value="1">
                                     {{-- <input type="button" class="plus priceCal" value="+"> --}}
                                 </div>
                             </div>
@@ -250,24 +248,24 @@
                                 <label for="inputPassword6" class="col-form-label">Total Dropshipping Price:</label>
                             </div>
                             <div class="col-lg-9 col-md-9">
-                                <div class="col-form-label text-center ps-0">$9.44-44.96</div>
+                                <div class="col-form-label text-center ps-0">$<span id="price-cal"  >{{$price1}}</span></div>
                             </div>
                         </div>
                         <div class="row align-items-center pb-3 pt-4">
                             <div class="col-lg-4 col-md-4">
-                                <div class="readmore-second"><a href="#">Connect to Woocommerce</a></div>
+                                <div class="readmore-second "><a href="java:void(0)" onclick="openModel('woocommerce')">Connect to Woocommerce</a></div>
                             </div>
                             <div class="col-lg-4 col-md-4">
-                                <div class="readmore-second"><a href="#">Connect to Shopify</a></div>
+                                <div class="readmore-second"><a href="java:void(0)" onclick="openModel('shopify')">Connect to Shopify</a></div>
                             </div>
                         </div>
                         <div class="row align-items-center pb-3 pt-2">
                             {{-- <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second"><a href="#">Text Here</a></div>
-                            </div>
+                            </div>--}}
                             <div class="col-lg-4 col-md-4">
-                                <div class="readmore-second"><a href="#">Add To SKU List</a></div>
-                            </div> --}}
+                                <div class="readmore-second"><a href="java:void(0)" onclick="openModel('stock')" data-toggle="modal" data-target="#stockModal">Add Stock</a></div>
+                            </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second"><a onclick='$("#addToCart").submit()'  class="active" >Buy Now</a></div>
                             </div>
@@ -396,13 +394,174 @@
 </div>
 </div>
 </div>
+    <div class="modal fade" id="shopifyConnect" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Connect Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Please Select Shopify Store</h3>
+                    <form action="{{ route('frontend.shopify.products.connect') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <input type="hidden" name="type" value="internal">
+                            <select name="shopify_id" class="form-control" id="exampleFormControlSelect1">
+                                @foreach($shopifies as $shopify)
+                                    <option value="{{$shopify->id}}">{{$shopify->shop}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="warehouse">Price Incraese by</label>
+                            <select class="form-control" name="increased_by">
+                                <option value="by_amount">By Amount</option>
+                                <option value="by_percencate">By Percentage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add In Price</label>
+                            <input type="number" class="form-control" name="increment_in_price" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Connect</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="woocommerceModal" tabindex="-1" role="dialog" aria-labelledby="woocommerceModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="woocommerceModalLabel">Connect Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Please Select Woocommerce Store</h3>
+                    <form action="{{ route('frontend.woocommerce.products.connect') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <input type="hidden" name="type" value="internal">
+                            <select name="woocommerce_id" class="form-control" id="exampleFormControlSelect1">
+                                @foreach($woocommerces as $woocommerce)
+                                    <option value="{{$woocommerce->id}}">{{$woocommerce->url}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="warehouse">Price Incraese by</label>
+                            <select class="form-control" name="increased_by">
+                                <option value="by_amount">By Amount</option>
+                                <option value="by_percencate">By Percentage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add In Price</label>
+                            <input type="number" class="form-control" name="increment_in_price" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Connect</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="stockModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add to Stock</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table border">
+                        <tr>
+                            <th>Wallet Balance: ${{\Illuminate\Support\Facades\Auth::user()->wallet}}</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Price 1 pcs:</td>
+                            <td>${{price_internal_product($product->id, 1)}}</td>
+                        </tr>
+                        @if($product->price_100 > 0)
+                            <tr>
+                                <td>Price above 100 pcs:</td>
+                                <td>${{price_internal_product($product->id, 100)}}</td>
+                            </tr>
+                        @endif
+                        @if($product->price_1000 > 0)
+                            <tr>
+                                <td>Price above 1000 pcs:</td>
+                                <td>${{price_internal_product($product->id, 1000)}}</td>
+                            </tr>
+                        @endif
+                    </table>
+                    <form action="{{ route('frontend.add_to_stock_simple') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <div class="mb-3 row">
+                            <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" name="quantity" id="cart_quantity" value="1" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="quantity" class="col-sm-2 col-form-label">Warehouse</label>
+                            <div class="col-sm-10">
+                                <select name="warehouse_id" class="form-control" required>
+                                    @foreach($warehouses as $warehouse)
+                                        <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mb-2">Add to Stock</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </section>
 @endsection
 @section('js')
 <script>
-// $('.priceCal').on('keyPress',function(){
-//     alert(2);
-// });
+    $('#qty').change(function(event) {
+       var qty=$(this).val();
+       var price1=$(this).data('price1');
+        var price100=$(this).data('price100');
+        var price1000=$(this).data('price1000');
+        var price=price1;
+        if(qty<100){
+            price=qty*price1;
+        }else if(qty>99 && qty<1000){
+            price=qty*price100;
+        }else if(qty>999){
+            price=qty*price1000;
+        }
+        $('#price-cal').html(price);
+    });
+    function openModel(type){
+        if(type=='woocommerce'){
+            $('#woocommerceModal').modal('show');;
+        }else if(type=='shopify'){
+            $('#shopifyConnect').modal('show');
+        }else if(type=='stock'){
+            $('#stockModal').modal('show');
+        }
+    }
 </script>
 <script defer src="{{ asset('/frontend/js/jquery.flexslider.js') }}"></script>
 <script defer src="{{ asset('/frontend/js/common.js') }}"></script>
