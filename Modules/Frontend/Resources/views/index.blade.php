@@ -67,11 +67,14 @@
               <div class="view_more"><a href="">View More <i class="fas fa-chevron-right"></i></a></div>
             </div>
             <ul>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
+              <li>Customer Support</li>
+              <li>Shopify Connectivity Support</li>
+              <li>WooCommerce Connectivity Support</li>
+              <li>Drop shipping Documentation</li>
+              <li>Warehouse Support</li>
+              <li>API connectivity</li>
+              <li>Refund Policy</li>
+              <li>Privacy Policy</li>
             </ul>
           </div>
         </div>
