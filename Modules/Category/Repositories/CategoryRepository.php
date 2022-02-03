@@ -19,7 +19,6 @@ class CategoryRepository implements CategoryInterface
             $category->prices()->save($price);
         }
         return $category;
-        return ;
 
 //        if($request->hasFile('icon') && $request->file('icon')->isValid()){
 //            $category->addMediaFromRequest('icon')->toMediaCollection('icon');
@@ -38,7 +37,7 @@ class CategoryRepository implements CategoryInterface
     {
         $price_increment_type=$categoryData['price_increment_type']??'';
         $category=Category::find($categoryId);
-         Category::whereId($categoryId)->update(['name'=>$categoryData['name'],'parent_category'=>$categoryData['parent_category'],'order_level'=>$categoryData['order_level'],'meta_title'=>$categoryData['meta_title'],'meta_description'=>$categoryData['meta_description']]);
+         Category::whereId($categoryId)->update(['name'=>$categoryData['name'], 'order_level'=>$categoryData['order_level'],'meta_title'=>$categoryData['meta_title'],'meta_description'=>$categoryData['meta_description']]);
         foreach ($categoryData['price'] as $key=>$price){
             if($category->prices()->where('qty',$key)->first()){
                 $category->prices()->where('qty',$key)->first()->update(['value'=>$price]);

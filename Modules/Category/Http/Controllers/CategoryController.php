@@ -47,7 +47,10 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $this->categoryRepository->createCategory($request->except('_token'));
+        $category = $this->categoryRepository->createCategory($request->except('_token'));
+        if($request->hasFile('icon') && $request->file('icon')->isValid()){
+            $category->addMediaFromRequest('icon')->toMediaCollection('icon');
+        }
         return redirect('/category/all')->with('success', 'Category Added Successfully');
     }
 
@@ -80,7 +83,10 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $this->categoryRepository->updateCategory($request->except('_token','_method'),$id);
+        $category = $this->categoryRepository->updateCategory($request->except('_token','_method'),$id);
+        if($request->hasFile('icon') && $request->file('icon')->isValid()){
+            $category->addMediaFromRequest('icon')->toMediaCollection('icon');
+        }
         return redirect('/category/all')->with('success', 'Category Updated Successfully');
     }
 

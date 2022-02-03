@@ -26,6 +26,7 @@
                                             <th class="nk-tb-col nk-tb-col-check">
                                             </th>
 
+                                            <th class="nk-tb-col"><span class="sub-text">Icon</span></th>
                                             <th class="nk-tb-col"><span class="sub-text">Name</span></th>
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Parent Category</span></th>
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">Order level</span></th>
@@ -43,6 +44,11 @@
                                                 <div class="custom-control custom-control-sm custom-checkbox notext">
                                                     <input type="checkbox" class="custom-control-input" id="{{$category->id}}">
                                                     <label class="custom-control-label" for="{{$category->id}}"></label>
+                                                </div>
+                                            </td>
+                                            <td class="nk-tb-col">
+                                                <div class="user-card">
+                                                    <span><img src="{{$category->getFirstMediaUrl('icon')}}" height="100" width="100" alt=""></span>
                                                 </div>
                                             </td>
                                             <td class="nk-tb-col">

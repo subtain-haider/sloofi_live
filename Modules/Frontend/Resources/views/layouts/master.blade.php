@@ -10,6 +10,7 @@
     <link href="{{ asset('/frontend/css/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/style.css') }}" rel="stylesheet">
     <title>Sloofi</title>
+      @yield('css')
   </head>
   <body>
     <!-- Topbar Start -->
@@ -53,7 +54,7 @@
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#">Action</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>
-                    
+
                   </ul>
                 </li>
                 <li class="nav-item">
@@ -66,8 +67,8 @@
                   <a class="nav-link slolfi_btn" href="{{route('dashboard')}}">My Sloofi</a>
                 </li>
               </ul>
-              
-              
+
+
             </div>
           </nav>
         </div>
@@ -79,6 +80,17 @@
             <span class="register"><a href="{{route('register')}}">Register</a></span>
           </div>
         </div>
+            @else
+                <div class="col-xl-2 col-lg-3">
+                <div class="sign-wrap">
+                    <span><a href="javascript:void(0)" onclick="$('#logout-form').submit();">
+                    Logout
+                </a></span>
+                </div>
+                </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             @endif
       </div>
     </div>
@@ -89,24 +101,24 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-3  navbar-light">
-          <div class="sloofi-logo"><img src="{{ asset('/frontend/images/sloofi-logo.png')}}"></div>
+            <div class="sloofi-logo"><a href="{{url('/')}}"><img src="{{ asset('/frontend/images/sloofi-logo.png')}}"></a></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
-          
+
         </div>
         <div class="col-xl-5 ">
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Search products by keywords, SKU, Ali Express URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <span class="input-group-text" id="basic-addon2"><img src="{{ asset('/frontend/images/search.png')}}"></span>
           </div>
-          
+
         </div>
         <div class="col-xl-4">
-          
+
           <div class="header_btns">
             <ul>
-              <li><a href="#"><img src="{{ asset('/frontend/images/cart.png')}}"></a></li>
+              <li><a href="{{route('frontend.cart')}}"><img src="{{ asset('/frontend/images/cart.png')}}"></a></li>
               <li><a href="#">Source More</a></li>
               <li><a href="#">Categories</a></li>
               <li><a href="#">Our Services</a></li>
@@ -118,6 +130,15 @@
   </div>
   <!-- Header End -->
   <!-- Slider Section Start -->
+    <div class="col-lg-12">
+        @if(session()->has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session()->get('success') }}
+            </div>
+        @endif
+    </div>
+
+    </div>
   @yield('content')
   <!-- Products End -->
   <!-- App Start -->
@@ -180,7 +201,7 @@
       </div>
     </div>
     <!-- Shipment End -->
-    
+
     <div class="track_wrp">
       <div class="container-fluid">
         <div class="row">
@@ -211,28 +232,28 @@
                 <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img2.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img3.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img4.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img5.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img6.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img7.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img8.png')}}"></div>
               </div>
               <div class="col-lg-4 col-md-4 col-4">
-                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img.png')}}"></div>
+                <div class="partnerships_img"><img src="{{ asset('/frontend/images/partnerships_img9.png')}}"></div>
               </div>
             </div>
           </div>
@@ -258,7 +279,7 @@
 
 
 
-    
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-min.js') }}"></script>

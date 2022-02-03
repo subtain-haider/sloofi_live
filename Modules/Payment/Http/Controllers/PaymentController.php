@@ -5,6 +5,7 @@ namespace Modules\Payment\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Frontend\Entities\Order;
 use Session;
 use Stripe;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -84,38 +85,41 @@ class PaymentController extends Controller
     }
     public function stripePost(Request $request)
     {
-        Stripe\Stripe::setApiKey('');
+        Stripe\Stripe::setApiKey('sk_test_wcBdkjNQv3hpOHjTSaFI0TEt');
+        $order=Order::find($request->order_id);
         Stripe\Charge::create ([
-            "amount" => 100 * 100,
+            "amount" => $order->total * 100,
             "currency" => "usd",
             "source" => $request->stripeToken,
             "description" => "Test payment from itsolutionstuff.com."
         ]);
         Session::flash('success', 'Payment successful!');
 
-        return back();
+        $order->status='paid';
+        $order->save();
+        return redirect('/');
     }
     public function createTransaction()
     {
         return view('payment::paypal');
     }
-    public function processTransaction(Request $request)
+    public function processTransaction(Request $request ,$order_id)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
-
+$order=Order::find($order_id);
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('paypal.successTransaction'),
+                "return_url" => route('paypal.successTransaction',['id'=>$order_id]),
                 "cancel_url" => route('paypal.cancelTransaction'),
             ],
             "purchase_units" => [
                 0 => [
                     "amount" => [
                         "currency_code" => "USD",
-                        "value" => "1000.00"
+                        "value" => $order->total
                     ]
                 ]
             ]
@@ -146,13 +150,15 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function successTransaction(Request $request)
+    public function successTransaction(Request $request,$id)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($request['token']);
-
+        $order=Order::find($id);
+        $order->status='paid';
+        $order->save();
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             return redirect()
                 ->route('paypal.createTransaction')

@@ -7,7 +7,26 @@
     });
 
 
-
+$(".mobile_categories").owlCarousel({
+	loop:true,
+	margin:2,
+	nav:false,
+	responsiveClass:true,
+	responsive:{
+		0:{
+			items:3,
+			nav:true
+		},
+		700:{
+			items:2,
+			nav:true
+		},
+		1170:{
+			items:2,
+			nav:true
+		}
+	}
+});
 $(".globel_products").owlCarousel({
 	loop:true,
 	margin:2,
