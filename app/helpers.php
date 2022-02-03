@@ -103,7 +103,7 @@ if (!function_exists('external_product')){
 if (!function_exists('price_internal_product')) {
     function price_internal_product($product_id, $quantity)
     {
-        $product = \App\Models\Product::find($product_id);
+        $product =  \Modules\Product\Entities\Product::find($product_id);
         if($quantity < 100){
             $price = $product->price_1;
         }elseif ($quantity >= 100){
