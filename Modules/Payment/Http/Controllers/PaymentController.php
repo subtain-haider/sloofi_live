@@ -86,14 +86,15 @@ class PaymentController extends Controller
     public function stripePost(Request $request)
     {
         Stripe\Stripe::setApiKey('');
+        $order=Order::find($request->order_id);
         Stripe\Charge::create ([
-            "amount" => 100 * 100,
+            "amount" => $order->total * 100,
             "currency" => "usd",
             "source" => $request->stripeToken,
             "description" => "Test payment from itsolutionstuff.com."
         ]);
         Session::flash('success', 'Payment successful!');
-        $order=Order::find($request->order_id);
+
         $order->status='paid';
         $order->save();
         return back();
