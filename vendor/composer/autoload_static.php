@@ -184,6 +184,7 @@ class ComposerStaticInit050e42bde1151a7f7eb2147629af0cb9
             'DeepCopy\\' => 9,
             'Database\\Seeders\\' => 17,
             'Database\\Factories\\' => 19,
+            'Darryldecode\\' => 13,
         ),
         'C' => 
         array (
@@ -571,6 +572,10 @@ class ComposerStaticInit050e42bde1151a7f7eb2147629af0cb9
         array (
             0 => __DIR__ . '/../..' . '/database/factories',
         ),
+        'Darryldecode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode',
+        ),
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
@@ -746,6 +751,21 @@ class ComposerStaticInit050e42bde1151a7f7eb2147629af0cb9
         'Cron\\HoursField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
+        'Darryldecode\\Cart\\Cart' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Cart.php',
+        'Darryldecode\\Cart\\CartCollection' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/CartCollection.php',
+        'Darryldecode\\Cart\\CartCondition' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/CartCondition.php',
+        'Darryldecode\\Cart\\CartConditionCollection' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/CartConditionCollection.php',
+        'Darryldecode\\Cart\\CartServiceProvider' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/CartServiceProvider.php',
+        'Darryldecode\\Cart\\Exceptions\\InvalidConditionException' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Exceptions/InvalidConditionException.php',
+        'Darryldecode\\Cart\\Exceptions\\InvalidItemException' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Exceptions/InvalidItemException.php',
+        'Darryldecode\\Cart\\Exceptions\\UnknownModelException' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Exceptions/UnknownModelException.php',
+        'Darryldecode\\Cart\\Facades\\CartFacade' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Facades/CartFacade.php',
+        'Darryldecode\\Cart\\Helpers\\Helpers' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Helpers/Helpers.php',
+        'Darryldecode\\Cart\\ItemAttributeCollection' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/ItemAttributeCollection.php',
+        'Darryldecode\\Cart\\ItemCollection' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/ItemCollection.php',
+        'Darryldecode\\Cart\\Validators\\CartConditionValidator' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Validators/CartConditionValidator.php',
+        'Darryldecode\\Cart\\Validators\\CartItemValidator' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Validators/CartItemValidator.php',
+        'Darryldecode\\Cart\\Validators\\Validator' => __DIR__ . '/..' . '/darryldecode/cart/src/Darryldecode/Cart/Validators/Validator.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'Database\\Seeders\\PermissionsSeeder' => __DIR__ . '/../..' . '/database/seeders/PermissionsSeeder.php',
@@ -3433,6 +3453,8 @@ class ComposerStaticInit050e42bde1151a7f7eb2147629af0cb9
         'Modules\\Dashboard\\Providers\\DashboardServiceProvider' => __DIR__ . '/../..' . '/Modules/Dashboard/Providers/DashboardServiceProvider.php',
         'Modules\\Dashboard\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/Dashboard/Providers/RouteServiceProvider.php',
         'Modules\\Frontend\\Database\\Seeders\\FrontendDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Frontend/Database/Seeders/FrontendDatabaseSeeder.php',
+        'Modules\\Frontend\\Entities\\Basket' => __DIR__ . '/../..' . '/Modules/Frontend/Entities/Basket.php',
+        'Modules\\Frontend\\Entities\\Order' => __DIR__ . '/../..' . '/Modules/Frontend/Entities/Order.php',
         'Modules\\Frontend\\Http\\Controllers\\FrontendController' => __DIR__ . '/../..' . '/Modules/Frontend/Http/Controllers/FrontendController.php',
         'Modules\\Frontend\\Providers\\FrontendServiceProvider' => __DIR__ . '/../..' . '/Modules/Frontend/Providers/FrontendServiceProvider.php',
         'Modules\\Frontend\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/Frontend/Providers/RouteServiceProvider.php',
@@ -3473,6 +3495,11 @@ class ComposerStaticInit050e42bde1151a7f7eb2147629af0cb9
         'Modules\\Stock\\Http\\Controllers\\StockController' => __DIR__ . '/../..' . '/Modules/Stock/Http/Controllers/StockController.php',
         'Modules\\Stock\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/Stock/Providers/RouteServiceProvider.php',
         'Modules\\Stock\\Providers\\StockServiceProvider' => __DIR__ . '/../..' . '/Modules/Stock/Providers/StockServiceProvider.php',
+        'Modules\\ThirdPartyApi\\Database\\Seeders\\ThirdPartyApiDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/ThirdPartyApi/Database/Seeders/ThirdPartyApiDatabaseSeeder.php',
+        'Modules\\ThirdPartyApi\\Entities\\ApiCategory' => __DIR__ . '/../..' . '/Modules/ThirdPartyApi/Entities/ApiCategory.php',
+        'Modules\\ThirdPartyApi\\Http\\Controllers\\ThirdPartyApiController' => __DIR__ . '/../..' . '/Modules/ThirdPartyApi/Http/Controllers/ThirdPartyApiController.php',
+        'Modules\\ThirdPartyApi\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/ThirdPartyApi/Providers/RouteServiceProvider.php',
+        'Modules\\ThirdPartyApi\\Providers\\ThirdPartyApiServiceProvider' => __DIR__ . '/../..' . '/Modules/ThirdPartyApi/Providers/ThirdPartyApiServiceProvider.php',
         'Modules\\User\\Database\\Seeders\\UserDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/User/Database/Seeders/UserDatabaseSeeder.php',
         'Modules\\User\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/Modules/User/Http/Controllers/UserController.php',
         'Modules\\User\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/User/Providers/RouteServiceProvider.php',
