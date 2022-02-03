@@ -149,6 +149,9 @@
                                     <li class="nk-menu-item {{ Request::is('woocommerce') ? 'active' : '' }}">
                                         <a href="{{route('my.woocommerce.products')}}" class="nk-menu-link"><span class="">My Woocommerces Products</span></a>
                                     </li>
+                                </ul>
+                            </li>
+                            @endcan
 
                             <li class="nk-menu-item">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">

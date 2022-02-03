@@ -9,7 +9,7 @@
     <link href="{{ asset('/frontend/css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/style.css') }}" rel="stylesheet">
-    <title>Hello, world!</title>
+    <title>Sloofi</title>
   </head>
   <body>
     <!-- Topbar Start -->
@@ -63,7 +63,7 @@
                   <a class="nav-link" href="#">Sourcing</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link slolfi_btn" href="#">My Sloofi</a>
+                  <a class="nav-link slolfi_btn" href="{{route('dashboard')}}">My Sloofi</a>
                 </li>
               </ul>
               
@@ -71,13 +71,15 @@
             </div>
           </nav>
         </div>
-        
+
+          @if(!\Illuminate\Support\Facades\Auth::user())
         <div class="col-xl-2 col-lg-3">
           <div class="sign-wrap">
-            <span><a href="#">Sign In</a></span>
-            <span class="register"><a href="#">Register</a></span>
+            <span><a href="{{route('login')}}">Sign In</a></span>
+            <span class="register"><a href="{{route('register')}}">Register</a></span>
           </div>
         </div>
+            @endif
       </div>
     </div>
   </div>
