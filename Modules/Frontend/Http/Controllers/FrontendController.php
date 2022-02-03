@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
+use Modules\Frontend\Entities\Basket;
+use Modules\Frontend\Entities\Order;
 use Modules\Product\Entities\Property;
 use Modules\Product\Entities\Product;
 use Modules\Shopify\Entities\Shopify;
@@ -290,8 +292,9 @@ class FrontendController extends Controller
     public function checkout(){
         $cartItems=[];
         $count=0;
+//        dd(session()->get('cart', []));
         foreach (session()->get('cart', []) as $key=>$qty){
-            $cartItems[$count]['product']=$qty['product'];
+            $cartItems[$count]['product']=Product::find($key);
             $cartItems[$count]['quantity']=$qty['quantity'];
             $count++;
         }
@@ -310,5 +313,91 @@ class FrontendController extends Controller
         }
         session()->put('cart', $cartItems);
         return view('frontend::cart', compact('cartItems'));
+    }
+    public function paymentPage(Request $request){
+        $cartItems = session()->get('cart');
+
+        $total = 0;
+        if (count($cartItems) <= 0){
+            return back();
+        }
+        foreach ($cartItems as $key=>$item){
+            $product=Product::find($key);
+//            dd($product);
+            $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
+            $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
+            $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
+            if($item['quantity']>0 && $item['quantity']<100){
+                $price=$price1;
+            }elseif($item['quantity']>99 && $item['quantity']<1000){
+                $price=$price100;
+            }elseif($item['quantity']>999){
+                $price=$price1000;
+            }else{
+                $price=0;
+            }
+            $total+=$item['quantity']*$price;
+        }
+        $order = new Order();
+        $user = Auth::user();
+//dd( $request->all());
+        $order->user_id = $user->id;
+        $order->name = $user->name;
+        $order->email = $user->email;
+        $order->account = 'login';
+
+//        $order->payment_company = $request->payment_company;
+        $order->payment_address_1 = $request->address;
+//        $order->payment_address_2 = $request->payment_address_2;
+//        $order->payment_city = $request->payment_city;
+//        $order->payment_postcode = $request->payment_postcode;
+        $order->payment_country = $request->country;
+
+//        $order->shipping_address = $request->shipping_address;
+
+//        if ($request->shipping_address != 1){
+//            $order->shipping_firstname = $request->shipping_firstname;
+//            $order->shipping_lastname = $request->shipping_lastname;
+//            $order->shipping_company = $request->shipping_company;
+//            $order->shipping_address_1 = $request->shipping_address_1;
+//            $order->shipping_city = $request->shipping_city;
+//            $order->shipping_country = $request->shipping_country;
+//        }
+
+//        $order->shipping_method = $request->shipping_method;
+        $order->payment_method = $request->payment_method;
+//        $order->comment = $request->comment;
+        $order->total = $total;
+        $order->save();
+
+        foreach ($cartItems as $key => $item){
+            if($item['type'] == 'internal'){
+                $price = price_internal_product($key, 1);
+                $product = Product::find($key);
+                if ($product->user_id == 1){
+                    $owner = 'sloofi';
+                }else{
+                    $owner = 'vendor';
+                }
+            }elseif($item['type'] == 'external'){
+                $owner = 'sloofi';
+                $data = price_external_product($key,1);
+                $price = $data['f_price'];
+            }
+            $basket = new Basket();
+            $basket->price = 0;
+            $basket->quantity = $item['quantity'];
+            $basket->type = $item['type'];
+            $basket->owner = '';
+            $basket->product_id = $key;
+            $order->baskets()->save($basket);
+        }
+//        session()->forget('cart');
+            if($request->payment_method=='stripe'){
+                return view('payment::stripe',compact('order'));
+            }else{
+                return view('payment::paypal',compact('order'));
+            }
+//        return redirect('/orders');
     }
 }

@@ -10,6 +10,7 @@
     <link href="{{ asset('/frontend/css/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/style.css') }}" rel="stylesheet">
     <title>Sloofi</title>
+      @yield('css')
   </head>
   <body>
     <!-- Topbar Start -->

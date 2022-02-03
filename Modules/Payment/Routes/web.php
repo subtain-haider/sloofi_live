@@ -15,7 +15,7 @@ Route::prefix('payment')->group(function() {
     Route::get('stripe', 'PaymentController@stripe');
     Route::post('stripe', 'PaymentController@stripePost')->name('stripe.post');
     Route::get('paypal/create-transaction','PaymentController@createTransaction')->name('paypal.createTransaction');
-    Route::get('process-transaction','PaymentController@processTransaction')->name('paypal.processTransaction');
+    Route::get('process-transaction/{order_id}','PaymentController@processTransaction')->name('paypal.processTransaction');
     Route::get('success-transaction','PaymentController@successTransaction')->name('paypal.successTransaction');
     Route::get('cancel-transaction', 'PaymentController@cancelTransaction')->name('paypal.cancelTransaction');
     Route::get('/', 'PaymentController@index');

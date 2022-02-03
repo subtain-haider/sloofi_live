@@ -5,6 +5,7 @@ namespace Modules\Payment\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Frontend\Entities\Order;
 use Session;
 use Stripe;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -92,14 +93,16 @@ class PaymentController extends Controller
             "description" => "Test payment from itsolutionstuff.com."
         ]);
         Session::flash('success', 'Payment successful!');
-
+        $order=Order::find($request->order_id);
+        $order->status='paid';
+        $order->save();
         return back();
     }
     public function createTransaction()
     {
         return view('payment::paypal');
     }
-    public function processTransaction(Request $request)
+    public function processTransaction(Request $request ,$order_id)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
