@@ -280,10 +280,35 @@ class FrontendController extends Controller
         $cartItems=[];
         $count=0;
         foreach (session()->get('cart', []) as $key=>$qty){
+//            dd($qty);
             $cartItems[$count]['product']=Product::find($key);
-            $cartItems[$count]['qty']=$qty['quantity'];
+            $cartItems[$count]['quantity']=$qty['quantity'];
             $count++;
         }
+        return view('frontend::cart', compact('cartItems'));
+    }
+    public function checkout(){
+        $cartItems=[];
+        $count=0;
+        foreach (session()->get('cart', []) as $key=>$qty){
+            $cartItems[$count]['product']=$qty['product'];
+            $cartItems[$count]['quantity']=$qty['quantity'];
+            $count++;
+        }
+        return view('frontend::checkout', compact('cartItems'));
+    }
+    public function removeCart($id){
+        $cartItems=[];
+        $count=0;
+        foreach (session()->get('cart', []) as $key=>$qty){
+            if($key!=$id){
+                $cartItems[$count]['product']=Product::find($key);;
+                $cartItems[$count]['quantity']=$qty['quantity'];
+                $count++;
+            }
+
+        }
+        session()->put('cart', $cartItems);
         return view('frontend::cart', compact('cartItems'));
     }
 }

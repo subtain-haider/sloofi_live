@@ -45,30 +45,30 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2 col-md-2 ">
-                                                    <div class="x2">x{{$item['qty']}}</div>
+                                                    <div class="x2">x{{$item['quantity']}}</div>
                                                 </div>
                                                 @php
                                                     $price1=$item['product']->prices->where('qty',1)->first()?$item['product']->prices->where('qty',1)->first()->value:0;
                                                     $price100=$item['product']->prices->where('qty',100)->first()?$item['product']->prices->where('qty',100)->first()->value:0;
                                                     $price1000=$item['product']->prices->where('qty',1000)->first()?$item['product']->prices->where('qty',1000)->first()->value:0;
-                                                    if($item['qty']>0 && $item['qty']<100){
+                                                    if($item['quantity']>0 && $item['quantity']<100){
                                                         $price=$price1;
-                                                    }elseif($item['qty']>99 && $item['qty']<1000){
+                                                    }elseif($item['quantity']>99 && $item['quantity']<1000){
                                                         $price=$price100;
-                                                    }elseif($item['qty']>999){
+                                                    }elseif($item['quantity']>999){
                                                          $price=$price1000;
                                                     }else{
                                                          $price=0;
                                                     }
-                                                    $total+=$item['qty']*$price;
+                                                    $total+=$item['quantity']*$price;
                                                 @endphp
                                                 <div class="col-lg-2 col-md-2 ">
-                                                    <div class="cart_price">${{$item['qty']*$price}}</div>
+                                                    <div class="cart_price">${{$item['quantity']*$price}}</div>
                                                 </div></div>
 
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-2">
-                                            <div class="cross_icon"><a href="#" onclick="removeCart(this)" data-price="{{$item['qty']*$price}}" data-id="{{$item['product']->id}}"><img src="images/basket.png"></a></div>
+                                            <div class="cross_icon"><a href="{{url('/frontend/remove/cart/'.$item['product']->id)}}" onclick="removeCart(this)" data-price="{{$item['quantity']*$price}}" data-id="{{$item['product']->id}}"><img src="images/basket.png"></a></div>
                                         </div>
                                     </div>
                                     <div class="quantity shop_page text-center">

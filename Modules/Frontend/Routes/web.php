@@ -21,6 +21,6 @@ Route::prefix('frontend')->group(function() {
         Route::get('category_products/{category}/{f_size?}', 'category_products')->name('category.products');
         Route::get('cart', 'cart')->name('frontend.cart');
         Route::get('checkout', 'checkout')->name('frontend.checkout');
-
+        Route::get('remove/cart/{id}', 'removeCart')->name('frontend.removeCart');
     });
 });
