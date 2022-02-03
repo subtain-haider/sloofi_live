@@ -107,18 +107,18 @@ class PaymentController extends Controller
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
-
+$order=Order::find($order_id);
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('paypal.successTransaction'),
+                "return_url" => route('paypal.successTransaction',['id'=>$order_id]),
                 "cancel_url" => route('paypal.cancelTransaction'),
             ],
             "purchase_units" => [
                 0 => [
                     "amount" => [
                         "currency_code" => "USD",
-                        "value" => "1000.00"
+                        "value" => $order->total
                     ]
                 ]
             ]
@@ -149,13 +149,15 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function successTransaction(Request $request)
+    public function successTransaction(Request $request,$id)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($request['token']);
-
+        $order=Order::find($id);
+        $order->status='paid';
+        $order->save();
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             return redirect()
                 ->route('paypal.createTransaction')

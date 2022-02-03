@@ -1,8 +1,7 @@
 @extends('frontend::layouts.master')
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Pay $1000</title>
-    <script src="https://www.paypal.com/sdk/js?client-id={{ env('ARSF761nLnocqXAS7DbR-v0brxFfEo9r4y3-pIx6emNm69_Ao4OQuooZaAH3R5ELU87sIq-aark8K3E1') }}"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=ARSF761nLnocqXAS7DbR-v0brxFfEo9r4y3-pIx6emNm69_Ao4OQuooZaAH3R5ELU87sIq-aark8K3E1'"></script>
 
 @endsection
 @section('content')
