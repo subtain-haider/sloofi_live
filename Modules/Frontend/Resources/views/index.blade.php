@@ -13,7 +13,7 @@
             </ul>
             <ul class="mobile_categories row">
               @foreach($categories as $category)
-              <li class="col-md-4 col-6"><span><img src="images/cateImg.png"></span><a href="{{$category->id}}"> {{$category->name}}</a></li>
+              <li class="col-md-4 col-6"><span><img src="{{url('/frontend')}}/images/cateImg.png"></span><a href="{{$category->id}}"> {{$category->name}}</a></li>
                 @endforeach
 
             </ul>
@@ -32,22 +32,22 @@
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="images/slider.jpg" class="d-block w-100" alt="">
+                <img src="{{url('/frontend')}}/images/slider.jpg" class="d-block w-100" alt="">
               </div>
               <div class="carousel-item">
-                <img src="images/slider2.jpg" class="d-block w-100" alt="">
+                <img src="{{url('/frontend')}}/images/slider2.jpg" class="d-block w-100" alt="">
               </div>
               <div class="carousel-item">
-                <img src="images/slider.jpg" class="d-block w-100" alt="">
+                <img src="{{url('/frontend')}}/images/slider.jpg" class="d-block w-100" alt="">
               </div>
               <div class="carousel-item">
-                <img src="images/slider2.jpg" class="d-block w-100" alt="">
+                <img src="{{url('/frontend')}}/images/slider2.jpg" class="d-block w-100" alt="">
               </div>
               <div class="carousel-item">
-                <img src="images/slider.jpg" class="d-block w-100" alt="">
+                <img src="{{url('/frontend')}}/images/slider.jpg" class="d-block w-100" alt="">
               </div>
               <div class="carousel-item">
-                <img src="images/slider2.jpg" class="d-block w-100" alt="">
+                <img src="{{url('/frontend')}}/images/slider2.jpg" class="d-block w-100" alt="">
               </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -63,12 +63,14 @@
         </div>
         <div class="col-xl-4">
           <div class="welcome_box">
-            <div class="sloofi-icon"><img src="images/sloofi-icon.png"></div>
+            <div class="sloofi-icon"><img src="{{url('/frontend')}}/images/sloofi-icon.png"></div>
             <h3>Welcome to Sloofi!</h3>
+            @if(!\Illuminate\Support\Facades\Auth::user())
             <div class="sign_btns">
-              <span><a href="#">Sign In</a></span>
-              <span><a href="#">Sign In</a></span>
+              <span><a href="{{route('register')}}">Register</a></span>
+              <span><a href="{{route('login')}}">Sign In</a></span>
             </div>
+            @endif
           </div>
           <div class="help_center">
             <div class="help_heading">
@@ -99,7 +101,7 @@
             @foreach($property->products as $product)
                 <li class="item">
             <div class="product_list">
-              <div class="product_img"><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}"><img @if($product->getMedia('thumbnail')->first()) src="{{$product->getMedia('thumbnail')->first()->getUrl()}}" @else src="images/deal_img.jpg" @endif></a></div>
+              <div class="product_img"><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}"><img @if($product->getMedia('thumbnail')->first()) src="{{$product->getMedia('thumbnail')->first()->getUrl()}}" @else src="{{url('/frontend')}}/images/deal_img.jpg" @endif></a></div>
               <div class="product_box">
                 <div class="product_info">
                   <h4><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}">{{$product->name}}</a></h4>
@@ -134,7 +136,7 @@
               <ul class="owl-carousel globel_products">
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
@@ -148,7 +150,7 @@
                 </li>
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
@@ -162,7 +164,7 @@
                 </li>
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
@@ -176,7 +178,7 @@
                 </li>
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
@@ -197,7 +199,7 @@
               <ul class="owl-carousel globel_products">
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
@@ -211,7 +213,7 @@
                 </li>
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
@@ -225,7 +227,7 @@
                 </li>
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
@@ -239,7 +241,7 @@
                 </li>
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
                     <div class="product_box">
                       <div class="product_info">
                         <h4>Automobiles & Motorcycles 123456...</h4>
