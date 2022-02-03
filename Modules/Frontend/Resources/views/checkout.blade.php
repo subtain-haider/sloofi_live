@@ -2,6 +2,8 @@
 @section('content')
     <div class="inner_content">
         <div class="container-fluid">
+            <form class="checkout_form" id="payment-form" method="post" action="{{route('frontend.payment-page')}}">
+                @csrf
             <div class="row">
                 <div class="col-lg-8">
                     <div class="cart_list">
@@ -11,14 +13,14 @@
 
                         <div class="productInfoo paymentWrp">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault21">
+                                <input name="payment_method" value="stripe" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault21">
                                 <label class="form-check-label StyleBox" for="flexRadioDefault21">
                                     <img src="images/credit_card.png">
                                     <h5>Credit Card</h5>
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault22" checked="">
+                                <input name="payment_method" value="paypal" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault22" checked="">
                                 <label class="form-check-label StyleBox" for="flexRadioDefault22">
                                     <img src="images/paypal.png">
                                     <h5>Paypal</h5>
@@ -43,9 +45,9 @@
 
                         <h4 class="mt-4">Basi Info</h4>
 
-                        <form class="checkout_form">
+
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="NAME" name="">
+                                <input type="text" class="form-control" name="name" placeholder="NAME" required>
                             </div>
 {{--                            <div class="input-group">--}}
 {{--                                <input type="text" class="form-control" placeholder="ENTER CREDIT CARD NUMBER" name="">--}}
@@ -72,7 +74,7 @@
                             </div>
 
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="COUNTRY" name="">
+                                <input type="text" name="country" class="form-control" placeholder="COUNTRY" required>
                             </div>
 
 {{--                            <div class="input-group">--}}
@@ -81,17 +83,13 @@
 
 
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="ADDRESS" name="">
+                                <input type="text" name="address" class="form-control" placeholder="ADDRESS" required>
                             </div>
 
                             <div class="input-group checkbox">
-                                <input type="checkbox" name="img" value="yes" id="3dgraphic">
+                                <input type="checkbox" name="img" value="yes" required id="3dgraphic">
                                 <label for="3dgraphic"></label>
                                 by confirming this box, i agree to the terms and conditions, privicy policy</div>
-
-                        </form>
-
-
 
                     </div>
                 </div>
@@ -163,7 +161,7 @@
                         </ul>
                         <hr/>
                         <div class="readmore purchase_btn btn_bg">
-                            <span><a href="#">Proceed Order</a></span>
+                            <span><a href="javascript:void(0)" onclick="$('#payment-form').submit();">Proceed Order</a></span>
                         </div>
                         <div class="readmore purchase_btn grey_btn btn_bg">
                             <span> <a href="#">Continue Shopping</a></span>
@@ -171,6 +169,7 @@
                     </div>
                 </div>
             </div>
+    </form>
         </div>
     </div>
 @endsection
