@@ -18,9 +18,7 @@
     <div class="container-fluid">
         <div class="page-title-content">
             <ul class="breadcrumb-nav">
-                @if(count($product->categories) > 0)
                 <li><a href="/">{{$product->categories[0]->name}}</a></li>
-                @endif
             </ul>
         </div>
     </div>
