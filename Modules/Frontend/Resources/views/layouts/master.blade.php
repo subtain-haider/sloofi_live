@@ -9,6 +9,7 @@
     <link href="{{ asset('/frontend/css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/style.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=61fd9f8e97a9c5001998eb2b&product=inline-share-buttons" async="async"></script>
     <title>Sloofi</title>
       @yield('css')
   </head>

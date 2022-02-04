@@ -26,10 +26,10 @@
                     <div class="about-img-pro" style="background-image:url({{url('/frontend')}}/images/right_side_img.png)"></div>
                     <div class="login-right">
                         <div class="login_wrp">
-                            <div class="login_logo"><a href="index.html"><img src="{{url('/frontend')}}/images/sloofi_login.png"></a></div>
+                            <div class="login_logo"><a href="/"><img src="{{url('/frontend')}}/images/sloofi_login.png"></a></div>
                             <h4 class="mt-5">Welcome!</h4>
                             <p>Enter your details and start journey with us</p>
-                            <div class="signup readmore mt-5"><a href="#">SIGNUP</a></div>
+                            <div class="signup readmore mt-5"><a href="{{route('register')}}">SIGNUP</a></div>
                         </div>
                     </div>
                 </div>
