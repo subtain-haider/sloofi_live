@@ -1044,6 +1044,8 @@ input[type=radio]:after {
 .product_img{height: 200px; overflow: hidden;}
 .product_box{height: 168px;}
 .mobile_categories { display: none !important;}
-.mobile_categories {
-    display: block !important;
+@media screen and (max-width:767px) {
+    .mobile_categories {
+        display: block !important;
+    }
 }
