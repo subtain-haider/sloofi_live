@@ -108,11 +108,12 @@
 
         </div>
         <div class="col-xl-5 ">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search products by keywords, SKU, Ali Express URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <span class="input-group-text" id="basic-addon2"><img src="{{ asset('/frontend/images/search.png')}}"></span>
-          </div>
-
+            <form action="{{route('frontend.search-product')}}" id="search-form">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search products by keywords, SKU, Ali Express URL" aria-label="Recipient's username" aria-describedby="basic-addon2" name="search" required>
+                <span class="input-group-text" id="basic-addon2"><a href="javascript:void(0)" onclick="$('#search-form').submit();"><img src="{{ asset('/frontend/images/search.png')}}"></span></a>
+              </div>
+            </form>
         </div>
         <div class="col-xl-4">
 

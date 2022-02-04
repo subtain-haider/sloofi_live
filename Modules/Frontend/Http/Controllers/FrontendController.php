@@ -400,4 +400,14 @@ class FrontendController extends Controller
             }
 //        return redirect('/orders');
     }
+    public function searchProduct(Request $request){
+        $products = new Product;
+        $user = Auth::user();
+        if ($request->search){
+            $products = $products->where('name', 'like', '%'.$request->search.'%')->get();;
+        }else{
+            $products=[];
+        }
+        return view('frontend::search',compact('products'));
+    }
 }
