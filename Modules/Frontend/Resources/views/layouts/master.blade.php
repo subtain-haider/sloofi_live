@@ -9,6 +9,7 @@
     <link href="{{ asset('/frontend/css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('/frontend/css/style.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=61fd9f8e97a9c5001998eb2b&product=inline-share-buttons" async="async"></script>
     <title>Sloofi</title>
       @yield('css')
   </head>
@@ -108,11 +109,12 @@
 
         </div>
         <div class="col-xl-5 ">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search products by keywords, SKU, Ali Express URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <span class="input-group-text" id="basic-addon2"><img src="{{ asset('/frontend/images/search.png')}}"></span>
-          </div>
-
+            <form action="{{route('frontend.search-product')}}" id="search-form">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search products by keywords, SKU, Ali Express URL" aria-label="Recipient's username" aria-describedby="basic-addon2" name="search" required>
+                <span class="input-group-text" id="basic-addon2"><a href="javascript:void(0)" onclick="$('#search-form').submit();"><img src="{{ asset('/frontend/images/search.png')}}"></span></a>
+              </div>
+            </form>
         </div>
         <div class="col-xl-4">
 

@@ -10,7 +10,7 @@
                 $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
             @endphp
             <div class="pricetext">${{$price1}} @if($price100 || $price1000)-{{$price1000>0?$price1000:$price100}} @endif</div>
-            <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
+            <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="{{ route('frontend.product-detail',['id'=>$product->id]) }}">Buy Now</a></div>
             <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
         </div>
     </div>

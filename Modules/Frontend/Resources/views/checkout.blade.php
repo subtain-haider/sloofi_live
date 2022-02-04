@@ -12,6 +12,11 @@
 
 
                         <div class="productInfoo paymentWrp">
+                            @if(!isset(Auth::user()->id))
+                                <div class="form-check">
+                                    <span><a href="{{url('/login')}}">Proceed Order</a></span>
+                                </div>
+                                @else
                             <div class="form-check">
                                 <input name="payment_method" value="stripe" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault21">
                                 <label class="form-check-label StyleBox" for="flexRadioDefault21">
@@ -26,6 +31,7 @@
                                     <h5>Paypal</h5>
                                 </label>
                             </div>
+                            @endif
 {{--                            <div class="form-check">--}}
 {{--                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault23">--}}
 {{--                                <label class="form-check-label StyleBox" for="flexRadioDefault23">--}}
@@ -161,7 +167,7 @@
                         </ul>
                         <hr/>
                         <div class="readmore purchase_btn btn_bg">
-                            <span><a href="javascript:void(0)" onclick="$('#payment-form').submit();">Proceed Order</a></span>
+                            <span><a href="javascript:void(0)" onclick="$('#payment-form').submit();" @if(!isset(Auth::user()->id)) disabled="true" @endif>Proceed Order</a></span>
                         </div>
                         <div class="readmore purchase_btn grey_btn btn_bg">
                             <span> <a href="#">Continue Shopping</a></span>
