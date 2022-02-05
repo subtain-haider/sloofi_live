@@ -1,4 +1,9 @@
 @extends('frontend::layouts.master')
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=ARSF761nLnocqXAS7DbR-v0brxFfEo9r4y3-pIx6emNm69_Ao4OQuooZaAH3R5ELU87sIq-aark8K3E1'"></script>
+
+@endsection
 @section('content')
     <div class="inner_content">
         <div class="container-fluid">
@@ -10,7 +15,14 @@
                         <h3><a href="#"><i class="fas fa-arrow-left"></i> Checkout</a></h3>
                         <h5 class="mt-4">SELECT PAYMENT METHOD</h5>
 
-
+                        @if(\Session::has('error'))
+                            <div class="alert alert-danger">{{ \Session::get('error') }}</div>
+                            {{ \Session::forget('error') }}
+                        @endif
+                        @if(\Session::has('success'))
+                            <div class="alert alert-success">{{ \Session::get('success') }}</div>
+                            {{ \Session::forget('success') }}
+                        @endif
                         <div class="productInfoo paymentWrp">
                             @if(!isset(Auth::user()->id))
                                 <div class="form-check">
@@ -18,14 +30,14 @@
                                 </div>
                                 @else
                             <div class="form-check">
-                                <input name="payment_method" value="stripe" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault21">
+                                <input name="payment_method"  value="stripe" class="form-check-input payment_method" type="radio" name="flexRadioDefault" id="flexRadioDefault21">
                                 <label class="form-check-label StyleBox" for="flexRadioDefault21">
                                     <img src="images/credit_card.png">
                                     <h5>Credit Card</h5>
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input name="payment_method" value="paypal" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault22" checked="">
+                                <input name="payment_method"  value="paypal" class="form-check-input payment_method" type="radio" name="flexRadioDefault" id="flexRadioDefault22" checked="">
                                 <label class="form-check-label StyleBox" for="flexRadioDefault22">
                                     <img src="images/paypal.png">
                                     <h5>Paypal</h5>
@@ -53,7 +65,7 @@
 
 
                             <div class="input-group">
-                                <input type="text" class="form-control" name="name" placeholder="NAME" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="NAME" required>
                             </div>
 {{--                            <div class="input-group">--}}
 {{--                                <input type="text" class="form-control" placeholder="ENTER CREDIT CARD NUMBER" name="">--}}
@@ -80,7 +92,7 @@
                             </div>
 
                             <div class="input-group">
-                                <input type="text" name="country" class="form-control" placeholder="COUNTRY" required>
+                                <input type="text" name="country" id="country" class="form-control" placeholder="COUNTRY" required>
                             </div>
 
 {{--                            <div class="input-group">--}}
@@ -89,7 +101,7 @@
 
 
                             <div class="input-group">
-                                <input type="text" name="address" class="form-control" placeholder="ADDRESS" required>
+                                <input type="text" name="address"  id="address" class="form-control" placeholder="ADDRESS" required>
                             </div>
 
                             <div class="input-group checkbox">
@@ -167,7 +179,12 @@
                         </ul>
                         <hr/>
                         <div class="readmore purchase_btn btn_bg">
-                            <span><a href="javascript:void(0)" onclick="$('#payment-form').submit();" @if(!isset(Auth::user()->id)) disabled="true" @endif>Proceed Order</a></span>
+                            @if(isset(Auth::user()->id) && $total>0)
+                            <span  id="checkout_button"><a href="javascript:void(0)" onclick="checkForm()" >Proceed Order</a></span>
+                            @endif
+{{--
+ <span id="paypal_button"><a href="{{ route('paypal.processTransaction') }}" @if(!isset(Auth::user()->id)) disabled="true" @endif>Pay with paypal</a></span>--}}
+
                         </div>
                         <div class="readmore purchase_btn grey_btn btn_bg">
                             <span> <a href="#">Continue Shopping</a></span>
@@ -180,5 +197,23 @@
     </div>
 @endsection
 @section('js')
+<script>
+    function checkForm(){
+        var address=$('#address').val();
+        var country=$('#country').val();
+        var name=$('#name').val();
+        if(address=='' || country=='' || name==''){
+            alert('Please Fill all the fields');
+        }else{
+            if($('#3dgraphic').is(':checked')){
+                $('#payment-form').submit();
+            }else{
+                alert('Check Teams And Conditions');
+            }
+        }
 
+
+    }
+
+</script>
 @endsection

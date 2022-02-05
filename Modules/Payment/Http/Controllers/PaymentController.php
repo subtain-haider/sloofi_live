@@ -103,23 +103,23 @@ class PaymentController extends Controller
     {
         return view('payment::paypal');
     }
-    public function processTransaction(Request $request ,$order_id)
+    public function processTransaction(Request $request,$id)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
-$order=Order::find($order_id);
+//$order=Order::find($order_id);
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('paypal.successTransaction',['id'=>$order_id]),
+                "return_url" => route('paypal.successTransaction',['id'=>1]),
                 "cancel_url" => route('paypal.cancelTransaction'),
             ],
             "purchase_units" => [
                 0 => [
                     "amount" => [
                         "currency_code" => "USD",
-                        "value" => $order->total
+                        "value" => 1
                     ]
                 ]
             ]
