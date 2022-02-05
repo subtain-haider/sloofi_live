@@ -22,13 +22,13 @@ Route::prefix('product')->middleware(['auth'])->group(function() {
         Route::post('add/stock', 'addStock')->name('product.add-stock');
     });
 });
-Route::prefix('property')->middleware(['auth'])->group(function() {
-    Route::controller(PropertyController::class)->group(function () {
-        Route::get('all', 'index')->name('property.all');
-        Route::get('create', 'create')->name('property.create');
-        Route::post('store', 'store')->name('property.store');
-        Route::get('edit/{id}', 'edit')->name('property.edit');
-        Route::put('update/{id}', 'update')->name('property.update');
-        Route::delete('delete/{id}', 'destroy')->name('property.delete');
+Route::prefix('section')->middleware(['auth'])->group(function() {
+    Route::controller(SectionController::class)->group(function () {
+        Route::get('all', 'index')->name('section.all');
+        Route::get('create', 'create')->name('section.create');
+        Route::post('store', 'store')->name('section.store');
+        Route::get('edit/{id}', 'edit')->name('section.edit');
+        Route::put('update/{id}', 'update')->name('section.update');
+        Route::delete('delete/{id}', 'destroy')->name('section.delete');
     });
 });

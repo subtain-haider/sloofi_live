@@ -4,7 +4,7 @@
     <div class="components-preview wide-md mx-auto">
         <div class="nk-block-head nk-block-head-lg wide-sm">
             <div class="nk-block-head-content">
-                <h2 class="nk-block-title fw-normal">Create Property</h2>
+                <h2 class="nk-block-title fw-normal">Create Section</h2>
             </div>
         </div><!-- .nk-block -->
         <div class="nk-block nk-block-lg">
@@ -13,12 +13,12 @@
                     <div class="card h-100">
                         <div class="card-inner">
                             <div class="card-head">
-                                <h5 class="card-title">Property Info</h5>
+                                <h5 class="card-title">Section Info</h5>
                             </div>
-                            <form method="post" action="{{ route('property.store') }}" >
+                            <form method="post" action="{{ route('section.store') }}" >
                                 @csrf
                                 <div class="form-group">
-                                    <label class="form-label" for="full-name">Property Name</label>
+                                    <label class="form-label" for="full-name">Section Name</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="name" name="name" required>
                                     </div>

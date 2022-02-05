@@ -20,8 +20,8 @@ class Product extends Model implements HasMedia
     {
         return \Modules\Product\Database\factories\ProductFactory::new();
     }
-    public function properties(){
-        return $this->belongsToMany(Property::class);
+    public function sections(){
+        return $this->belongsToMany(Section::class);
     }
     public function categories(){
         return $this->belongsToMany(Category::class);

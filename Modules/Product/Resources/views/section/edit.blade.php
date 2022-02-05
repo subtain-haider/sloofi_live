@@ -4,7 +4,7 @@
     <div class="components-preview wide-md mx-auto">
         <div class="nk-block-head nk-block-head-lg wide-sm">
             <div class="nk-block-head-content">
-                <h2 class="nk-block-title fw-normal">Edit Property</h2>
+                <h2 class="nk-block-title fw-normal">Edit Section</h2>
             </div>
         </div><!-- .nk-block -->
         <div class="nk-block nk-block-lg">
@@ -13,15 +13,15 @@
                     <div class="card h-100">
                         <div class="card-inner">
                             <div class="card-head">
-                                <h5 class="card-title">Property Info</h5>
+                                <h5 class="card-title">Section Info</h5>
                             </div>
-                            <form method="post" action="{{ route('property.update',['id'=>$property->id]) }}" >
+                            <form method="post" action="{{ route('section.update',['id'=>$section->id]) }}" >
                                 @csrf
                                 @method('put')
                                 <div class="form-group">
-                                    <label class="form-label" for="full-name">Property Name</label>
+                                    <label class="form-label" for="full-name">Section Name</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" value="{{$property->name}}" id="name" name="name" required>
+                                        <input type="text" class="form-control" value="{{$section->name}}" id="name" name="name" required>
                                     </div>
                                     <div class="form-control-wrap my-2">
                                         <button type="submit" class="btn btn-lg btn-primary">Update</button>

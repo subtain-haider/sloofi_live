@@ -130,9 +130,9 @@
                                         <span class="nk-menu-text">Products</span>
                                     </a>
                                     <ul class="nk-menu-sub">
-                                        @can('view_properties')
-                                            <li class="nk-menu-item {{ Request::is('property') ? 'active' : '' }}">
-                                                <a href="{{route('property.all')}}" class="nk-menu-link"><span class="">All Properties</span></a>
+                                        @can('view_sections')
+                                            <li class="nk-menu-item {{ Request::is('section') ? 'active' : '' }}">
+                                                <a href="{{route('section.all')}}" class="nk-menu-link"><span class="">All Frontend Sections</span></a>
                                             </li>
                                         @endcan
                                             @can('add_product')
