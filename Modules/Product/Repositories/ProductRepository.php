@@ -6,7 +6,7 @@ namespace Modules\Product\Repositories;
 use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Price;
 use Modules\Product\Entities\Product;
-use Modules\Product\Entities\Property;
+use Modules\Product\Entities\Section;
 use Modules\Product\Interfaces\ProductInterface;
 use Modules\Stock\Entities\StockRequest;
 use Modules\Warehouse\Entities\Warehouse;
@@ -22,7 +22,7 @@ class ProductRepository implements ProductInterface
     {
         $data['categories'] = Category::all();
         $data['warehouses'] = Warehouse::where('status',1)->get();
-        $data['properties'] = Property::all();
+        $data['sections'] = Section::all();
         return $data;
     }
     public function storeProduct(array $ProductData){
