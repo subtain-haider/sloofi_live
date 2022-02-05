@@ -29,6 +29,7 @@ class ProductRepository implements ProductInterface
         $product=new Product();
         $product->name = $ProductData['name'];
         $product->tags = $ProductData['tags'] ?? '';
+        $product->user_id=Auth::user()->id;
         $product->description = $ProductData['description'];
         $product->meta_description = $ProductData['meta_description'];
         $product->purchase_price = $ProductData['purchase_price'];
