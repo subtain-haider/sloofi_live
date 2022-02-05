@@ -6,6 +6,8 @@ namespace Modules\Product\Repositories;
 use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Price;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\ProductColor;
+use Modules\Product\Entities\ProductSize;
 use Modules\Product\Entities\Section;
 use Modules\Product\Interfaces\ProductInterface;
 use Modules\Stock\Entities\StockRequest;
@@ -14,7 +16,12 @@ use Auth;
 class ProductRepository implements ProductInterface
 {
     public function allProduct(){
-        $data['products']=Product::all();
+        if(in_array('super_admin',Auth::user()->getRoleNames()->toArray())){
+            $data['products']=Product::all();
+        }else{
+            $data['products']=Product::where('user_id',Auth::user()->id)->get();
+        }
+
         $data['warehouses'] = Warehouse::where('status',1)->get();
         return $data;
     }
@@ -35,8 +42,18 @@ class ProductRepository implements ProductInterface
         $product->purchase_price = $ProductData['purchase_price'];
         $product->meta_title = $ProductData['meta_title'];
         $product->save();
-        if(isset($ProductData['properties']) && count($ProductData['properties'])>0)
-            $product->properties()->attach($ProductData['properties']);
+        if(isset($ProductData['colors'])&& count($ProductData['colors'])>0){
+            foreach ($ProductData['colors'] as $color){
+                ProductColor::create(['color'=>$color,'product_id'=>$product->id]);
+            }
+        }
+        if(isset($ProductData['sizes'])&& count($ProductData['sizes'])>0){
+            foreach ($ProductData['sizes'] as $size){
+                ProductSize::create(['size'=>$size,'product_id'=>$product->id]);
+            }
+        }
+        if(isset($ProductData['sections']) && count($ProductData['sections'])>0)
+            $product->sections()->attach($ProductData['sections']);
         $product->categories()->attach([$ProductData['category_id']]);
         foreach ($ProductData['price'] as $key=>$price){
             $price=Price::create(['qty'=>$key,'value'=>$price,'type'=>'amount']);
@@ -63,7 +80,7 @@ class ProductRepository implements ProductInterface
     public function editProduct($ProductId){
         $data['categories'] = Category::all();
         $data['product']= Product::findOrFail($ProductId);
-        $data['properties']=Property::all();
+        $data['sections']=Section::all();
         $data['warehouses']=Warehouse::all();
         return $data;
     }
@@ -85,7 +102,18 @@ class ProductRepository implements ProductInterface
         foreach ($ProductData['price'] as $key=>$price){
             $product->prices->where('qty',$key)->first()->update(['value'=>$price]);
         }
-
+        $product->colors()->delete();
+        $product->sizes()->delete();
+        if(isset($ProductData['colors'])&& count($ProductData['colors'])>0){
+            foreach ($ProductData['colors'] as $color){
+                ProductColor::create(['color'=>$color,'product_id'=>$product->id]);
+            }
+        }
+        if(isset($ProductData['sizes'])&& count($ProductData['sizes'])>0){
+            foreach ($ProductData['sizes'] as $size){
+                ProductSize::create(['size'=>$size,'product_id'=>$product->id]);
+            }
+        }
         if(isset($ProductData['thumbnail']) && $ProductData['thumbnail']){
             $product->addMediaFromRequest('thumbnail')->toMediaCollection('thumbnail');
         }

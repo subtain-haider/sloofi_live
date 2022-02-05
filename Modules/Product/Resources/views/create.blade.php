@@ -86,7 +86,7 @@
                                 <label class="col-sm-2 col-form-label">Select Frontend Sections</label>
                                 <div class="col">
                                     <div class="form-control-wrap">
-                                        <select class="form-select" multiple="multiple" name="properties[]" data-placeholder="Select Multiple options">
+                                        <select class="form-select" multiple="multiple" name="sections[]" data-placeholder="Select Multiple options">
                                             @foreach($sections as  $section)
                                             <option value="{{$section->id}}">{{$section->name}}</option>
                                             @endforeach
@@ -189,7 +189,7 @@
                                                 <div class="form-group row" style="margin-bottom: 2px">
                                                     <label class="col-sm-2 col-form-label">Enter Size:</label>
                                                     <div class="col-sm-3">
-                                                        <input type="text" class="form-control" placeholder="Available Quantity" name="colors[]" value="0" required>
+                                                        <input type="text" class="form-control" placeholder="Add Size" name="sizes[]" value="" required>
                                                     </div>
                                                     <label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class="icon ni ni-trash-fill"></em></label>
                                                 </div>
@@ -252,7 +252,7 @@
             $(e).parent().parent().html('')
         }
         function addSize(){
-            $('.sizes').append('<div class="form-group row" style="margin-bottom: 2px"><label class="col-sm-2 col-form-label">Enter Size:</label> <div class="col-sm-3"> <input type="text" class="form-control" placeholder="Available Quantity" name="colors[]" value="0" required> </div><label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class=" icon ni ni-trash-fill"></em></label> </div>');
+            $('.sizes').append('<div class="form-group row" style="margin-bottom: 2px"><label class="col-sm-2 col-form-label">Enter Size:</label> <div class="col-sm-3"> <input type="text" class="form-control" placeholder="Add Size" name="sizes[]" value="" required> </div><label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class=" icon ni ni-trash-fill"></em></label> </div>');
         }
     </script>
 

@@ -30,6 +30,14 @@ class Product extends Model implements HasMedia
     {
         return $this->morphMany(Price::class, 'priceable');
     }
+    public function colors()
+    {
+        return $this->hasMany(ProductColor::class);
+    }
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class);
+    }
     public function stocks()
     {
         return $this->hasMany(Stock::class);
