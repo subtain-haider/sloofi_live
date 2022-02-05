@@ -4,6 +4,9 @@ namespace Modules\Category\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Product\Entities\Price;
+use Modules\Product\Entities\Product;
+use Modules\ThirdPartyApi\Entities\ApiCategory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -12,7 +15,7 @@ class Category extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, LogsActivity;
 
-    protected $guarded = [];
+    protected $fillable = ['name','parent_category','order_level','meta_title','meta_description'];
 
     protected static function newFactory()
     {
@@ -21,7 +24,7 @@ class Category extends Model implements HasMedia
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     public function getParentCategory(){
@@ -29,6 +32,10 @@ class Category extends Model implements HasMedia
     }
     public function getSubCategory(){
         return Category::where('parent_category',$this->id)->get();
+    }
+    public function prices()
+    {
+        return $this->morphMany(Price::class, 'priceable');
     }
 
     public function api_categories()

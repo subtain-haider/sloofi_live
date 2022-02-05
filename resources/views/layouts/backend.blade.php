@@ -24,10 +24,10 @@
         <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
             <div class="nk-sidebar-element nk-sidebar-head">
                 <div class="nk-sidebar-brand">
-                    <a href="html/index.html" class="logo-link nk-sidebar-logo">
-                        <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
-                        <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
-                        <img class="logo-small logo-img logo-img-small" src="./images/logo-small.png" srcset="./images/logo-small2x.png 2x" alt="logo-small">
+                    <a href="/" class="logo-link nk-sidebar-logo">
+                        <img class="logo-light logo-img" src="{{url('/backend')}}/images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
+                        <img class="logo-dark logo-img" src="{{url('/backend')}}/images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                        <img class="logo-small logo-img logo-img-small" src="{{url('/backend')}}/images/logo-small.png" srcset="./images/logo-small2x.png 2x" alt="logo-small">
                     </a>
                 </div>
                 <div class="nk-menu-trigger mr-n2">
@@ -61,7 +61,7 @@
                                 </a>
                             </li>
                             @endcan
-                            @can('user_view')
+                            @can('view_users')
                                 <li class="nk-menu-item">
                                     <a href="{{route('user.all')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
@@ -69,7 +69,7 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('view_category')
+                            @can('view_categories')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
@@ -88,7 +88,24 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
-                            @can('view_warehouse')
+                            @can('view_third_paty_api')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Third Party Api</span>
+                                    </a>
+                                    @if($tp_apis = get_tp_api())
+                                        <ul class="nk-menu-sub">
+                                            @foreach($tp_apis as $api)
+                                                <li class="nk-menu-item {{ Request::is('thirdpartyapi.categories') ? 'active' : '' }}">
+                                                    <a href="{{route('thirdpartyapi.categories',[$api['Id'], $api['Name']] )}}" class="nk-menu-link"><span class="">{{$api['Name']}}</span></a>
+                                                </li>
+                                            @endforeach
+                                        </ul><!-- .nk-menu-sub -->
+                                    @endif
+                                </li><!-- .nk-menu-item -->
+                            @endcan
+                            @can('view_warehouses')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
@@ -106,28 +123,77 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
-{{--                            @can('view_warehouse')--}}
+                            @can('view_products')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
                                         <span class="nk-menu-text">Products</span>
                                     </a>
                                     <ul class="nk-menu-sub">
-{{--                                        @can('add_warehouse')--}}
+                                        @can('view_properties')
                                             <li class="nk-menu-item {{ Request::is('property') ? 'active' : '' }}">
                                                 <a href="{{route('property.all')}}" class="nk-menu-link"><span class="">All Properties</span></a>
                                             </li>
+                                        @endcan
+                                            @can('add_product')
                                             <li class="nk-menu-item {{ Request::is('product/create') ? 'active' : '' }}">
                                                 <a href="{{ route('product.create') }}" class="nk-menu-link"><span class="">Add Product</span></a>
                                             </li>
-{{--                                        @endcan--}}
-                                        <li class="nk-menu-item {{ Request::is('product') ? 'active' : '' }}">
-                                            <a href="{{route('product.all')}}" class="nk-menu-link"><span class="">All Products</span></a>
-                                        </li>
+                                        @endcan
+                                            @can('view_products')
+                                                <li class="nk-menu-item {{ Request::is('product') ? 'active' : '' }}">
+                                                    <a href="{{route('product.all')}}" class="nk-menu-link"><span class="">All Products</span></a>
+                                                </li>
+                                            @endcan
 
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
-{{--                            @endcan--}}
+                            @endcan
+                             @can('view_woocommerces')
+                            <li class="nk-menu-item">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                    <span class="nk-menu-text">Woocommerce</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    @can('add_woocommerce')
+                                    <li class="nk-menu-item {{ Request::is('woocommerce/create') ? 'active' : '' }}">
+                                        <a href="{{ route('woocommerce.create') }}" class="nk-menu-link"><span class="">Add Woocommerce Store</span></a>
+                                    </li>
+                                    @endcan
+                                    <li class="nk-menu-item {{ Request::is('woocommerce') ? 'active' : '' }}">
+                                        <a href="{{route('woocommerce.all')}}" class="nk-menu-link"><span class="">All Woocommerce Stores</span></a>
+                                    </li>
+                                    <li class="nk-menu-item {{ Request::is('woocommerce') ? 'active' : '' }}">
+                                        <a href="{{route('my.woocommerce.products')}}" class="nk-menu-link"><span class="">My Woocommerces Products</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            @endcan
+                            @can('view_shopifies')
+                            <li class="nk-menu-item">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                    <span class="nk-menu-text">Shopify</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    @can('add_shopify')
+                                    <li class="nk-menu-item {{ Request::is('shopify/create') ? 'active' : '' }}">
+                                        <a href="{{ route('shopify.create') }}" class="nk-menu-link"><span class="">Add Shopify Store</span></a>
+                                    </li>
+                                    @endcan
+                                    <li class="nk-menu-item {{ Request::is('shopify') ? 'active' : '' }}">
+                                        <a href="{{route('shopify.all')}}" class="nk-menu-link"><span class="">All Shopify Stores</span></a>
+                                    </li>
+
+                                    <li class="nk-menu-item {{ Request::is('shopify') ? 'active' : '' }}">
+                                        <a href="{{route('my.shopify.products')}}" class="nk-menu-link"><span class="">My All Shopify Products</span></a>
+                                    </li>
+
+                                </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                            @endcan
+                            {{--                            @endcan--}}
 
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}
@@ -169,7 +235,7 @@
 {{--                                <h6 class="overline-title text-primary-alt">Return to</h6>--}}
 {{--                            </li><!-- .nk-menu-item -->--}}
 {{--                            <li class="nk-menu-item">--}}
-{{--                                <a href="html/index.html" class="nk-menu-link">--}}
+{{--                                <a href="/" class="nk-menu-link">--}}
 {{--                                    <span class="nk-menu-icon"><em class="icon ni ni-dashlite-alt"></em></span>--}}
 {{--                                    <span class="nk-menu-text">Main Dashboard</span>--}}
 {{--                                </a>--}}
@@ -196,9 +262,9 @@
                             <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                         </div>
                         <div class="nk-header-brand d-xl-none">
-                            <a href="html/index.html" class="logo-link">
-                                <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
-                                <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                            <a href="/" class="logo-link">
+                                <img class="logo-light logo-img" src="{{url('/backend')}}/images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
+                                <img class="logo-dark logo-img" src="{{url('/backend')}}/images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
                         </div><!-- .nk-header-brand -->
                         <div class="nk-header-search ml-3 ml-xl-0">
@@ -261,7 +327,7 @@
                                                 <li class="chat-item">
                                                     <a class="chat-link" href="html/apps-chats.html">
                                                         <div class="chat-media user-avatar">
-                                                            <img src="./images/avatar/b-sm.jpg" alt="">
+                                                            <img src="{{url('/backend')}}/images/avatar/b-sm.jpg" alt="">
                                                         </div>
                                                         <div class="chat-info">
                                                             <div class="chat-from">
@@ -278,7 +344,7 @@
                                                     <a class="chat-link" href="html/apps-chats.html">
                                                         <div class="chat-media user-avatar user-avatar-multiple">
                                                             <div class="user-avatar">
-                                                                <img src="./images/avatar/c-sm.jpg" alt="">
+                                                                <img src="{{url('/backend')}}/images/avatar/c-sm.jpg" alt="">
                                                             </div>
                                                             <div class="user-avatar">
                                                                 <span>AB</span>
@@ -301,7 +367,7 @@
                                                 <li class="chat-item">
                                                     <a class="chat-link" href="html/apps-chats.html">
                                                         <div class="chat-media user-avatar">
-                                                            <img src="./images/avatar/a-sm.jpg" alt="">
+                                                            <img src="{{url('/backend')}}/images/avatar/a-sm.jpg" alt="">
                                                             <span class="status dot dot-lg dot-success"></span>
                                                         </div>
                                                         <div class="chat-info">
@@ -530,6 +596,8 @@
 <script src="{{url('/backend')}}/assets/js/bundle.js?ver=2.9.0"></script>
 <script src="{{url('/backend')}}/assets/js/scripts.js?ver=2.9.0"></script>
 <script src="{{url('/backend')}}/assets/js/charts/chart-ecommerce.js?ver=2.9.0"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+@yield('script')
 </body>
 
 </html>

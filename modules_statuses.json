@@ -5,5 +5,10 @@
     "Category": true,
     "Warehouse": true,
     "Product": true,
-    "Stock": true
+    "Stock": true,
+    "Payment": true,
+    "Frontend": true,
+    "Shopify": true,
+    "Woocommerce": true,
+    "ThirdPartyApi": true
 }
