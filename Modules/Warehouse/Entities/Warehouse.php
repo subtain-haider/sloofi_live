@@ -4,6 +4,7 @@ namespace Modules\Warehouse\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Stock\Entities\Stock;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Warehouse extends Model

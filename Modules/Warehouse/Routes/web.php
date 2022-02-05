@@ -16,6 +16,7 @@ Route::prefix('warehouse')->middleware(['auth'])->group(function() {
         Route::get('create', 'create')->name('warehouse.create');
         Route::post('store', 'store')->name('warehouse.store');
         Route::get('edit/{id}', 'edit')->name('warehouse.edit');
+        Route::any('stock-manage/{id}', 'manageStock')->name('warehouse.manage-stock');
         Route::put('update/{id}', 'update')->name('warehouse.update');
         Route::delete('delete/{id}', 'destroy')->name('warehouse.delete');
         Route::post('upload/image', 'form_storeMedia')->name('form.storeMedia');

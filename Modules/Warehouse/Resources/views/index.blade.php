@@ -1,4 +1,4 @@
-@extends('rolepermission::layouts.master')
+@extends('warehouse::layouts.master')
 
 @section('content')
 <div class="nk-content" style="width: 100%;">
@@ -62,7 +62,7 @@
                                                 <span>{{$warehouse->monthly}}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span><a href="/admin/manage_stock/{{$warehouse->id}}" class="btn btn-primary btn-sm">Manage Stock</a></span>
+                                                <span><a href="{{route('warehouse.manage-stock',['id'=>$warehouse->id])}}" class="btn btn-primary btn-sm">Manage Stock</a></span>
                                             </td>
 
                                             @can('view_warehouse')

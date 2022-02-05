@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Product\Entities\Product;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\Stock;
 use Modules\Woocommerce\Entities\Woocommerce;
@@ -57,5 +58,9 @@ class User extends Authenticatable
     public function woocommerce()
     {
         return $this->hasMany(Woocommerce::class);
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

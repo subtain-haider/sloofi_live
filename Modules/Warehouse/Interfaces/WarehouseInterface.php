@@ -9,4 +9,6 @@ interface WarehouseInterface
     public function editWarehouse($warehouseId);
     public function updateWarehouse(array $warehouseData,$warehouseId);
     public function deleteWarehouse($warehouseId);
+    public function manageStock(array $warehouseData,$warehouseId);
+
 }
