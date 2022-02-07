@@ -294,10 +294,10 @@
                             </a>
                         </div><!-- .nk-header-brand -->
                         <div class="nk-header-search ml-3 ml-xl-0">
-                            @if(!in_array('vendor',Auth::user()->getRoleNames()->toArray()))
+                            @if(!in_array('vendor',Auth::user()->getRoleNames()->toArray()) && !in_array('super_admin',Auth::user()->getRoleNames()->toArray()))
                             <a href="{{route('user.become_a_vendor')}}"><button type="submit" class="btn btn-primary">Become a Vendor</button></a>
                             @endif
-                                @if(!in_array('dropshipper',Auth::user()->getRoleNames()->toArray()))
+                                @if(!in_array('dropshipper',Auth::user()->getRoleNames()->toArray()) && !in_array('super_admin',Auth::user()->getRoleNames()->toArray()))
                                     <a href="{{route('user.become-a-dropshipper')}}"><button type="submit" class="btn btn-primary mx-2">Become a Dropshipper</button></a>
                                 @endif
 

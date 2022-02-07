@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 
- 
+
 /*********************************************
         base css
 *********************************************/
@@ -15,7 +15,7 @@ h1{margin:0; font-size:42px; text-transform:uppercase; font-weight:400; position
 h1 span{color:#00214c; font-weight:bold;}
 h1:before {content: ""; background:url(../images/headong-line.png) no-repeat; height:27px; width:140px; position:absolute; bottom:-40px; left:0;}
 p {font-size: 16px; line-height: 24px; color: #818080;}
- 
+
 
 
  @font-face {
@@ -30,7 +30,7 @@ p {font-size: 16px; line-height: 24px; color: #818080;}
 
 /************************************
         Topbar Css
-************************************/ 
+************************************/
 .topbar-wrap{background: #d93644; padding: 8px 0;}
 .language{color: #fff; font-size: 18px; display: flex; justify-content: space-between;}
 .topbar-wrap .btn-secondary{padding: 0; background: none; border: none; box-shadow: none;}
@@ -61,7 +61,7 @@ p {font-size: 16px; line-height: 24px; color: #818080;}
 
 /************************************
         Header Css
-************************************/ 
+************************************/
 .header-wrap{padding: 10px 0; background: #f8f8f8;}
 .input-group{margin-top: 20px;}
 .input-group>.form-control{height: 56px; font-weight: 100; border: 2px solid #d93644; background: #f0f0f0; letter-spacing: 2px;}
@@ -84,7 +84,7 @@ p {font-size: 16px; line-height: 24px; color: #818080;}
 
 /************************************
         Slider Section Css
-************************************/ 
+************************************/
 .sliderSec-wrap{background: #e6e6e6; padding-top: 20px;}
 .categories_wrp h3{background: #d93644; margin-bottom: 0; color: #fff; padding: 10px 25px; text-align: center;}
 .categoryList{background: #fff; padding: 10px 25px;}
@@ -96,7 +96,7 @@ p {font-size: 16px; line-height: 24px; color: #818080;}
 
 /************************************
         Welcome Css
-************************************/ 
+************************************/
 .welcome_box{background: #d93644; text-align: center; padding:30px;}
 .sloofi-icon img{border-radius: 100%; background: #fff; width: 112px; height: 112px; display: inline-block;}
 .welcome_box h3{margin-top: 20px; color: #fff;}
@@ -106,7 +106,7 @@ p {font-size: 16px; line-height: 24px; color: #818080;}
 
 /************************************
         Help Center Css
-************************************/ 
+************************************/
 .help_center{/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e1e1e+0,505150+59,505150+83,3c3c3c+100 */
 background: #1e1e1e; /* Old browsers */
 background: -moz-linear-gradient(top,  #1e1e1e 0%, #505150 59%, #505150 83%, #3c3c3c 100%); /* FF3.6-15 */
@@ -127,7 +127,7 @@ margin-top: 15px;
 
 /************************************
         Products Css
-************************************/ 
+************************************/
 .products-wrap{background: #e6e6e6; padding:20px 0;}
 .product_sec{background: #fff; padding: 20px; margin-bottom: 20px;}
 .product_list{border:1px solid transparent; padding:7px; overflow: hidden; position: relative;}
@@ -143,7 +143,7 @@ margin-top: 15px;
     -o-transition: opacity 0.35s ease 0s, transform 0.35s ease 0s;
     transition: opacity 0.35s ease 0s, transform 0.35s ease 0s;
     transition: opacity 0.35s ease 0s, transform 0.35s ease 0s, -webkit-transform 0.35s ease 0s;
-    
+
 }
 .product_list:before {
     border-bottom: 1px solid;
@@ -171,7 +171,7 @@ margin-top: 15px;
 .product_box{height:190px; background: #fff; width: 100%; position: relative; z-index: 1000; position: relative;}
 .product_info{ background: #fff; position: absolute; display:block; height:100%;
 top:0;
-    z-index: 99; 
+    z-index: 99;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -193,7 +193,7 @@ top:0;
  .owl-controls{display: none;}
 .readmore a:hover{background: #d93644; color: #fff;}
 .queue_btn a:hover, .btn_bg:hover{background: #000 !important; color: #fff; border-color: #000;}
- 
+
 .hot_selling h4{font-size: 18px; z-index: 1000; position: relative;}
 .hot_selling h4 a{text-decoration: none; color: #000;}
 .product_list:hover h4 a{color: #d93644;}
@@ -207,7 +207,7 @@ top:0;
 ************************************/
 .app_wrap{padding: 40px 0;}
 .app_wrap h3{font-size: 72px !important; font-weight: bold; color: #484848; letter-spacing: 4px; margin-bottom: 30px;}
-.app_sec{display: flex; justify-content: space-between;} 
+.app_sec{display: flex; justify-content: space-between;}
 .scanText{font-size: 20px; margin-top: 20px;}
 .qr_check{margin-right: 30px;}
 .appstore span{margin-top: 10px; display: inline-block;}
@@ -240,7 +240,7 @@ top:0;
     -moz-transition: all .4s ease-out;
     -ms-transition: all .4s ease-out;
     -o-transition: all .4s ease-out;
-    transition: all .4s ease-out;} 
+    transition: all .4s ease-out;}
 
 .mobile_categories{display: none;}
 .carousel-control-next-icon, .carousel-control-prev-icon{display: none;}
@@ -350,7 +350,7 @@ top:0;
 
 /************************************
         Cart Css
-************************************/ 
+************************************/
 .inner_content{background: #e6e6e6; padding: 10px 0;}
 .cart_list{background: #fff; padding: 20px;}
 .cart_list h3 {
@@ -438,7 +438,7 @@ top:0;
 /*****************************************
              login-section              *
 *****************************************/
-.login-section {    
+.login-section {
     display: -webkit-box;
     display: -ms-flexbox;
     background-color: #ffffff;
@@ -501,7 +501,7 @@ background-color: #ffffff;
     border-left: 4px solid #d93644;
 }
 .login-section .form-sec .form-check-input:focus{box-shadow: none;}
-.login-section .form-sec .form-check-label{font-size: 16px; color: #464646; font-family: 'Poppins', sans-serif; font-weight: normal;} 
+.login-section .form-sec .form-check-label{font-size: 16px; color: #464646; font-family: 'Poppins', sans-serif; font-weight: normal;}
 .login-section .form-sec .form-check-label.ms-auto{font-weight: 600;}
 .login-section .form-sec form > div{position: relative;}
 .login-section .form-sec .input-icon {
@@ -628,7 +628,7 @@ font-size: 24px;
 .login-form .nav-tabs li {
     width: 50%;
 }
- 
+
 .login-form .nav-tabs li .nav-link {
     margin-bottom: 0;
     background: 0 0;
@@ -657,14 +657,14 @@ font-size: 24px;
 .login_wrp{display: table-cell; vertical-align: middle;}
 .login_wrp h4{color: #fff;}
 .login_wrp p{font-size: 16px; color: #fff;}
-.signup a{ 
+.signup a{
 
         background: #f6dcdf;
     border: 1px solid #f6dcdf;
     border-radius: 6px;
     color: #d93644;
     padding: 15px 40px;
-     
+
     text-align: center;
     font-weight: bold;
     font-size: 18px;
@@ -787,7 +787,7 @@ input[type=radio]:after {
 
 /************************************
         Media Screen Css
-************************************/ 
+************************************/
 @media only screen and (max-width:1440px){
 .productDetailContent h2{font-size:30px;}
 .productInfoo .readmore-second a{padding:18px 10px;}
@@ -896,7 +896,7 @@ input[type=radio]:after {
 .navbar-nav{padding-top: 70px;}
 .navbar-nav li a + i {
     display: block;
-} 
+}
 .navbar-nav .dropdown-menu{border-radius: 0 0 .25rem .25rem;}
 .navbar-nav > li:before{display: none;}
 .navbar-expand-lg .navbar-nav .nav-link{padding: 10px 10px; font-size: 16px;}
@@ -925,7 +925,7 @@ input[type=radio]:after {
 .globelWrp .product_box{height: 190px;}
 .slolfi_btn{display: inline-block; margin-left: 0;}
 .detailsHeader{display: none;}
- 
+
 
 }
 
@@ -1040,4 +1040,7 @@ input[type=radio]:after {
 }
 
 
+}
+.buy_now:hover{
+    cursor: pointer;
 }
