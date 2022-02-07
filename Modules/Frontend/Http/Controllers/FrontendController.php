@@ -18,6 +18,8 @@ use Modules\Warehouse\Entities\Warehouse;
 use Modules\Woocommerce\Entities\Woocommerce;
 use Session;
 use Auth;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
 class FrontendController extends Controller
 {
     /**
@@ -393,11 +395,49 @@ class FrontendController extends Controller
             $basket->product_id = $key;
             $order->baskets()->save($basket);
         }
-        session()->forget('cart');
+//        session()->forget('cart');
             if($request->payment_method=='stripe'){
                 return view('payment::stripe',compact('order'));
             }else{
-                return view('payment::paypal',compact('order'));
+
+                $provider = new PayPalClient;
+                $provider->setApiCredentials(config('paypal'));
+                $paypalToken = $provider->getAccessToken();
+//$order=Order::find($order_id);
+//                dd(44);
+                $response = $provider->createOrder([
+                    "intent" => "CAPTURE",
+                    "application_context" => [
+                        "return_url" => route('paypal.successTransaction',['id'=>$order->id]),
+                        "cancel_url" => route('paypal.cancelTransaction'),
+                    ],
+                    "purchase_units" => [
+                        0 => [
+                            "amount" => [
+                                "currency_code" => "USD",
+                                "value" => $order->total
+                            ]
+                        ]
+                    ]
+                ]);
+                if (isset($response['id']) && $response['id'] != null) {
+
+                    // redirect to approve href
+                    foreach ($response['links'] as $links) {
+                        if ($links['rel'] == 'approve') {
+                            return redirect()->away($links['href']);
+                        }
+                    }
+
+                    return redirect()
+                        ->route('paypal.createTransaction')
+                        ->with('error', 'Something went wrong.');
+
+                } else {
+                    return redirect()
+                        ->route('paypal.createTransaction')
+                        ->with('error', $response['message'] ?? 'Something went wrong.');
+                }
             }
 //        return redirect('/orders');
     }

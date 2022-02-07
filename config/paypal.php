@@ -7,8 +7,8 @@
 return [
     'mode'    => env('PAYPAL_MODE', 'sandbox'), // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
     'sandbox' => [
-        'client_id'         => '',
-        'client_secret'     => '',
+        'client_id'         => 'http://127.0.0.1:8000/payment/process-transaction',
+        'client_secret'     => 'EG4sNZ1bdY9bT2YkhNxULSytwd5hKUdQxL1vdDedo-AWV5gJyHcDJn-qfI2r2hG12Bwy1ZDWOR-LLec7',
         'app_id'            => 'APP-80W284485P519543T',
     ],
     'live' => [

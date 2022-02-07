@@ -1,10 +1,13 @@
 @extends('frontend::layouts.master')
+@section('css')
+    <link rel="stylesheet" href="{{asset('/frontend/css/flexslider.css')}}" />
+    @endsection
 @section('content')
 <section class="detailsHeader">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-10 col-md-9 col-sm-12"><img src="{{ asset('/frontend/images/s-logo.png')}}" />
-                <h2>Supplier: Sloofi DropShipping Co. Ltd</h2>
+                <h2>Supplier:{{$product->user->shop->name??'Sloofi DropShipping Co. Ltd'}} </h2>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12">
                 <div class="readmore"><a href="#">Visit Store</a></div>
@@ -28,50 +31,52 @@
 <section class="productDetail">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-5">
-                @php
+            @php
                 $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
                 $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
                 $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
-                @endphp
+            @endphp
+            <div class="col-lg-5">
                 <div class="aboveSlider">
-                    <h5><a class="nav-link active" type="button">1 Product <span>${{ $price1 }} </span></a></h5>
-                    @if($price100)<h5><a class="nav-link" type="button">100 Product <span>${{ $price100 }} </span></a></h5>@endif
-                    @if($price1000)<h5><a class="nav-link" type="button">1000 Product <span>${{ $price1000 }} </span></a></h5>@endif
+                    <h5><a class="nav-link active" type="button" onclick="price(1,{{ $price1 }})">1 Product <span>${{ $price1 }} </span></a></h5>
+                    @if($price100)<h5><a class="nav-link" onclick="price(100,{{ $price100 }})" type="button">100 Product <span>${{ $price100 }} </span></a></h5>@endif
+                    @if($price1000)<h5><a class="nav-link" onclick="price(1000,{{ $price1000 }})" type="button">1000 Product <span>${{ $price1000 }} </span></a></h5>@endif
                 </div>
                 <div id="main" role="main">
                     <div class="slider">
                         <div id="slider" class="flexslider">
                             <ul class="slides linkk">
-                               @php
-                               $images=$product->getMedia('images');
-                               @endphp
-                               @foreach ($images as $image)
-                               <li><img src="{{ $image->getUrl()}}" /></li>
-                               @endforeach
-
+                                @php
+                                    $images=$product->getMedia('images');
+                                @endphp
+                                @foreach ($images as $image)
+                                    <li><img src="{{ $image->getUrl()}}" /></li>
+                                @endforeach
                             </ul>
-                            <div class="downloadLink"><a href="images/slider-img.png')}}" download="Saloofi"><i class="fas fa-download"></i></a></div>
+                            <div class="downloadLink"><a href="{{asset('/frontend/images/slider-img.png')}}" download="Saloofi"><i class="fas fa-download"></i></a></div>
                         </div>
                         <div id="carousel" class="flexslider">
                             <ul class="slides">
+                                @php
+                                    $images=$product->getMedia('images');
+                                @endphp
                                 @foreach ($images as $image)
-                                <li><img src="{{ $image->getUrl()}}" /></li>
+                                    <li><img src="{{ $image->getUrl()}}" /></li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
                 <ul class="afterSlider">
-                    <li><a href="#"><div class="sharethis-inline-share-buttons"></div></a></li>
-{{--                    <li><a href="#">Wishlist</a></li>--}}
-{{--                    <li><a href="#">Report</a></li>--}}
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Wishlist</a></li>
+                    <li><a href="#">Report</a></li>
                 </ul>
-{{--                <div class="videoBox">--}}
-{{--                    <h6>Video ID: CJYZ1080928</h6>--}}
-{{--                    <p>Note: This video is available to be downloaded without the watermark and in high-resolution. Please before downloading. <br>Your recommendation will encourage us to roll out more services to you forfree!</p>--}}
-{{--                    <div class="readmore"><a href="#">Free Download</a></div>--}}
-{{--                </div>--}}
+                <div class="videoBox">
+                    <h6>Video ID: CJYZ1080928</h6>
+                    <p>Note: This video is available to be downloaded without the watermark and in high-resolution. Please before downloading. <br>Your recommendation will encourage us to roll out more services to you forfree!</p>
+                    <div class="readmore"><a href="#">Free Download</a></div>
+                </div>
             </div>
             <div class="col-lg-7">
                 <div class="productDetailContent">
@@ -82,7 +87,9 @@
                                 <h5>Product Price:</h5>
                             </div>
                             <div class="col-lg-9 col-md-9  col-sm-8">
-                                <h1>${{$price1}} @if($price100 || $price1000)-{{$price1000>0?$price1000:$price100}} @endif</h1>
+                                <h1 id="product_price">${{$price1}}
+{{--                                    @if($price100 || $price1000)-{{$price1000>0?$price1000:$price100}} @endif--}}
+                                </h1>
                                 <p>Price Updated on {{$product->prices->where('qty',1)->first()->updated_at}} </p>
                             </div>
                         </div>
@@ -171,16 +178,21 @@
 {{--                            </div>--}}
 {{--                        </div>--}}
 
-                        <div class="row align-items-center pb-4">
+                        <div class="row align-items-center pb-4 my-2">
                             <div class="col-lg-3 col-md-3">
                                 <label for="inputPassword6" class="col-form-label">Shipping From:</label>
                             </div>
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-6">
+                                        @php($warehouses=[])
                                         <select name="warehouse_id" class="form-control" required>
-                                            @foreach($warehouses as $warehouse)
-                                                <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                            @foreach($product->stocks as $stock)
+                                                @if(!in_array($stock->warehouse->name,$warehouses))
+                                                <option value="{{$stock->warehouse->id}}">{{$stock->warehouse->name}}</option>
+                                                @else
+                                                    @php(array_push($warehouses,$stock->warehouse->name))
+                                                    @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -502,22 +514,28 @@
                             </div>
                         </div>
                         <div class="row align-items-center pb-3 pt-4">
+                            @can('product_connect_to_woocommerce')
                             <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second "><a href="java:void(0)" onclick="openModel('woocommerce')">Connect to Woocommerce</a></div>
                             </div>
+                            @endcan
+                                @can('product_connect_to_shopify')
                             <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second"><a href="java:void(0)" onclick="openModel('shopify')">Connect to Shopify</a></div>
                             </div>
+                                @endcan
                         </div>
                         <div class="row align-items-center pb-3 pt-2">
                             {{-- <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second"><a href="#">Text Here</a></div>
                             </div>--}}
+                            @can('product_add_stock')
                             <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second"><a href="java:void(0)" onclick="openModel('stock')" data-toggle="modal" data-target="#stockModal">Add Stock</a></div>
                             </div>
+                            @endcan
                             <div class="col-lg-4 col-md-4">
-                                <div class="readmore-second"><a onclick='$("#addToCart").submit()'  class="active" >Buy Now</a></div>
+                                <div class="readmore-second buy_now"><a onclick='$("#addToCart").submit()'  class="active" >Buy Now</a></div>
                             </div>
                         </div>
                     </form>
@@ -813,6 +831,11 @@
         }else if(type=='stock'){
             $('#stockModal').modal('show');
         }
+    }
+    function price(qty,price){
+        $('#product_price').html('$'+price)
+        $('#price-cal').html(price*qty);
+        $('#qty').val(qty)
     }
 </script>
 <script defer src="{{ asset('/frontend/js/jquery.flexslider.js') }}"></script>

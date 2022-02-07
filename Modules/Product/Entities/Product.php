@@ -2,10 +2,12 @@
 
 namespace Modules\Product\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Entities\Category;
 use Modules\Stock\Entities\Stock;
+use Modules\Warehouse\Entities\Warehouse;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -41,5 +43,13 @@ class Product extends Model implements HasMedia
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function woocommerce()
+    {
+        return $this->belongsTo(Warehouse::class);
     }
 }

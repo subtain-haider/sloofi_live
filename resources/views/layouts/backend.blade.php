@@ -194,33 +194,32 @@
                             </li><!-- .nk-menu-item -->
                             @endcan
                             @can('view_order')
-                                                            <li class="nk-menu-item">
-                                                                <a href="#" class="nk-menu-link nk-menu-toggle">
-                                                                    <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
-                                                                    <span class="nk-menu-text">Orders</span>
-                                                                </a>
-                                                                <ul class="nk-menu-sub">
-                                                                    @can('view_all_orders')
-                                                                        <li class="nk-menu-item {{ Request::is('order/all') ? 'active' : '' }}">
-                                                                            <a href="{{ route('order.all') }}" class="nk-menu-link"><span class="">All Orders</span></a>
-                                                                        </li>
-                                                                    @endcan
-                                                                    <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
-                                                                        <a href="{{route('order.sloofi')}}" class="nk-menu-link"><span class="">Sloofi Orders</span></a>
-                                                                    </li>
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Orders</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        @can('view_all_orders')
+                                            <li class="nk-menu-item {{ Request::is('order/all') ? 'active' : '' }}">
+                                                <a href="{{ route('order.all') }}" class="nk-menu-link"><span class="">All Orders</span></a>
+                                            </li>
+                                        @endcan
+                                        <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
+                                            <a href="{{route('order.sloofi')}}" class="nk-menu-link"><span class="">Sloofi Orders</span></a>
+                                        </li>
 
-                                                                    <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
-                                                                        <a href="{{route('order.internal')}}" class="nk-menu-link"><span class="">Vendor Internal Orders</span></a>
-                                                                    </li>
-                                                                        <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
-                                                                            <a href="{{route('order.external')}}" class="nk-menu-link"><span class="">Vendor External Orders</span></a>
-                                                                        </li>
+                                        <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
+                                            <a href="{{route('order.internal')}}" class="nk-menu-link"><span class="">Vendor Internal Orders</span></a>
+                                        </li>
+                                        <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
+                                            <a href="{{route('order.external')}}" class="nk-menu-link"><span class="">Vendor External Orders</span></a>
+                                        </li>
 
-                                                                </ul><!-- .nk-menu-sub -->
-                                                            </li><!-- .nk-menu-item -->
-                                                        @endcan
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
 
-                            {{--                            @endcan--}}
 
 {{--                            <li class="nk-menu-item">--}}
 {{--                                <a href="html/ecommerce/orders.html" class="nk-menu-link">--}}
@@ -295,10 +294,10 @@
                             </a>
                         </div><!-- .nk-header-brand -->
                         <div class="nk-header-search ml-3 ml-xl-0">
-                            @if(!in_array('vendor',Auth::user()->getRoleNames()->toArray()))
+                            @if(!in_array('vendor',Auth::user()->getRoleNames()->toArray()) && !in_array('super_admin',Auth::user()->getRoleNames()->toArray()))
                             <a href="{{route('user.become_a_vendor')}}"><button type="submit" class="btn btn-primary">Become a Vendor</button></a>
                             @endif
-                                @if(!in_array('dropshipper',Auth::user()->getRoleNames()->toArray()))
+                                @if(!in_array('dropshipper',Auth::user()->getRoleNames()->toArray()) && !in_array('super_admin',Auth::user()->getRoleNames()->toArray()))
                                     <a href="{{route('user.become-a-dropshipper')}}"><button type="submit" class="btn btn-primary mx-2">Become a Dropshipper</button></a>
                                 @endif
 
