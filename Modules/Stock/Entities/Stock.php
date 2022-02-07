@@ -4,6 +4,7 @@ namespace Modules\Stock\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Product\Entities\Product;
 use Modules\Warehouse\Entities\Warehouse;
 use Spatie\Activitylog\Traits\LogsActivity;
 class Stock extends Model
@@ -24,7 +25,7 @@ class Stock extends Model
 
     public function product()
     {
-        return $this->belongsTo(\App\Models\Product::class);
+        return $this->belongsTo(Product::class);
     }
 
     protected static function newFactory()
