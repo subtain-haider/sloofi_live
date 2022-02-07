@@ -12,6 +12,7 @@ use Modules\Order\Entities\ExternalOrder;
 use Modules\Product\Entities\Product;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\Stock;
+use Modules\User\Entities\Shop;
 use Modules\Woocommerce\Entities\Woocommerce;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -51,7 +52,7 @@ class User extends Authenticatable
     ];
     public function products()
     {
-        return $this->hasMany(Product   ::class);
+        return $this->hasMany(Product::class);
     }
     public function stocks()
     {
@@ -73,8 +74,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Woocommerce::class);
     }
-    public function products()
+    public function shop()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasOne(Shop::class);
     }
 }

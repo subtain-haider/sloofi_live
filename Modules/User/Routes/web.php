@@ -16,6 +16,10 @@ Route::prefix('user')->middleware(['auth'])->group(function() {
         Route::get('all', 'index')->name('user.all');
         Route::get('detail/{id}', 'show')->name('user.detail');
         Route::post('update', 'update')->name('user.update');
+        Route::get('become-a-vendor','becomeAVendor')->name('user.become_a_vendor');
+        Route::post('become-a-vendor','becomeAVendorPost')->name('user.become-a-vendor.post');
+        Route::get('become-a-dropshipper','becomeADropshipper')->name('user.become-a-dropshipper');
+        Route::post('become-a-dropshipper','becomeADropshipperPost')->name('user.become-a-dropshipper.post');
 
     });
 });

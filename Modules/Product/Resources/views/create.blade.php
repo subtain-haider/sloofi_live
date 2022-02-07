@@ -83,12 +83,12 @@
                             </div>
                             <hr>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Select Properties</label>
+                                <label class="col-sm-2 col-form-label">Select Frontend Sections</label>
                                 <div class="col">
                                     <div class="form-control-wrap">
-                                        <select class="form-select" multiple="multiple" name="properties[]" data-placeholder="Select Multiple options">
-                                            @foreach($properties as  $property)
-                                            <option value="{{$property->id}}">{{$property->name}}</option>
+                                        <select class="form-select" multiple="multiple" name="sections[]" data-placeholder="Select Multiple options">
+                                            @foreach($sections as  $section)
+                                            <option value="{{$section->id}}">{{$section->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -156,6 +156,53 @@
                             </div>
                             <hr>
                             <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Product Properties</label>
+                                <div class="col-sm-10">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="colors_tab" data-toggle="tab" href="#colors" role="tab" >Colors</a>
+                                            </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="sizes_tab" data-toggle="tab" href="#sizes" role="tab" >Sizes</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+
+                                            <div class="tab-pane fade show active" id="colors" role="tabpanel" >
+                                                <br>
+                                                <div class="colors">
+                                                    <div class="form-group row" style="margin-bottom: 2px">
+                                                        <label class="col-sm-4 col-form-label">Section Color:</label>
+                                                        <div class="col-sm-3">
+                                                            <input type="color"  name="colors[]" class="w-100" value="#ff0000">
+                                                        </div>
+                                                        <label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class="icon ni ni-trash-fill"></em></label>
+                                                    </div>
+                                                </div>
+
+                                                <a href="javascript:void(0)" onclick="addColor()" class=" btn btn-primary btn-sm"><em class="icon ni ni-plus"></em><span>Add Color</span></a>
+                                            </div>
+                                        <div class="tab-pane fade" id="sizes" role="tabpanel" >
+                                            <br>
+                                            <div class="sizes">
+                                                <div class="form-group row" style="margin-bottom: 2px">
+                                                    <label class="col-sm-2 col-form-label">Enter Size:</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" class="form-control" placeholder="Add Size" name="sizes[]" value="" required>
+                                                    </div>
+                                                    <label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class="icon ni ni-trash-fill"></em></label>
+                                                </div>
+                                            </div>
+
+                                            <a href="javascript:void(0)" onclick="addSize()" class="btn btn-primary btn-sm"><em class="icon ni ni-plus"></em><span>Add Size</span></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Manage Stock*</label>
                                 <div class="col-sm-10">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -195,5 +242,19 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        function addColor(){
+            $('.colors').append('<div class="form-group row" style="margin-bottom: 2px"><label class="col-sm-4 col-form-label">Section Color:</label> <div class="col-sm-3"> <input type="color" class="w-100" name="colors[]" value="#ff0000"> </div><label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class=" icon ni ni-trash-fill"></em></label> </div>');
+        }
+        function deleteProperty(e){
+            $(e).parent().parent().html('')
+        }
+        function addSize(){
+            $('.sizes').append('<div class="form-group row" style="margin-bottom: 2px"><label class="col-sm-2 col-form-label">Enter Size:</label> <div class="col-sm-3"> <input type="text" class="form-control" placeholder="Add Size" name="sizes[]" value="" required> </div><label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class=" icon ni ni-trash-fill"></em></label> </div>');
+        }
+    </script>
+
 @endsection
 
