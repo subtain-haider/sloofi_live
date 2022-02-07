@@ -4,7 +4,7 @@
 <div class="components-preview wide-md mx-auto">
     <div class="nk-block-head nk-block-head-lg wide-sm">
         <div class="nk-block-head-content">
-            <h2 class="nk-block-title fw-normal">Create Role</h2>
+            <h3 class="nk-block-title fw-normal">Create Role</h3>
         </div>
     </div><!-- .nk-block -->
     <div class="nk-block nk-block-lg">
