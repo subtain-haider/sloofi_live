@@ -10,5 +10,6 @@
     "Frontend": true,
     "Shopify": true,
     "Woocommerce": true,
-    "ThirdPartyApi": true
+    "ThirdPartyApi": true,
+    "Order": true
 }
