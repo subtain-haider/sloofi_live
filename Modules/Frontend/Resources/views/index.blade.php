@@ -26,9 +26,6 @@
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 6"></button>
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -38,16 +35,7 @@
                 <img src="{{url('/frontend')}}/images/slider2.jpg" class="d-block w-100" alt="">
               </div>
               <div class="carousel-item">
-                <img src="{{url('/frontend')}}/images/slider.jpg" class="d-block w-100" alt="">
-              </div>
-              <div class="carousel-item">
-                <img src="{{url('/frontend')}}/images/slider2.jpg" class="d-block w-100" alt="">
-              </div>
-              <div class="carousel-item">
-                <img src="{{url('/frontend')}}/images/slider.jpg" class="d-block w-100" alt="">
-              </div>
-              <div class="carousel-item">
-                <img src="{{url('/frontend')}}/images/slider2.jpg" class="d-block w-100" alt="">
+                <img src="{{url('/frontend')}}/images/slider3.jpg" class="d-block w-100" alt="">
               </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -78,11 +66,14 @@
               <div class="view_more"><a href="">View More <i class="fas fa-chevron-right"></i></a></div>
             </div>
             <ul>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Lorem ipsum dolor sit amet</li>
+              <li>Customer Support</li>
+              <li>Shopify Connectivity Support</li>
+              <li>WooCommerce Connectivity Support</li>
+              <li>Drop shipping Documentation</li>
+              <li>Warehouse Support</li>
+              <li>API connectivity</li>
+              <li>Refund Policy</li>
+              <li>Privacy Policy</li>
             </ul>
           </div>
         </div>
