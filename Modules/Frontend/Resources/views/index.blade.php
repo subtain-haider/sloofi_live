@@ -85,11 +85,11 @@
   <div class="products-wrap">
     <div class="container-fluid">
       <!-- Super Deals Start -->
-        @foreach($properties as $property)
+        @foreach($sections as $section)
       <div class="product_sec">
-        <h3>{{$property->name}}</h3>
+        <h3>{{$section->name}}</h3>
         <ul class="owl-carousel">
-            @foreach($property->products as $product)
+            @foreach($section->products as $product)
                 <li class="item">
                   @include('frontend::includes.product_card')
                 </li>

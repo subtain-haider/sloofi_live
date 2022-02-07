@@ -10,6 +10,7 @@ use Modules\Frontend\Entities\Basket;
 use Modules\Frontend\Entities\Order;
 use Modules\Product\Entities\Property;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Section;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\StockRequest;
 use Modules\ThirdPartyApi\Entities\ApiCategory;
@@ -26,9 +27,9 @@ class FrontendController extends Controller
     public function index()
     {
         $categories=Category::all();
-        $properties=Property::all();
+        $sections=Section::all();
 
-        return view('frontend::index',compact('categories','properties'));
+        return view('frontend::index',compact('categories','sections'));
     }
 
     /**

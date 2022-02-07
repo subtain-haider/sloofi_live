@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\User;
-use Hash;
+use Hash,Auth;
 class UserController extends Controller
 {
     /**
@@ -86,5 +86,25 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function becomeAVendor(){
+        return view('user::become-a-vendor');
+    }
+    public function becomeAVendorPost(Request $request){
+        $user = Auth::user();
+        $user->shop()->create([
+            'name' => $request->name,
+            'address' => $request->address,
+        ]);
+        $user->assignRole('vendor');
+        return redirect('/dashboard')->with('success','You successfully become a vendor');
+    }
+    public function becomeADropshipper(){
+        return view('user::become-a-dropshipper');
+    }
+    public function becomeADropshipperPost(){
+        $user = Auth::user();
+        $user->assignRole('dropshipper');
+        return redirect('/dashboard')->with('success','You successfully become a Dropshipper');
     }
 }
