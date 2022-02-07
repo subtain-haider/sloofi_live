@@ -6,7 +6,11 @@
         <div class="nk-block">
             <div class="nk-block-head">
                 <div class="nk-block-head-content">
-                    <h4 class="nk-block-title">All Role</h4>
+                    <h4 class="nk-block-title">All Role
+                        <a href="{{route('role.create')}}" class="btn btn-primary float-right"><em class="icon ni ni-plus"></em><span>Add Role</span></a>
+
+                    </h4>
+
                     <div class="nk-block-des">
                         <!-- <p>Using the most basic table markup, here’s how <code class="code-class">.table</code> based tables look by default.</p> -->
                     </div>
@@ -14,7 +18,7 @@
             </div>
 
             <div class="card card-preview">
-                 
+
                 <div class="card-inner">
                     <table style="width: 100%;" class="datatable-init-export nk-tb-list nk-tb-ulist" data-export-title="Export" data-auto-responsive="false">
                         <thead>

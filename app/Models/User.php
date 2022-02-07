@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Frontend\Entities\Order;
+use Modules\Order\Entities\ExternalOrder;
 use Modules\Product\Entities\Product;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\Stock;
@@ -47,6 +49,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function products()
+    {
+        return $this->hasMany(Product   ::class);
+    }
     public function stocks()
     {
         return $this->hasMany(Stock::class);
@@ -54,6 +60,14 @@ class User extends Authenticatable
     public function shopify()
     {
         return $this->hasMany(Shopify::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function externalOrders()
+    {
+        return $this->hasMany(ExternalOrder::class);
     }
     public function woocommerce()
     {
