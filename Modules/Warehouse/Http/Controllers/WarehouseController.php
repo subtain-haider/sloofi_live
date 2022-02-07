@@ -86,6 +86,10 @@ class WarehouseController extends Controller
     public function destroy($id)
     {
         $this->warehouseRepository->deleteWarehouse($id);
-        return back()->with('success', 'Warehouse Deleted Successfully');
+        return redirect('/warehouse/all')->with('success', 'Warehouse Deleted Successfully');
+    }
+    public function manageStock(Request $request,$id){
+        $data=$this->warehouseRepository->manageStock($request->except('_token'),$id);
+       return view('warehouse::stock')->with($data);
     }
 }
