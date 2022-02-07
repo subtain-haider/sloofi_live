@@ -21,8 +21,8 @@ class Product extends Model implements HasMedia
     {
         return \Modules\Product\Database\factories\ProductFactory::new();
     }
-    public function properties(){
-        return $this->belongsToMany(Property::class);
+    public function sections(){
+        return $this->belongsToMany(Section::class);
     }
     public function categories(){
         return $this->belongsToMany(Category::class);
@@ -30,6 +30,14 @@ class Product extends Model implements HasMedia
     public function prices()
     {
         return $this->morphMany(Price::class, 'priceable');
+    }
+    public function colors()
+    {
+        return $this->hasMany(ProductColor::class);
+    }
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class);
     }
     public function stocks()
     {

@@ -10,8 +10,8 @@
                         <div class="nk-block">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
-                                    <h4 class="nk-block-title">All Properties
-                                        <a href="{{ route('property.create') }}" class="btn btn-primary float-right"><em class="icon ni ni-plus"></em><span>Add Property</span></a>
+                                    <h4 class="nk-block-title">All Frontend Sections
+                                        <a href="{{ route('section.create') }}" class="btn btn-primary float-right"><em class="icon ni ni-plus"></em><span>Add Section</span></a>
                                     </h4>
                                     <div class="nk-block-des">
 
@@ -28,7 +28,7 @@
                                             </th>
 
                                             <th class="nk-tb-col"><span class="sub-text">Name</span></th>
-                                            @can('view_property')
+                                            @can('view_section')
                                                 <th class="nk-tb-col nk-tb-col-tools text-right">
                                                 </th>
                                             @endcan
@@ -48,19 +48,19 @@
                                                     <span>{{$row->name}}</span>
                                                 </td>
 
-                                                @can('view_property')
+                                                @can('view_section')
                                                     <td class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
-                                                            @can('update_property')
+                                                            @can('update_section')
                                                                 <li class="nk-tb-action-hidden">
-                                                                    <a href="{{ route('property.edit',['id'=>$row->id]) }}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                    <a href="{{ route('section.edit',['id'=>$row->id]) }}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                         <em class="icon ni ni-edit-fill"></em>
                                                                     </a>
                                                                 </li>
                                                             @endcan
-                                                            @can('delete_property')
+                                                            @can('delete_section')
                                                                 <li class="nk-tb-action-hidden">
-                                                                    <form action="{{ route('property.delete',['id'=>$row->id]) }}" method="POST">
+                                                                    <form action="{{ route('section.delete',['id'=>$row->id]) }}" method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button type="submit" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Delete">

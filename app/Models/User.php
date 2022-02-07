@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\Stock;
+use Modules\User\Entities\Shop;
 use Modules\Woocommerce\Entities\Woocommerce;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
