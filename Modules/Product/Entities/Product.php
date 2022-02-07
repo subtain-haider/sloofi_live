@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Entities\Category;
@@ -33,5 +34,9 @@ class Product extends Model implements HasMedia
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
