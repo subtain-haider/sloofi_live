@@ -1,4 +1,4 @@
-@extends('rolepermission::layouts.master')
+@extends('category::layouts.master')
 
 @section('content')
 <div class="nk-content " style="width: 100%;">
@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="card card-preview">
-                             
+
                             <div class="card-inner">
                                 <table style="width: 100%;" class="datatable-init-export nk-tb-list nk-tb-ulist" data-export-title="Export" data-auto-responsive="false">
                                     <thead>

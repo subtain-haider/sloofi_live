@@ -13,8 +13,9 @@
                 <div class="col-lg-8">
                     <div class="cart_list">
                         <h3><a href="#"><i class="fas fa-arrow-left"></i> Checkout</a></h3>
-                        <h5 class="mt-4">SELECT PAYMENT METHOD</h5>
-
+                        @if(!isset(Auth::user()->id))
+                            <h5 class="mt-4">FOR MAKE A ORDER YOU NEED TO <a href="{{url('/login')}}">LOGIN</a> FIRST</h5>
+                        @endif
                         @if(\Session::has('error'))
                             <div class="alert alert-danger">{{ \Session::get('error') }}</div>
                             {{ \Session::forget('error') }}
@@ -24,26 +25,26 @@
                             {{ \Session::forget('success') }}
                         @endif
                         <div class="productInfoo paymentWrp">
-                            @if(!isset(Auth::user()->id))
-                                <div class="form-check">
-                                    <span><a href="{{url('/login')}}">Proceed Order</a></span>
-                                </div>
-                                @else
-                            <div class="form-check">
-                                <input name="payment_method"  value="stripe" class="form-check-input payment_method" type="radio" name="flexRadioDefault" id="flexRadioDefault21">
-                                <label class="form-check-label StyleBox" for="flexRadioDefault21">
-                                    <img src="images/credit_card.png">
-                                    <h5>Credit Card</h5>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input name="payment_method"  value="paypal" class="form-check-input payment_method" type="radio" name="flexRadioDefault" id="flexRadioDefault22" checked="">
-                                <label class="form-check-label StyleBox" for="flexRadioDefault22">
-                                    <img src="images/paypal.png">
-                                    <h5>Paypal</h5>
-                                </label>
-                            </div>
-                            @endif
+{{--                            @if(!isset(Auth::user()->id))--}}
+{{--                                <div class="form-check">--}}
+{{--                                    <span><a href="{{url('/login')}}">Proceed Order</a></span>--}}
+{{--                                </div>--}}
+{{--                                @else--}}
+{{--                            <div class="form-check">--}}
+{{--                                <input name="payment_method"  value="stripe" class="form-check-input payment_method" type="radio" name="flexRadioDefault" id="flexRadioDefault21">--}}
+{{--                                <label class="form-check-label StyleBox" for="flexRadioDefault21">--}}
+{{--                                    <img src="images/credit_card.png">--}}
+{{--                                    <h5>Credit Card</h5>--}}
+{{--                                </label>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-check">--}}
+{{--                                <input name="payment_method"  value="paypal" class="form-check-input payment_method" type="radio" name="flexRadioDefault" id="flexRadioDefault22" checked="">--}}
+{{--                                <label class="form-check-label StyleBox" for="flexRadioDefault22">--}}
+{{--                                    <img src="images/paypal.png">--}}
+{{--                                    <h5>Paypal</h5>--}}
+{{--                                </label>--}}
+{{--                            </div>--}}
+{{--                            @endif--}}
 {{--                            <div class="form-check">--}}
 {{--                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault23">--}}
 {{--                                <label class="form-check-label StyleBox" for="flexRadioDefault23">--}}
@@ -65,6 +66,9 @@
 
 
                             <div class="input-group">
+                                <input type="hidden" name="transaction_id" id="transaction_id">
+                                <input type="hidden" name="status" id="status">
+                                <input type="hidden" name="total_paid" id="total_paid">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="NAME" required>
                             </div>
 {{--                            <div class="input-group">--}}
@@ -103,11 +107,17 @@
                             <div class="input-group">
                                 <input type="text" name="address"  id="address" class="form-control" placeholder="ADDRESS" required>
                             </div>
-
+                        @if(isset(Auth::user()->id))
+                        <div class="form-group row my-4">
+                            <div style="width: 50%"  id="paypaldev"> <div id="paypal-button-container"></div></div>
+                        </div>
+                        @endif
                             <div class="input-group checkbox">
                                 <input type="checkbox" name="img" value="yes" required id="3dgraphic">
                                 <label for="3dgraphic"></label>
-                                by confirming this box, i agree to the terms and conditions, privicy policy</div>
+                                by confirming this box, i agree to the terms and conditions, privicy policy
+                            </div>
+
 
                     </div>
                 </div>
@@ -179,15 +189,11 @@
                         </ul>
                         <hr/>
                         <div class="readmore purchase_btn btn_bg">
-                            @if(isset(Auth::user()->id) && $total>0)
-                            <span  id="checkout_button"><a href="javascript:void(0)" onclick="checkForm()" >Proceed Order</a></span>
-                            @endif
-{{--
- <span id="paypal_button"><a href="{{ route('paypal.processTransaction') }}" @if(!isset(Auth::user()->id)) disabled="true" @endif>Pay with paypal</a></span>--}}
-
+                            @php($login=!isset(Auth::user()->id)?1:0)
+                            <span  id="checkout_button"><a href="javascript:void(0)" onclick="checkForm({{$login}},{{$total}})">Proceed Order</a></span>
                         </div>
                         <div class="readmore purchase_btn grey_btn btn_bg">
-                            <span> <a href="#">Continue Shopping</a></span>
+                            <span> <a href="{{url('/')}}">Continue Shopping</a></span>
                         </div>
                     </div>
                 </div>
@@ -198,22 +204,35 @@
 @endsection
 @section('js')
 <script>
-    function checkForm(){
-        var address=$('#address').val();
-        var country=$('#country').val();
-        var name=$('#name').val();
-        if(address=='' || country=='' || name==''){
-            alert('Please Fill all the fields');
+    function checkForm(login,total){
+        if(login){
+            alert('Please login first');
+        }else if(total==0){
+            alert('Your cart is empty');
         }else{
-            if($('#3dgraphic').is(':checked')){
-                $('#payment-form').submit();
+            var address=$('#address').val();
+            var country=$('#country').val();
+            var name=$('#name').val();
+            var trans=$('#transaction_id').val();
+            var status=$('#status').val();
+            if(trans!='' && status=='COMPLETED'){
+                if(address=='' || country=='' || name==''){
+                    alert('Please Fill all the fields');
+                }else{
+                    if($('#3dgraphic').is(':checked')){
+                        $('#payment-form').submit();
+                    }else{
+                        alert('Check Teams And Conditions');
+                    }
+                }
             }else{
-                alert('Check Teams And Conditions');
+                alert('Please make payment First');
             }
+
         }
-
-
     }
 
 </script>
+
+@include('payment::paypal')
 @endsection

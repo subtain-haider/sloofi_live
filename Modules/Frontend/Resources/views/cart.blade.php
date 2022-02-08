@@ -5,19 +5,19 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="cart_list">
-                        <h3><a href="#"><i class="fas fa-arrow-left"></i> Continue Shopping</a></h3>
+                        <h3><a href="{{url('/')}}"><i class="fas fa-arrow-left"></i> Continue Shopping</a></h3>
                         <h5 class="mt-4">Shopping Cart</h5>
                         <div class="sortby">
-                            <div class="cart_heading">You have 4 items in your cart</div>
-                            <div class="sort"><span>Sort by</span> <div class="dropdown">
-                                    <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Price
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">$111.00</a></li>
-                                        <li><a class="dropdown-item" href="#">$111.00</a></li>
-                                    </ul>
-                                </div></div>
+                            <div class="cart_heading">You have {{count($cartItems)}} items in your cart</div>
+{{--                            <div class="sort"><span>Sort by</span> <div class="dropdown">--}}
+{{--                                    <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                        Price--}}
+{{--                                    </button>--}}
+{{--                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--}}
+{{--                                        <li><a class="dropdown-item" href="#">$111.00</a></li>--}}
+{{--                                        <li><a class="dropdown-item" href="#">$111.00</a></li>--}}
+{{--                                    </ul>--}}
+{{--                                </div></div>--}}
                         </div>
                         <div class="clearfix"></div>
                         <ul>
@@ -42,6 +42,7 @@
                                                     <div class="cart_info">
                                                         <h5>{{$item['product']->name}}</h5>
                                                         <p>{{$item['product']->categories[0]->name??''}}</p>
+                                                        <p>{{$item['product']->stocks->where('warehouse_id',$item['warehouse_id'])->first()->warehouse?'Shipping from : '.$item['product']->stocks->where('warehouse_id',$item['warehouse_id'])->first()->warehouse->name:''}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2 col-md-2 ">
@@ -92,7 +93,7 @@
                     </div>
                     <div class="cart_widget mt-4">
                         <ul class="total_price">
-                            <li>Total price: $<span id="total">{{$total}}</span></li>
+                            <li>Total price: <span id="total">${{$total}}</span></li>
 {{--                            <li>Discount: <span>$12.00</span></li>--}}
 {{--                            <li>Total price: $<span>{{$total}}</span></li>--}}
                         </ul>
@@ -101,7 +102,7 @@
                             <span><a href="{{route('frontend.checkout')}}">Checkout</a></span>
                         </div>
                         <div class="readmore purchase_btn grey_btn btn_bg">
-                            <span> <a href="#">Continue Shopping</a></span>
+                            <span> <a href="{{url('/')}}">Continue Shopping</a></span>
                         </div>
                     </div>
                 </div>
@@ -117,7 +118,13 @@
         $(e).parent().parent().parent().parent().hide();
         var total=$('#total').html();
         total=parseFloat(total);
-        $('#total').html(total-price);
+        var t=total-price;
+        if(t==0){
+            $('#total').html('$0');
+        }else{
+            $('#total').html('$'+(t));
+        }
+
     }
     </script>
 @endsection

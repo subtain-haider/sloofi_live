@@ -15,7 +15,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $rows=Permission::paginate(20);
+        $rows=Permission::all();
         return view('rolepermission::permissions.list',compact('rows'));
     }
 
@@ -80,7 +80,7 @@ class PermissionController extends Controller
         $row->name=$request->name;
         $row->save();
         return redirect('permission/all')->with('success','Successfully Updated');
-       
+
     }
 
     /**
@@ -96,6 +96,6 @@ class PermissionController extends Controller
         }else{
             return redirect('permission/all')->with('error','Not authorized');
         }
-        
+
     }
 }

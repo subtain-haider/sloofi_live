@@ -53,7 +53,7 @@
                                     <li><img src="{{ $image->getUrl()}}" /></li>
                                 @endforeach
                             </ul>
-                            <div class="downloadLink"><a href="{{asset('/frontend/images/slider-img.png')}}" download="Saloofi"><i class="fas fa-download"></i></a></div>
+                            <div class="downloadLink"><a href="{{$images[0]->getUrl()}}" download="Saloofi"><i class="fas fa-download"></i></a></div>
                         </div>
                         <div id="carousel" class="flexslider">
                             <ul class="slides">
@@ -475,10 +475,10 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <select name="" class="form-control" id="">
-                                            <option value="">DHL</option>
-                                            <option value="">Royal Mail</option>
-                                            <option value="">Fast Delivery</option>
+                                        <select name="shipping_method" class="form-control" id="">
+                                            <option value="DHL">DHL</option>
+                                            <option value="Royal Mail">Royal Mail</option>
+                                            <option value="Fast Delivery">Fast Delivery</option>
                                         </select>
                                     </div>
                                 </div>
