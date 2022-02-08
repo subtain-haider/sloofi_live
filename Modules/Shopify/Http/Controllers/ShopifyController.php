@@ -5,7 +5,10 @@ namespace Modules\Shopify\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Artisan;
+use Modules\Product\Entities\Product;
 use Modules\Shopify\Entities\Shopify;
+use Modules\Shopify\Entities\ShopifyProduct;
 use Modules\Shopify\Interfaces\ShopifyInterface;
 use Auth;
 class ShopifyController extends Controller
@@ -156,7 +159,7 @@ class ShopifyController extends Controller
             $access_token = $result['access_token'];
 
             // Show the access token (don't do this in production!)
-            $user = Auth::user();
+            $user = \Illuminate\Support\Facades\Auth::user();
             $shopify = $user->shopify()->create(['token' => $access_token, 'shop' => substr($params['shop'],0,-14)]);
 
             if ($shopify){
@@ -179,6 +182,225 @@ class ShopifyController extends Controller
         } else {
             // Someone is trying to be shady!
             die('This request is NOT from Shopify!');
+        }
+    }
+
+    public function shopifyProductsConnect(Request $request){
+        if ($request->type == 'internal'){
+            $product = Product::find($request->product_id);
+            $product_name = $product->name;
+            $product_description = $product->description;
+            $product_category_name = $product->category->name;
+            $product_tags = $product->tags;
+            $product_price = $product->price_1;
+
+            // for image
+            $path = public_path('/').'/'.$product->thumbnail;
+            $imagedata = file_get_contents($path);
+            $base64 = base64_encode($imagedata);
+            $image_query = [
+                "image" => [
+                    "position" => 1,
+                    "attachment" => $base64
+                ]
+            ];
+
+        }elseif ($request->type == 'external'){
+
+            $product = external_product($request->product_id);
+            $product = $product['product'];
+            $product_name = $product['Title'];
+//            $product_description = $product['Description'];
+            $product_description = '';
+            $product_category_name = '';
+            $product_tags = '';
+
+            //for price
+            $data = price_external_product($product['Id'],1);
+            $product_price = $data['f_price'];
+
+            // for image
+            $image_query = [
+                "image" => [
+                    "position" => 1,
+                    "src" => $product['Pictures'][0]['Url']
+                ]
+            ];
+
+        }
+
+        $shopify = Shopify::where('id',$request->shopify_id)->first();
+        // Set variables for our request
+        $shop = $shopify->shop;
+        $token = $shopify->token;
+
+        // adding product
+        $query = [
+            "product" => [
+                "title" => $product_name,
+                "body_html" => $product_description,
+                "vendor" => "",
+                "product_type" => $product_category_name,
+                "tags" => $product_tags
+            ]
+        ];
+        $response = $this->shopify_call($token, $shop, "/admin/products.json", $query, 'POST');
+
+        //adding image
+        $product_id = json_decode($response['response'])->product->id;
+        $response = $this->shopify_call($token, $shop, "/admin/products/".$product_id."/images.json", $image_query, 'POST');
+
+        // adding price
+        $response = $this->shopify_call($token, $shop, "/admin/products/".$product_id."/variants.json", array(), 'GET');
+        $variant_id =json_decode($response['response'])->variants[0]->id;
+        $query = [
+            "variant" => [
+                "id" => $variant_id,
+                "price" => $product_price
+            ]
+        ];
+        $response = $this->shopify_call($token, $shop, "/admin/variants/".$variant_id.".json", $query, 'PUT');
+        return back()->with('success', 'Product Connected Successfully');
+    }
+    public function shopify_call($token, $shop, $api_endpoint, $query = array(), $method = 'GET', $request_headers = array()) {
+
+        // Build URL
+        $url = "https://" . $shop . ".myshopify.com" . $api_endpoint;
+        if (!is_null($query) && in_array($method, array('GET', 	'DELETE'))) $url = $url . "?" . http_build_query($query);
+
+        // Configure cURL
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HEADER, TRUE);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($curl, CURLOPT_MAXREDIRS, 3);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 3);
+        // curl_setopt($curl, CURLOPT_SSLVERSION, 3);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'My New Shopify App v.1');
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+
+        // Setup headers
+        $request_headers[] = "";
+        if (!is_null($token)) $request_headers[] = "X-Shopify-Access-Token: " . $token;
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $request_headers);
+
+        if ($method != 'GET' && in_array($method, array('POST', 'PUT'))) {
+            if (is_array($query)) $query = http_build_query($query);
+            curl_setopt ($curl, CURLOPT_POSTFIELDS, $query);
+        }
+
+        // Send request to Shopify and capture any errors
+        $response = curl_exec($curl);
+        $error_number = curl_errno($curl);
+        $error_message = curl_error($curl);
+
+        // Close cURL to be nice
+        curl_close($curl);
+
+        // Return an error is cURL has a problem
+        if ($error_number) {
+            return $error_message;
+        } else {
+
+            // No error, return Shopify's response by parsing out the body and the headers
+            $response = preg_split("/\r\n\r\n|\n\n|\r\r/", $response, 2);
+
+            // Convert headers into an array
+            $headers = array();
+            $header_data = explode("\n",$response[0]);
+            $headers['status'] = $header_data[0]; // Does not contain a key, have to explicitly set
+            array_shift($header_data); // Remove status, we've already set it above
+            foreach($header_data as $part) {
+                $h = explode(":", $part);
+                $headers[trim($h[0])] = trim($h[1]);
+            }
+
+            // Return headers and Shopify's response
+            return array('headers' => $headers, 'response' => $response[1]);
+
+        }
+
+    }
+
+    public  function products($selected = null){
+//        $user = Auth::user();
+//        $products = array();
+//        $shopifies = $user->shopify()->get();
+//        if($user->user_type == 'seller'){
+//
+//            if ($selected != null){
+//                $stores = $user->shopify()->where('id',$selected)->get();
+//            }else{
+//                $stores = $user->shopify()->get();
+//            }
+//            foreach ($stores as $shopify){
+//                // Set variables for our request
+//                $shop = $shopify->shop;
+//                $token = $shopify->token;
+//                $query = array(
+//                    "Content-type" => "application/json" // Tell Shopify that we're expecting a response in JSON format
+//                );
+//
+//                // Run API call to get all products
+//                $response = $this->shopify_call($token, $shop, "/admin/products.json", array(), 'GET');
+//                if(!isset(json_decode($response['response'])->errors)){
+//                    // Get response
+//                    $products = json_decode($response['response'])->products;
+//                }
+//            }
+//            return view('frontend.user.seller.shopify.products',compact('products', 'shopifies', 'selected'));
+//        }
+//        else {
+//            abort(404);
+//        }
+    }
+
+    public function shopifyProductsSync($id){
+
+        $shopify = Shopify::where('id',$id)->first();
+        // Set variables for our request
+        $shop = $shopify->shop;
+        $token = $shopify->token;
+        $query = array(
+            "Content-type" => "application/json" // Tell Shopify that we're expecting a response in JSON format
+        );
+
+        // Run API call to get all products
+        $response = $this->shopify_call($token, $shop, "/admin/products.json", array(), 'GET');
+        if(!isset(json_decode($response['response'])->errors)){
+            // Get response
+            $products = json_decode($response['response'])->products;
+            foreach ($products as $product){
+                $product_exist = ShopifyProduct::where('title', $product->title)->first();
+                if (!$product_exist){
+                    $shopify->shopify_products()->create(['image'=> $product->image->src ?? '', 'title' => $product->title, 'vendor' => $product->vendor, 'product_type' => $product->product_type, 'status' => $product->status, 'tags' => $product->tags]);
+                }
+            }
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+
+        if(Auth::user()->user_type == 'admin'){
+            return redirect()->route('shopifyProducts.index');
+        }
+        else{
+            return redirect()->route('shopifyProducts.index');
+        }
+    }
+
+
+    public function connectProduct(Request $request)
+    {
+        try {
+            dd($request->all());
+            return back()->with('success', 'Product Connected Successfully');
+        } catch (Exception $th) {
+            // dd($th);
+            return back()->with('error', 'Product Connection failed');
         }
     }
 }
