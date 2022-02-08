@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Entities\Category;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Property extends Model
+class Section extends Model
 {
     use HasFactory,LogsActivity;
 

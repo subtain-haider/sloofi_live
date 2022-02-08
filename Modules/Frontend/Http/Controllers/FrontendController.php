@@ -10,6 +10,7 @@ use Modules\Frontend\Entities\Basket;
 use Modules\Frontend\Entities\Order;
 use Modules\Product\Entities\Property;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Section;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\StockRequest;
 use Modules\ThirdPartyApi\Entities\ApiCategory;
@@ -17,6 +18,8 @@ use Modules\Warehouse\Entities\Warehouse;
 use Modules\Woocommerce\Entities\Woocommerce;
 use Session;
 use Auth;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
 class FrontendController extends Controller
 {
     /**
@@ -26,9 +29,9 @@ class FrontendController extends Controller
     public function index()
     {
         $categories=Category::all();
-        $properties=Property::all();
+        $sections=Section::all();
 
-        return view('frontend::index',compact('categories','properties'));
+        return view('frontend::index',compact('categories','sections'));
     }
 
     /**
@@ -98,13 +101,16 @@ class FrontendController extends Controller
         return view('frontend::product-detail',compact('product','shopifies','woocommerces','warehouses'));
     }
     public function addToCart(Request $request){
+//        dd($request->all());
         $cart = session()->get('cart', []);
         if(isset($cart[$request->id])) {
             $cart[$request->id]['quantity'] = $cart[$request->id]['quantity'] + $request->qty;
         } else {
             $cart[$request->id] = [
                 "quantity" => $request->qty,
-                "type" => $request->shipping_method,
+                "warehouse_id" => $request->warehouse_id,
+                "country"=>$request->country,
+                'shipping_method'=>$request->shipping_method
             ];
         }
         session()->put('cart', $cart);
@@ -285,6 +291,9 @@ class FrontendController extends Controller
 //            dd($qty);
             $cartItems[$count]['product']=Product::find($key);
             $cartItems[$count]['quantity']=$qty['quantity'];
+            $cartItems[$count]['country']=$qty['country'];
+            $cartItems[$count]['shipping_method']=$qty['shipping_method'];
+            $cartItems[$count]['warehouse_id']=$qty['warehouse_id'];
             $count++;
         }
         return view('frontend::cart', compact('cartItems'));
@@ -315,6 +324,7 @@ class FrontendController extends Controller
         return view('frontend::cart', compact('cartItems'));
     }
     public function paymentPage(Request $request){
+//        dd($request->all());
         $cartItems = session()->get('cart',[]);
 
         $total = 0;
@@ -371,6 +381,8 @@ class FrontendController extends Controller
         $order->save();
 
         foreach ($cartItems as $key => $item){
+            //todo remove this line
+            $item['type'] = 'internal';
             if($item['type'] == 'internal'){
                 $price = price_internal_product($key, 1);
                 $product = Product::find($key);
@@ -390,15 +402,13 @@ class FrontendController extends Controller
             $basket->type = $item['type'];
             $basket->owner = '';
             $basket->product_id = $key;
+            $basket->warehouse_id=$item['warehouse_id'];
+            $basket->country=$item['country'];
+            $basket->shipping_method=$item['shipping_method'];
             $order->baskets()->save($basket);
         }
         session()->forget('cart');
-            if($request->payment_method=='stripe'){
-                return view('payment::stripe',compact('order'));
-            }else{
-                return view('payment::paypal',compact('order'));
-            }
-//        return redirect('/orders');
+        return redirect()->route('order.all')->with('success','Order Created Successfully');
     }
     public function searchProduct(Request $request){
         $products = new Product;

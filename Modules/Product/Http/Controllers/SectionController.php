@@ -5,9 +5,9 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Product\Entities\Property;
+use Modules\Product\Entities\Section;
 
-class PropertyController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $rows=Property::all();
-        return view('product::properties.index',compact('rows'));
+        $rows=Section::all();
+        return view('product::section.index',compact('rows'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('product::properties.create');
+        return view('product::section.create');
     }
 
     /**
@@ -35,8 +35,8 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        Property::create(['name'=>$request->name]);
-        return redirect()->route('property.all')->with('success','Property Added Successfully');
+        Section::create(['name'=>$request->name]);
+        return redirect()->route('section.all')->with('success','Section Added Successfully');
     }
 
     /**
@@ -56,8 +56,8 @@ class PropertyController extends Controller
      */
     public function edit($id)
     {
-        $property=Property::findOrFail($id);
-        return view('product::properties.edit',compact('property'));
+        $section=Section::findOrFail($id);
+        return view('product::section.edit',compact('section'));
     }
 
     /**
@@ -68,8 +68,8 @@ class PropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Property::whereId($id)->update(['name'=>$request->name]);
-        return redirect()->route('property.edit',['id'=>$id])->with('success','Property Updated Successfully');
+        Section::whereId($id)->update(['name'=>$request->name]);
+        return redirect()->route('section.edit',['id'=>$id])->with('success','Section Updated Successfully');
     }
 
     /**
@@ -79,7 +79,7 @@ class PropertyController extends Controller
      */
     public function destroy($id)
     {
-        Property::destroy($id);
-        return redirect()->route('property.all')->with('success','Property deleted Successfully');
+        Section::destroy($id);
+        return redirect()->route('section.all')->with('success','Section deleted Successfully');
     }
 }

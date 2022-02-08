@@ -1,4 +1,4 @@
-@extends('rolepermission::layouts.master')
+@extends('user::layouts.master')
 
 @section('content')
 <div class="nk-block">

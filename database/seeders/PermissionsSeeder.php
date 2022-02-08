@@ -45,12 +45,17 @@ class PermissionsSeeder extends Seeder
             ['name' => 'view_woocommerces','guard_name'=>'web'],
             ['name' => 'add_woocommerce','guard_name'=>'web'],
             ['name' => 'delete_woocommerce','guard_name'=>'web'],
+            ['name' => 'my_woocommerces_products','guard_name'=>'web'],
             ['name' => 'sync_woocommerce_products','guard_name'=>'web'],
             ['name' => 'view_shopifies','guard_name'=>'web'],
             ['name' => 'add_shopify','guard_name'=>'web'],
             ['name' => 'delete_shopify','guard_name'=>'web'],
+            ['name' => 'my_shopify_products','guard_name'=>'web'],
             ['name' => 'sync_shopify_products','guard_name'=>'web'],
             ['name' => 'view_third_paty_api','guard_name'=>'web'],
+            ['name' => 'product_connect_to_shopify','guard_name'=>'web'],
+            ['name' => 'product_connect_to_woocommerce','guard_name'=>'web'],
+            ['name' => 'product_add_stock','guard_name'=>'web'],
         ];
         Permission::insert($permissions);
     }

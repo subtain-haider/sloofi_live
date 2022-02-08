@@ -16,7 +16,7 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
-        $rows=Role::paginate(20);
+        $rows=Role::all();
         return view('rolepermission::index',compact('rows'));
     }
 
@@ -36,7 +36,7 @@ class RolePermissionController extends Controller
      */
     public function store(Request $request)
     {
-       
+
     }
 
     /**
