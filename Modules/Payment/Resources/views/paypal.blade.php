@@ -3,7 +3,6 @@
         src="https://www.paypal.com/sdk/js?client-id=AZwVefyA0CbM0FGkmhyumhE9gDfnxAa3lV0PbEGodd2kq9zhs0wj7Vh_OfDjRIh3xkcqWrtap1zmKEIk">
 </script>
 <script>
-var total="{{$total}}";
     paypal.Buttons({
         createOrder: function(data, actions) {
             // This function sets up the details of the transaction, including the amount and line item details.

@@ -70,6 +70,22 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('Wallet')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Wallet</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item {{ Request::is('user/deposit') ? 'active' : '' }}">
+                                            <a href="{{ route('user.deposit') }}" class="nk-menu-link"><span class="">Deposit Amount</span></a>
+                                        </li>
+                                        <li class="nk-menu-item {{ Request::is('user') ? 'active' : '' }}">
+                                            <a href="{{route('user.my-wallet')}}" class="nk-menu-link"><span class="">My Wallet</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endcan
                             @can('view_categories')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -214,6 +230,24 @@
                                         </li>
                                         <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
                                             <a href="{{route('order.external')}}" class="nk-menu-link"><span class="">Vendor External Orders</span></a>
+                                        </li>
+
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
+                            @can('deposit_approve')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">All Deposit Requests</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item {{ Request::is('deposit/request') ? 'active' : '' }}">
+                                            <a href="{{route('user.deposit.all')}}" class="nk-menu-link"><span class="">All Request</span></a>
+                                        </li>
+
+                                        <li class="nk-menu-item {{ Request::is('deposit/request') ? 'active' : '' }}">
+                                            <a href="{{route('user.deposit.pending')}}" class="nk-menu-link"><span class="">All pending Request</span></a>
                                         </li>
 
                                     </ul><!-- .nk-menu-sub -->
