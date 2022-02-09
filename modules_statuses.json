@@ -11,5 +11,6 @@
     "Shopify": true,
     "Woocommerce": true,
     "ThirdPartyApi": true,
-    "Order": true
+    "Order": true,
+    "Ebay": true
 }
