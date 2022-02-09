@@ -29,151 +29,151 @@
             </div>
 
 
-            <div class="row mb-5">
-                <div class="col-lg-2">
-                    <h5>Filter by:</h5>
-                </div>
+{{--            <div class="row mb-5">--}}
+{{--                <div class="col-lg-2">--}}
+{{--                    <h5>Filter by:</h5>--}}
+{{--                </div>--}}
 
-                <div class="col-lg-10">
+{{--                <div class="col-lg-10">--}}
 
-                    <div class="row filterWrp">
-                        <div class="col-lg-2 col-md-6">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    All Warehouses
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">dummy</a></li>
-                                    <li><a class="dropdown-item" href="#">dummy</a></li>
-                                </ul>
-                            </div>
-                        </div>
+{{--                    <div class="row filterWrp">--}}
+{{--                        <div class="col-lg-2 col-md-6">--}}
+{{--                            <div class="dropdown">--}}
+{{--                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                    All Warehouses--}}
+{{--                                </button>--}}
+{{--                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--}}
+{{--                                    <li><a class="dropdown-item" href="#">dummy</a></li>--}}
+{{--                                    <li><a class="dropdown-item" href="#">dummy</a></li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <div class="col-lg-2 col-md-6">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    All Types
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">dummy</a></li>
-                                    <li><a class="dropdown-item" href="#">dummy</a></li>
-                                </ul>
-                            </div>
-                        </div>
+{{--                        <div class="col-lg-2 col-md-6">--}}
+{{--                            <div class="dropdown">--}}
+{{--                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                    All Types--}}
+{{--                                </button>--}}
+{{--                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--}}
+{{--                                    <li><a class="dropdown-item" href="#">dummy</a></li>--}}
+{{--                                    <li><a class="dropdown-item" href="#">dummy</a></li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <div class="col-lg-4">
-
-
-                            <form>
+{{--                        <div class="col-lg-4">--}}
 
 
-
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <label>Price</label>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Min" name="">
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Max" name="">
-                                    </div>
-
-
-                                </div>
-                            </form>
-
-                        </div>
-
-
-                        <div class="col-lg-4">
-
-                            <div class="radio form-group">
-                                <div id="forprofile" class="radiobtn">
-                                    <input type="radio" value="Yes" name="visa_adv_service">
-                                    <i class="checkmark"></i> Free Shipping </div>
-                            </div>
-
-                        </div>
+{{--                            <form>--}}
 
 
 
-                    </div>
-                </div>
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-lg-3">--}}
+{{--                                        <label>Price</label>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-lg-4 col-md-6">--}}
+{{--                                        <input type="text" class="form-control" placeholder="Min" name="">--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-lg-4 col-md-6">--}}
+{{--                                        <input type="text" class="form-control" placeholder="Max" name="">--}}
+{{--                                    </div>--}}
 
 
-            </div>
+{{--                                </div>--}}
+{{--                            </form>--}}
+
+{{--                        </div>--}}
 
 
+{{--                        <div class="col-lg-4">--}}
 
+{{--                            <div class="radio form-group">--}}
+{{--                                <div id="forprofile" class="radiobtn">--}}
+{{--                                    <input type="radio" value="Yes" name="visa_adv_service">--}}
+{{--                                    <i class="checkmark"></i> Free Shipping </div>--}}
+{{--                            </div>--}}
 
-            <div class="row mb-5">
-                <div class="col-lg-2">
-                    <h5>Sort by:</h5>
-                </div>
-
-                <div class="col-lg-10">
-
-                    <div class="row filterWrp">
-                        <div class="col-lg-2 col-md-6">
-                            <label><a href="#">Best Match</a></label>
-                        </div>
-
-                        <div class="col-lg-2 col-md-6">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Lists
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">dummy</a></li>
-                                    <li><a class="dropdown-item" href="#">dummy</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-
-
-                            <form>
+{{--                        </div>--}}
 
 
 
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <label>Price</label>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Min" name="">
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Max" name="">
-                                    </div>
+{{--                    </div>--}}
+{{--                </div>--}}
 
 
-                                </div>
-                            </form>
-
-                        </div>
-
-
-                        <div class="col-lg-4">
-
-                            <label><a href="#">Newest</a></label>
-
-                        </div>
-
-
-
-                    </div>
-                </div>
+{{--            </div>--}}
 
 
 
 
-                <div class="btn-section">
-                    <button type="submit" class="btn btn-primary">  Confirm</button>
-                </div>
-            </div>
+{{--            <div class="row mb-5">--}}
+{{--                <div class="col-lg-2">--}}
+{{--                    <h5>Sort by:</h5>--}}
+{{--                </div>--}}
+
+{{--                <div class="col-lg-10">--}}
+
+{{--                    <div class="row filterWrp">--}}
+{{--                        <div class="col-lg-2 col-md-6">--}}
+{{--                            <label><a href="#">Best Match</a></label>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="col-lg-2 col-md-6">--}}
+{{--                            <div class="dropdown">--}}
+{{--                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                    Lists--}}
+{{--                                </button>--}}
+{{--                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--}}
+{{--                                    <li><a class="dropdown-item" href="#">dummy</a></li>--}}
+{{--                                    <li><a class="dropdown-item" href="#">dummy</a></li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="col-lg-4">--}}
+
+
+{{--                            <form>--}}
+
+
+
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-lg-3">--}}
+{{--                                        <label>Price</label>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-lg-4 col-md-6">--}}
+{{--                                        <input type="text" class="form-control" placeholder="Min" name="">--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-lg-4 col-md-6">--}}
+{{--                                        <input type="text" class="form-control" placeholder="Max" name="">--}}
+{{--                                    </div>--}}
+
+
+{{--                                </div>--}}
+{{--                            </form>--}}
+
+{{--                        </div>--}}
+
+
+{{--                        <div class="col-lg-4">--}}
+
+{{--                            <label><a href="#">Newest</a></label>--}}
+
+{{--                        </div>--}}
+
+
+
+{{--                    </div>--}}
+{{--                </div>--}}
+
+
+
+
+{{--                <div class="btn-section">--}}
+{{--                    <button type="submit" class="btn btn-primary">  Confirm</button>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
         </div>
     </div>

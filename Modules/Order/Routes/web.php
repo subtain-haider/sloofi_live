@@ -13,10 +13,10 @@
 
 Route::prefix('order')->group(function() {
     Route::controller(OrderController::class)->group(function () {
-        Route::get('orders/all', 'index')->name('order.all');
-        Route::get('orders/sloofi', 'sloofiOrders')->name('order.sloofi');
-        Route::get('orders/internal', 'internalOrders')->name('order.internal');
-        Route::get('orders/external', 'externalOrders')->name('order.external');
+        Route::get('all', 'index')->name('order.all');
+        Route::get('sloofi', 'sloofiOrders')->name('order.sloofi');
+        Route::get('internal', 'internalOrders')->name('order.internal');
+        Route::get('external', 'externalOrders')->name('order.external');
         Route::get('detail','show')->name('order.detail');
     });
 });
