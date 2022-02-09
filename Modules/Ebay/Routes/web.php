@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/ebay/get_token', [\Modules\Ebay\Http\Controllers\EbayController::class, 'index']);
+Route::get('/ebay/get_token', [\Modules\Ebay\Http\Controllers\EbayController::class, 'get_token']);
 Route::prefix('ebay')->group(function() {
     Route::get('/', 'EbayController@index');
 });

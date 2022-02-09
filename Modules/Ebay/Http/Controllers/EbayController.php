@@ -78,6 +78,6 @@ class EbayController extends Controller
     }
 
     public function get_token(Request $request){
-        dd($request)
+        dd($request);
     }
 }
