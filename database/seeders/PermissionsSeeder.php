@@ -58,6 +58,9 @@ class PermissionsSeeder extends Seeder
             ['name' => 'product_add_stock','guard_name'=>'web'],
             ['name' => 'Wallet','guard_name'=>'web'],
             ['name' => 'deposit_approve','guard_name'=>'web'],
+            ['name' => 'view_packages','guard_name'=>'web'],
+            ['name' => 'add_package','guard_name'=>'web'],
+
         ];
         Permission::insert($permissions);
     }
