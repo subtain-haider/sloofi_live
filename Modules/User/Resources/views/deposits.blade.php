@@ -69,7 +69,7 @@
                                                 </td>
 
                                                 <td> <span>
-                                                @if($deposit->file != '') <a href="{{url('/'). '/' . $deposit->file}}" target="_blank" class="btn btn-primary">Download File</a> @endif</td>
+                                                @if($deposit->getFirstMediaUrl('file')) <a href="{{$deposit->getFirstMediaUrl('file')}}" target="_blank" class="btn btn-primary">View File</a> @endif</td>
                                                 </span>
                                                 <td>
                                                     @if($deposit->status == 'approved')
@@ -84,13 +84,13 @@
                                                 </td>
                                                 <td class="nk-tb-col tb-col-md">
                                                     @if($deposit->status=='pending')
-                                                        <form action="{{route('user.deposit.update',['id'=>$deposit->id,'type'=>'approved'])}}" method="POST">
+                                                        <form action="{{route('user.deposit.update',['id'=>$deposit->id,'type'=>'approved'])}}" method="POST" style="display: inline-block;">
                                                                 @csrf
                                                                 <button  type="submit" value="approve" onclick="return confirm('Are you sure you want to approve this item?')" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Approve">
                                                                     <em class="icon ni ni-check-circle-fill"></em>
                                                                 </button>
                                                             </form>
-                                                        <form action="{{route('user.deposit.update',['id'=>$deposit->id,'type'=>'reject'])}}" method="POST">
+                                                        <form action="{{route('user.deposit.update',['id'=>$deposit->id,'type'=>'reject'])}}" method="POST" style="display: inline-block;">
                                                             @csrf
                                                             <button  type="submit" value="reject" onclick="return confirm('Are you sure you want to reject this item?')" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Reject">
                                                                 <em class="icon ni ni-cross-circle-fill"></em>
