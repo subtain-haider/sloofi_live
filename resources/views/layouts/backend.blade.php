@@ -140,6 +140,24 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
+                            @can('view_packages')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Packages</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        @can('add_package')
+                                            <li class="nk-menu-item {{ Request::is('package/create') ? 'active' : '' }}">
+                                                <a href="{{ route('package.create') }}" class="nk-menu-link"><span class="">Add Package</span></a>
+                                            </li>
+                                        @endcan
+                                        <li class="nk-menu-item {{ Request::is('package') ? 'active' : '' }}">
+                                            <a href="{{route('package.all')}}" class="nk-menu-link"><span class="">All Packages</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
                             @can('view_products')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
