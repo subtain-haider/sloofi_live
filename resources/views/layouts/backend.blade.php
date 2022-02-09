@@ -70,6 +70,22 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('Wallet')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Wallet</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item {{ Request::is('user/deposit') ? 'active' : '' }}">
+                                            <a href="{{ route('user.deposit') }}" class="nk-menu-link"><span class="">Deposit Amount</span></a>
+                                        </li>
+                                        <li class="nk-menu-item {{ Request::is('user') ? 'active' : '' }}">
+                                            <a href="{{route('user.my-wallet')}}" class="nk-menu-link"><span class="">My Wallet</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endcan
                             @can('view_categories')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
