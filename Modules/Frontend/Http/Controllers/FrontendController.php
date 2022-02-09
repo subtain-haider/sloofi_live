@@ -384,8 +384,25 @@ class FrontendController extends Controller
             //todo remove this line
             $item['type'] = 'internal';
             if($item['type'] == 'internal'){
-                $price = price_internal_product($key, 1);
                 $product = Product::find($key);
+                $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
+                $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
+                $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
+                if($item['quantity']<100){
+                    $price=$price1;
+                }elseif($item['quantity']>99 && $item['quantity']<999){
+                  $price=  $price100>0?$price100:$price1;
+                }elseif ( $item['quantity']>999){
+                    if($price1000){
+                        $price=  $price1000;
+                    }elseif($price100){
+                        $price=  $price100;
+                    }else{
+                        $price=  $price1;
+                    }
+                }
+
+
                 if ($product->user_id == 1){
                     $owner = 'sloofi';
                 }else{
@@ -397,10 +414,10 @@ class FrontendController extends Controller
                 $price = $data['f_price'];
             }
             $basket = new Basket();
-            $basket->price = 0;
+            $basket->price = $price;
             $basket->quantity = $item['quantity'];
             $basket->type = $item['type'];
-            $basket->owner = '';
+            $basket->owner = $owner;
             $basket->product_id = $key;
             $basket->warehouse_id=$item['warehouse_id'];
             $basket->country=$item['country'];

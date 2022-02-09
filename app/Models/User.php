@@ -12,6 +12,7 @@ use Modules\Order\Entities\ExternalOrder;
 use Modules\Product\Entities\Product;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\Stock;
+use Modules\User\Entities\Deposit;
 use Modules\User\Entities\Shop;
 use Modules\Woocommerce\Entities\Woocommerce;
 use Spatie\Permission\Traits\HasRoles;
@@ -61,6 +62,10 @@ class User extends Authenticatable
     public function shopify()
     {
         return $this->hasMany(Shopify::class);
+    }
+    public function deposits()
+    {
+        return $this->hasMany(Deposit::class);
     }
     public function orders()
     {

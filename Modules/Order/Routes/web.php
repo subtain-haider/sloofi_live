@@ -17,5 +17,6 @@ Route::prefix('order')->group(function() {
         Route::get('orders/sloofi', 'sloofiOrders')->name('order.sloofi');
         Route::get('orders/internal', 'internalOrders')->name('order.internal');
         Route::get('orders/external', 'externalOrders')->name('order.external');
+        Route::get('detail','show')->name('order.detail');
     });
 });

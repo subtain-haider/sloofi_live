@@ -233,6 +233,8 @@
     }
 
 </script>
-
+<script>
+    var total ="{{$total}}";
+</script>
 @include('payment::paypal')
 @endsection

@@ -1,0 +1,13 @@
+{
+    "name": "Ebay",
+    "alias": "ebay",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Ebay\\Providers\\EbayServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
