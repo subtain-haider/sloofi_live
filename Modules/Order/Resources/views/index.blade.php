@@ -81,7 +81,7 @@
                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                     <ul class="nk-tb-actions gx-1">
                                                         <li class="nk-tb-action-hidden">
-                                                            <a role="button" onclick="order_detail(this.value,'{{$owner ?? ""}}')" data-toggle="modal" data-target="#exampleModal" value="{{$order->id}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Order Detail">
+                                                            <a role="button"  data-toggle="modal" onclick="orderDetail({{$order->id}})" data-target="#orderdetail" value="{{$order->id}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Order Detail">
                                                                 <em class="icon ni ni-edit-fill"></em>
                                                             </a>
                                                         </li>
@@ -96,29 +96,6 @@
                                                 <td colspan="14">No data available</td>
                                             </tr>
                                         @endif
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <table style="width: 100%;" class="" data-export-title="Export" data-auto-responsive="false">
-                                                            <thead>
-                                                            <tr class="nk-tb-item nk-tb-head">
-                                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Product</span></th>
-                                                                <th class="nk-tb-col tb-col-lg"><span class="sub-text">Quantity</span></th>
-                                                            </tr>
-                                                            </thead>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         </tbody>
                                     </table>
@@ -133,8 +110,56 @@
         </div>
     </div>
     <!-- content @e -->
+    <div class="modal fade" id="orderdetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-block">
+                        <div class="table-responsive dt-responsive">
+                            <table class="table table-striped table-bordered nowrap">
+                                <thead >
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Available Stock</th>
+                                </tr>
+                                </thead>
+                                <tbody class="orderRows">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 @endsection
-@section('js')
+@section('script')
     <script src="{{url('/')}}/admin/backend/assets/js/libs/datatable-btns.js?ver=2.9.0"></script>
+    <script>
+        function orderDetail(id){
+            $.ajax({
+                url: "{{ route('order.detail') }}",
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    console.log(data);
+                   $('.orderRows').html(data)
+                },
+                error: function(jqxhr, status, exception) {
+                   
+                }
+            });
+        }
+    </script>
 @endsection

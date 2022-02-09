@@ -47,9 +47,15 @@ class OrderController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        return view('order::show');
+        $order=Order::find($request->id);
+        $html='';
+        foreach ($order->baskets as $item){
+            $pro=$item->product;
+            $html=$html.'<tr><td>'.$pro->name.'</td><td>'.$item->quantity.'</td></tr>';
+        }
+        return $html;
     }
 
     /**
