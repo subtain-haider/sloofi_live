@@ -29,7 +29,7 @@ Route::prefix('user')->middleware(['auth'])->group(function() {
         Route::get('my-wallet', 'myWallet')->name('user.my-wallet');
         Route::post('deposit/store', 'depositStore')->name('user.deposit.store');
         Route::get('deposit/pending', 'depositPending')->name('user.deposit.pending');
-        Route::get('deposit/all', 'depositPending')->name('user.deposit.all');
+        Route::get('deposit/all', 'depositAll')->name('user.deposit.all');
         Route::post('deposit/update/{id}/{type}', 'depositUpdate')->name('user.deposit.update');
 
     });

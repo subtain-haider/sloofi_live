@@ -128,4 +128,8 @@ class WalletController extends Controller
         }
         return redirect()->route('user.deposit.all')->with('success','Updated');
     }
+    public function depositAll(){
+        $deposits=Deposit::all();
+        return view('user::deposits',compact('deposits'));
+    }
 }

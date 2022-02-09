@@ -41,7 +41,7 @@
                                 <label class="col-sm-2 col-form-label">Payment Type</label>
                                 <div class="col-sm-10">
                                    <select name="type" class="form-control" id="type">
-                                       <option value="card">With card</option>
+                                       <option value="card">Paypal or Credit card</option>
                                        <option value="bank">Bank Transfer</option>
                                    </select>
                                 </div>
