@@ -113,35 +113,35 @@
                                     Discount Percent*:<input type="number" class="form-control" placeholder="Discount" name="discount" value="0" required>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label"></label>
-                                {{--                                <div class="col">--}}
-                                {{--                                    Minimum Quantity*:<input type="number" class="form-control" placeholder="Minimum Quantity" name="min_qty" required>--}}
-                                {{--                                </div>--}}
-                                <div class="col">
-                                    Shipping Type*:
-                                    <select name="shipping_type" class="form-select select2-hidden-accessible" required>
-                                        <option value="free" selected>Free</option>
-                                        <option value="paid">Paid</option>
+{{--                            <div class="form-group row">--}}
+{{--                                <label class="col-sm-2 col-form-label"></label>--}}
+{{--                                --}}{{--                                <div class="col">--}}
+{{--                                --}}{{--                                    Minimum Quantity*:<input type="number" class="form-control" placeholder="Minimum Quantity" name="min_qty" required>--}}
+{{--                                --}}{{--                                </div>--}}
+{{--                                <div class="col">--}}
+{{--                                    Shipping Type*:--}}
+{{--                                    <select name="shipping_type" class="form-select select2-hidden-accessible" required>--}}
+{{--                                        <option value="free" selected>Free</option>--}}
+{{--                                        <option value="paid">Paid</option>--}}
 
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    Shipping Days:<input type="number" class="form-control" placeholder="Shipping Days" name="shipping_days" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label"></label>
-                                <div class="col">
-                                    1 Piece Shipping:<input type="number" class="form-control" placeholder="1 Shipping Price" name="shipping_1" value="0" >
-                                </div>
-                                <div class="col">
-                                    100 Pieces Shipping:<input type="number" class="form-control" placeholder="100 Shipping Price" name="shipping_100" value="0" >
-                                </div>
-                                <div class="col">
-                                    1000 Pieces Shipping:<input type="number" class="form-control" placeholder="1000 Shipping Price" name="shipping_1000" value="0">
-                                </div>
-                            </div>
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                                <div class="col">--}}
+{{--                                    Shipping Days:<input type="number" class="form-control" placeholder="Shipping Days" name="shipping_days" >--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group row">--}}
+{{--                                <label class="col-sm-2 col-form-label"></label>--}}
+{{--                                <div class="col">--}}
+{{--                                    1 Piece Shipping:<input type="number" class="form-control" placeholder="1 Shipping Price" name="shipping_1" value="0" >--}}
+{{--                                </div>--}}
+{{--                                <div class="col">--}}
+{{--                                    100 Pieces Shipping:<input type="number" class="form-control" placeholder="100 Shipping Price" name="shipping_100" value="0" >--}}
+{{--                                </div>--}}
+{{--                                <div class="col">--}}
+{{--                                    1000 Pieces Shipping:<input type="number" class="form-control" placeholder="1000 Shipping Price" name="shipping_1000" value="0">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Meta Title</label>
                                 <div class="col-sm-10">
