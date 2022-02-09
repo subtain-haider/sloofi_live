@@ -12,7 +12,10 @@ class Deposit extends Model implements HasMedia
     use HasFactory,InteractsWithMedia;
 
     protected $guarded = [];
-
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
     protected static function newFactory()
     {
         return \Modules\User\Database\factories\DepositFactory::new();

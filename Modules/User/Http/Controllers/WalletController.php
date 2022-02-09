@@ -114,4 +114,18 @@ class WalletController extends Controller
         $deposits = $user->deposits()->orderBy('id', 'desc')->get();
         return view('user::my-wallet',compact('user','deposits'));
     }
+    public function depositPending(){
+        $deposits = Deposit::orderBy('id', 'desc')->where('status','pending')->get();
+        return view('user::deposits',compact('deposits'));
+    }
+    public function depositUpdate($id,$type){
+        $deposit=Deposit::find($id);
+        Deposit::where('id',$id)->update(['status'=>$type]);
+        if($type=='approved'){
+            $user=User::where('id',$deposit->user_id)->first();
+            $user->wallet=$user->wallet+$deposit->amount;
+            $user->save();
+        }
+        return redirect()->route('user.deposit.all')->with('success','Updated');
+    }
 }
