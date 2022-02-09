@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/install', [\Modules\Shopify\Http\Controllers\ShopifyController::class, 'install']);
+Route::get('/generate_token', [\Modules\Shopify\Http\Controllers\ShopifyController::class, 'generate_token']);
 Route::prefix('shopify')->middleware(['auth'])->group(function() {
     Route::controller(ShopifyController::class)->group(function () {
         Route::get('all', 'index')->name('shopify.all');
