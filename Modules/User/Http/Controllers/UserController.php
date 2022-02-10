@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use App\Models\User;
 use Modules\Package\Entities\Package;
 use Hash,Auth;
+use Modules\User\Entities\Deposit;
+
 class UserController extends Controller
 {
     /**
@@ -107,8 +109,27 @@ class UserController extends Controller
     public function becomeADropshipperPost(Request $request){
         $package=Package::where('price',$request->package_price)->first();
         $user = User::find(Auth::user()->id);
+        $unique_id = strtoupper(uniqid());
+        $deposit = 'test';
+        while ($deposit){
+            $unique_id = strtoupper(uniqid());
+            $deposit = Deposit::where('unique_id', $unique_id)->first();
+        }
         if($request->type=='bank'){
-
+            $deposit=$user->deposits()->create([
+                'amount' => $package->price,
+                'file' => '',
+                'notes' => '',
+                'unique_id' => $unique_id,
+                'status'=>'pending',
+                'type'=>'buy_package'
+            ]);
+            if($request->file ){
+                $deposit->addMediaFromRequest('file')->toMediaCollection('file');
+            }
+            $user->package_id=$package->id;
+            $user->save();
+            $user->assignRole('dropshipper');
         }else{
             $user->package_id=$package->id;
             $user->save();
