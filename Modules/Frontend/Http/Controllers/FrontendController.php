@@ -30,8 +30,8 @@ class FrontendController extends Controller
     {
         $categories=Category::all();
         $sections=Section::all();
-
-        return view('frontend::index',compact('categories','sections'));
+        $warehouses=Warehouse::all();
+        return view('frontend::index',compact('categories','sections','warehouses'));
     }
 
     /**
