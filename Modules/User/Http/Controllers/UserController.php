@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\User;
+use Modules\Package\Entities\Package;
 use Hash,Auth;
 class UserController extends Controller
 {
@@ -100,11 +101,33 @@ class UserController extends Controller
         return redirect('/dashboard')->with('success','You successfully become a vendor');
     }
     public function becomeADropshipper(){
-        return view('user::become-a-dropshipper');
+        $packages=Package::all();
+        return view('user::become-a-dropshipper',compact('packages'));
     }
-    public function becomeADropshipperPost(){
-        $user = Auth::user();
-        $user->assignRole('dropshipper');
+    public function becomeADropshipperPost(Request $request){
+        $package=Package::where('price',$request->package_price)->first();
+        $user = User::find(Auth::user()->id);
+        if($request->type=='bank'){
+
+        }else{
+            $user->package_id=$package->id;
+            $user->save();
+            $user->assignRole('dropshipper');
+        }
+
+
         return redirect('/dashboard')->with('success','You successfully become a Dropshipper');
+    }
+    public function profile(){
+        return view('user::profile');
+    }
+    public function profileUpdate(Request $request){
+        $user=User::find(Auth::user()->id);
+        $user->name=$request->name;
+        if($request->password){
+            $user->password=Hash::make($request->password);
+        }
+        $user->save();
+        return redirect('/dashboard')->with('success','Updated');
     }
 }
