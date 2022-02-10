@@ -172,13 +172,13 @@
                                             <div class="tab-pane fade show active" id="colors" role="tabpanel" >
                                                 <br>
                                                 <div class="colors">
-                                                    <div class="form-group row" style="margin-bottom: 2px">
-                                                        <label class="col-sm-4 col-form-label">Section Color:</label>
-                                                        <div class="col-sm-3">
-                                                            <input type="color"  name="colors[]" class="w-100" value="#ff0000">
-                                                        </div>
-                                                        <label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class="icon ni ni-trash-fill"></em></label>
-                                                    </div>
+{{--                                                    <div class="form-group row" style="margin-bottom: 2px">--}}
+{{--                                                        <label class="col-sm-4 col-form-label">Select Color:</label>--}}
+{{--                                                        <div class="col-sm-3">--}}
+{{--                                                            <input type="color"  name="colors[]" class="w-100" value="#ff0000">--}}
+{{--                                                        </div>--}}
+{{--                                                        <label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class="icon ni ni-trash-fill"></em></label>--}}
+{{--                                                    </div>--}}
                                                 </div>
 
                                                 <a href="javascript:void(0)" onclick="addColor()" class=" btn btn-primary btn-sm"><em class="icon ni ni-plus"></em><span>Add Color</span></a>
@@ -186,13 +186,13 @@
                                         <div class="tab-pane fade" id="sizes" role="tabpanel" >
                                             <br>
                                             <div class="sizes">
-                                                <div class="form-group row" style="margin-bottom: 2px">
-                                                    <label class="col-sm-2 col-form-label">Enter Size:</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" class="form-control" placeholder="Add Size" name="sizes[]" value="" required>
-                                                    </div>
-                                                    <label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class="icon ni ni-trash-fill"></em></label>
-                                                </div>
+{{--                                                <div class="form-group row" style="margin-bottom: 2px">--}}
+{{--                                                    <label class="col-sm-2 col-form-label">Enter Size:</label>--}}
+{{--                                                    <div class="col-sm-3">--}}
+{{--                                                        <input type="text" class="form-control" placeholder="Add Size" name="sizes[]" value="" required>--}}
+{{--                                                    </div>--}}
+{{--                                                    <label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class="icon ni ni-trash-fill"></em></label>--}}
+{{--                                                </div>--}}
                                             </div>
 
                                             <a href="javascript:void(0)" onclick="addSize()" class="btn btn-primary btn-sm"><em class="icon ni ni-plus"></em><span>Add Size</span></a>
@@ -246,7 +246,7 @@
 @section('script')
     <script>
         function addColor(){
-            $('.colors').append('<div class="form-group row" style="margin-bottom: 2px"><label class="col-sm-4 col-form-label">Section Color:</label> <div class="col-sm-3"> <input type="color" class="w-100" name="colors[]" value="#ff0000"> </div><label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class=" icon ni ni-trash-fill"></em></label> </div>');
+            $('.colors').append('<div class="form-group row" style="margin-bottom: 2px"><label class="col-sm-4 col-form-label">Select Color:</label> <div class="col-sm-3"> <input type="color" class="w-100" name="colors[]" value="#ff0000"> </div><label class="col-sm-2 col-form-label"><em onclick="deleteProperty(this)" class=" icon ni ni-trash-fill"></em></label> </div>');
         }
         function deleteProperty(e){
             $(e).parent().parent().html('')

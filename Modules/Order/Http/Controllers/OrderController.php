@@ -19,7 +19,12 @@ class OrderController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $orders = $user->orders;
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('super_admin')){
+            $orders = Order::all();
+        }else{
+            $orders = $user->orders;
+        }
+
         return view('order::index',compact('orders'));
     }
 
@@ -51,9 +56,26 @@ class OrderController extends Controller
     {
         $order=Order::find($request->id);
         $html='';
+        $user = Auth::user();
         foreach ($order->baskets as $item){
-            $pro=$item->product;
-            $html=$html.'<tr><td>'.$pro->name.'</td><td>'.$item->quantity.'</td></tr>';
+
+//            if($user->hasRole('admin') || $user->hasRole('super_admin')){
+//
+//            }else{
+//                if ($item->type == 'internal' && $user->email != $item->product->user->email)
+//                {
+//                    continue;
+//                }
+//            }
+            if ($item->type == 'internal'){
+                $pro=$item->product;
+                $vendor = $item->product->user->name;
+                $html=$html.'<tr><td><img width="100px" height="100px" src="'.$pro->getMedia('thumbnail')->first()->getUrl().'" alt=""></td><td>'.$pro->name.'</td><td>'.$vendor.'</td><td>'.$item->quantity.'</td><td><div style="width: 50px; height: 50px; background-color: '.$item->color.'"></div></td><td>'.$item->size.'</td></tr>';
+            }else{
+                $data = external_product($item->product_id);
+                $product = $data['product'];
+                $html=$html.'<tr><td><img width="100px" height="100px" src="'.$product['Pictures'][0]['Url'].'" alt=""></td><td>'.$product['Title'].'</td><td>Sloofi</td><td>'.$item->quantity.'</td><td><div style="width: 50px; height: 50px; background-color: '.$item->color.'"></div></td><td>'.$item->size.'</td></tr>';
+            }
         }
         return $html;
     }
@@ -89,16 +111,16 @@ class OrderController extends Controller
         //
     }
     public function sloofiOrders(){
-        $baskets = Basket::where('owner','sloofi')->pluck('basketable_id')->toArray();;
-        $orders = Order::wherein('id',$baskets)->paginate(10);
         $owner = 'sloofi';
+        $baskets = Basket::where('owner',$owner)->pluck('basketable_id')->toArray();;
+        $orders = Order::wherein('id',$baskets)->paginate(10);
 
         return view('order::index', compact('orders','owner'));
     }
     public function internalOrders(){
         $user = Auth::user();
         $owner = 'vendor_internal';
-        if ($user->is_admin){
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('super_admin')){
             $baskets = Basket::where('owner',$owner);
         }else{
             $products = $user->products()->pluck('id')->toArray();
@@ -110,7 +132,7 @@ class OrderController extends Controller
     }
     public function externalOrders(){
         $user = Auth::user();
-        if ($user->is_admin){
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('super_admin')){
             $owner = '';
             $orders = ExternalOrder::paginate(10);
         }else{

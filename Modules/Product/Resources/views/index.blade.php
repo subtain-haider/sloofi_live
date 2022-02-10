@@ -14,7 +14,7 @@
                                 <div class="nk-block-head-content">
                                     <h4 class="nk-block-title">Products</h4>
                                     <div class="nk-block-des">
-                                        <!-- <p>Using the most basic table markup, here’s how <code class="code-class">.table</code> based tables look by default.</p> -->
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -40,8 +40,8 @@
                                             <tr class="nk-tb-item">
                                                 <td class="nk-tb-col nk-tb-col-check">
                                                     <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                        <input type="checkbox" class="custom-control-input" id="{{$product->id}}">
-                                                        <label class="custom-control-label" for="{{$product->id}}"></label>
+                                                        <input type="checkbox" class="product custom-control-input" name="selectData[]" value="{{$product->id}}" id="dat-{{$product->id}}">
+                                                        <label class="custom-control-label" for="dat-{{$product->id}}"></label>
                                                     </div>
                                                 </td>
                                                 <td class="nk-tb-col">
@@ -172,7 +172,5 @@
     </div>
     <!-- content @e -->
 
-@endsection
-@section('js')
-    <script src="{{url('/')}}/admin/backend/assets/js/libs/datatable-btns.js?ver=2.9.0"></script>
+
 @endsection

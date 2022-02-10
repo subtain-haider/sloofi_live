@@ -11,6 +11,8 @@
 |
 */
 
-Route::prefix('stock')->group(function() {
+Route::prefix('stock')->middleware(['auth'])->group(function() {
     Route::get('/', 'StockController@index');
+    Route::get('approve/{id}', 'StockController@approve')->name('stock.approve');
+    Route::get('reject/{id}', 'StockController@reject')->name('stock.reject');
 });

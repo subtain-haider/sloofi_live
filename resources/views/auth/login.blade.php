@@ -92,7 +92,7 @@
                                         <i class="fab fa-apple"></i>
                                     </a>
                                 </div>
-                                <div class="login-fotter-links"><a href="#">Create New Account</a></div>
+                                <div class="login-fotter-links"><a href="{{route('register')}}">Create New Account</a></div>
                             </div>
                         </div>
                     </div>

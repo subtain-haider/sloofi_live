@@ -12,5 +12,6 @@
     "Woocommerce": true,
     "ThirdPartyApi": true,
     "Order": true,
-    "Ebay": true
+    "Ebay": true,
+    "Package": true
 }

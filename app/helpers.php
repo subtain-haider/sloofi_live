@@ -156,17 +156,19 @@ if (!function_exists('cart_total')) {
     {
         $total = 0;
         foreach ($cartItems as $key => $item){
-            if($item['type'] == 'internal'){
-                $product = \App\Models\Product::find($key);
-                $price = price_internal_product($product->id, $item['quantity']);
-                $price = $price * $item['quantity'];
-                $total = $total + $price;
-            }elseif($item['type'] == 'external'){
-                $data = external_product($key);
-                $product = $data['product'];
-                $data = price_external_product($product['Id'], $item['quantity']);
-                $price = $data['f_price'] * $item['quantity'];
-                $total = $total + $price;
+            if(array_key_exists('type', $item)) {
+                if ($item['type'] == 'internal') {
+                    $product = \Modules\Product\Entities\Product::find($key);
+                    $price = price_internal_product($product->id, $item['quantity']);
+                    $price = $price * $item['quantity'];
+                    $total = $total + $price;
+                } elseif ($item['type'] == 'external') {
+                    $data = external_product($key);
+                    $product = $data['product'];
+                    $data = price_external_product($product['Id'], $item['quantity']);
+                    $price = $data['f_price'] * $item['quantity'];
+                    $total = $total + $price;
+                }
             }
         }
         return $total;

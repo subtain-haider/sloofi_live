@@ -140,6 +140,24 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
+                            @can('view_packages')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Packages</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        @can('add_package')
+                                            <li class="nk-menu-item {{ Request::is('package/create') ? 'active' : '' }}">
+                                                <a href="{{ route('package.create') }}" class="nk-menu-link"><span class="">Add Package</span></a>
+                                            </li>
+                                        @endcan
+                                        <li class="nk-menu-item {{ Request::is('package') ? 'active' : '' }}">
+                                            <a href="{{route('package.all')}}" class="nk-menu-link"><span class="">All Packages</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
                             @can('view_products')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -218,19 +236,24 @@
                                     <ul class="nk-menu-sub">
                                         @can('view_all_orders')
                                             <li class="nk-menu-item {{ Request::is('order/all') ? 'active' : '' }}">
-                                                <a href="{{ route('order.all') }}" class="nk-menu-link"><span class="">All Orders</span></a>
+                                                <a href="{{ route('order.all') }}" class="nk-menu-link"><span class="">My buy Orders</span></a>
                                             </li>
                                         @endcan
+                                        @can('view_sloofi_orders')
                                         <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
                                             <a href="{{route('order.sloofi')}}" class="nk-menu-link"><span class="">Sloofi Orders</span></a>
                                         </li>
-
+                                        @endcan
+                                        @can('view_vendor_internal_orders')
                                         <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
-                                            <a href="{{route('order.internal')}}" class="nk-menu-link"><span class="">Vendor Internal Orders</span></a>
+                                            <a href="{{route('order.internal')}}" class="nk-menu-link"><span class="">Vendor Internal Sell Orders</span></a>
                                         </li>
+                                        @endcan
+                                        @can('view_vendor_external_orders')
                                         <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
-                                            <a href="{{route('order.external')}}" class="nk-menu-link"><span class="">Vendor External Orders</span></a>
+                                            <a href="{{route('order.external')}}" class="nk-menu-link"><span class="">Vendor External Sell Orders</span></a>
                                         </li>
+                                        @endcan
 
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
@@ -248,6 +271,20 @@
 
                                         <li class="nk-menu-item {{ Request::is('deposit/request') ? 'active' : '' }}">
                                             <a href="{{route('user.deposit.pending')}}" class="nk-menu-link"><span class="">All pending Request</span></a>
+                                        </li>
+
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
+                            @can('product_list')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Product List</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item {{ Request::is('product/list') ? 'active' : '' }}">
+                                            <a href="{{route('product.list')}}" class="nk-menu-link"><span class="">Product List</span></a>
                                         </li>
 
                                     </ul><!-- .nk-menu-sub -->
@@ -577,7 +614,7 @@
                                             <ul class="link-list">
 {{--                                                <li><a href="html/ecommerce/user-profile.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>--}}
 {{--                                                <li><a href="html/ecommerce/user-profile.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>--}}
-{{--                                                <li><a href="html/ecommerce/user-profile.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>--}}
+                                                <li><a href="{{route('user.profile')}}"><em class="icon ni ni-activity-alt"></em><span>Profile</span></a></li>
                                                 <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
                                             </ul>
                                         </div>

@@ -106,132 +106,40 @@
       <div class="product_sec">
         <h3>Globel Warehouses</h3>
         <div class="row">
-          <div class="col-lg-6">
+            @foreach($warehouses as $warehouse)
+          <div class="col-lg-6 my-3">
             <div class="globelWrp">
-              <h5>US Warehouse</h5>
+              <h5>{{$warehouse->name}}</h5>
               <ul class="owl-carousel globel_products">
+                  @foreach($warehouse->stocks as $stock)
+                      @php
+                          $price1=$stock->product->prices->where('qty',1)->first()?$stock->product->prices->where('qty',1)->first()->value:0;
+                          $price100=$stock->product->prices->where('qty',100)->first()?$stock->product->prices->where('qty',100)->first()->value:0;
+                          $price1000=$stock->product->prices->where('qty',1000)->first()?$stock->product->prices->where('qty',1000)->first()->value:0;
+                      @endphp
                 <li class="item">
                   <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
+                    <div class="product_img"><img src="{{$stock->product->getMedia('thumbnail')->first()->getUrl()}}"></div>
                     <div class="product_box">
                       <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
+                        <h4>{{$stock->product->name??''}}</h4>
+                        <p>{{ $stock->product->categories[0]->name??''}}</p>
+                        <div class="pricetext">
+                             <span>${{ $price1 }} </span>
+{{--                            @if($price100)<span>${{ $price100 }} </span>@endif--}}
+{{--                            @if($price1000)<span>${{ $price1000 }} </span>@endif--}}
+                        </div>
+                        <div class="readmore"><a href="{{route('frontend.product-detail',['id'=>$stock->product->id])}}">Connect</a> <a class="btn_bg" href="{{route('frontend.product-detail',['id'=>$stock->product->id])}}">Buy Now</a></div>
+{{--                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>--}}
                       </div>
                     </div>
                   </div>
                 </li>
-                <li class="item">
-                  <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
-                    <div class="product_box">
-                      <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
-                    <div class="product_box">
-                      <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
-                    <div class="product_box">
-                      <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                  @endforeach
               </ul>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="globelWrp">
-              <h5>Finance Warehouse</h5>
-              <ul class="owl-carousel globel_products">
-                <li class="item">
-                  <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
-                    <div class="product_box">
-                      <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
-                    <div class="product_box">
-                      <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
-                    <div class="product_box">
-                      <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="product_list">
-                    <div class="product_img"><img src="{{url('/frontend')}}/images/deal_img.jpg"></div>
-                    <div class="product_box">
-                      <div class="product_info">
-                        <h4>Automobiles & Motorcycles 123456...</h4>
-                        <p>List 1</p>
-                        <div class="pricetext">$0.62-6.52</div>
-                        <div class="readmore"><a href="#">Contact Us</a> <a class="btn_bg" href="#">Buy Now</a></div>
-                        <div class="readmore queue_btn"><a href="#">Add to Queue</a></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+            @endforeach
         </div>
       </div>
       <!-- Globel Warehouses End -->

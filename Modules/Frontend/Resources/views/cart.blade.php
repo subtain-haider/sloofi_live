@@ -25,6 +25,7 @@
                                 $total=0;
                             @endphp
                             @foreach($cartItems as $key=>$item)
+                                @if($item['type'] == 'internal')
                             <li>
                                 <div class="shopping_list">
                                     <div class="row">
@@ -79,6 +80,55 @@
                                     </div>
                                 </div>
                             </li>
+                            @elseif($item['type'] == 'external')
+                            <li>
+                                <div class="shopping_list">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-2">
+                                            <div class="d-flex">
+                                                @php
+                                                $product = $item['product']['product'];
+                                                @endphp
+                                                <div class="cartImg"><img src="{{$product['Pictures'][0]['Url']}}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9 col-md-8 col-8">
+                                            <div class="row">
+                                                <div class="col-lg-7 col-md-7">
+                                                    <div class="cart_info">
+                                                        <h5>{{$product['Title']}}</h5>
+{{--                                                        <p>{{$item['product']->categories[0]->name??''}}</p>--}}
+                                                        @php
+                                                            $warehouse = \Modules\Warehouse\Entities\Warehouse::find($item['warehouse_id']);
+                                                        @endphp
+                                                        <p>Shipping From: {{$warehouse->name}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 ">
+                                                    <div class="x2">x{{$item['quantity']}}</div>
+                                                </div>
+                                                @php
+                                                    $data = price_external_product($product['Id'],1);
+                                                    $f_price = $data['f_price'];
+                                                    $total+=$item['quantity']*$f_price;
+                                                @endphp
+                                                <div class="col-lg-2 col-md-2 ">
+                                                    <div class="cart_price">${{$item['quantity']*$f_price}}</div>
+                                                </div></div>
+
+                                        </div>
+                                        <div class="col-lg-1 col-md-2 col-2">
+                                            <div class="cross_icon"><a href="{{url('/frontend/remove/cart/'.$key)}}" onclick="removeCart(this)" data-price="{{$item['quantity']*$f_price}}" data-id="{{$key}}"><img src="images/basket.png"></a></div>
+                                        </div>
+                                    </div>
+                                    <div class="quantity shop_page text-center">
+                                        <input type="button" class="minus" value="-">
+                                        <input type="text" class="input-text qty text" title="Qty" value="1" name="quantity">
+                                        <input type="button" class="plus" value="+">
+                                    </div>
+                                </div>
+                            </li>
+                            @endif
                             @endforeach
                         </ul>
                     </div>

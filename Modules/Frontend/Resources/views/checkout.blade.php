@@ -14,7 +14,7 @@
                     <div class="cart_list">
                         <h3><a href="#"><i class="fas fa-arrow-left"></i> Checkout</a></h3>
                         @if(!isset(Auth::user()->id))
-                            <h5 class="mt-4">FOR MAKE A ORDER YOU NEED TO <a href="{{url('/login')}}">LOGIN</a> FIRST</h5>
+                            <h5 class="mt-4">Please <a href="{{url('/login')}}">LOGIN</a> to complete the order</h5>
                         @endif
                         @if(\Session::has('error'))
                             <div class="alert alert-danger">{{ \Session::get('error') }}</div>
@@ -147,34 +147,56 @@
                                     $total=0;
                                 @endphp
                                 @foreach($cartItems as $item)
-                                    @php
-                                        $price1=$item['product']->prices->where('qty',1)->first()?$item['product']->prices->where('qty',1)->first()->value:0;
-                                        $price100=$item['product']->prices->where('qty',100)->first()?$item['product']->prices->where('qty',100)->first()->value:0;
-                                        $price1000=$item['product']->prices->where('qty',1000)->first()?$item['product']->prices->where('qty',1000)->first()->value:0;
-                                        if($item['quantity']>0 && $item['quantity']<100){
-                                            $price=$price1;
-                                        }elseif($item['quantity']>99 && $item['quantity']<1000){
-                                            $price=$price100;
-                                        }elseif($item['quantity']>999){
-                                             $price=$price1000;
-                                        }else{
-                                             $price=0;
-                                        }
-                                        $total+=$item['quantity']*$price;
-                                    @endphp
-                                <tr>
+                                    @if($item['type'] == 'internal')
+                                        @php
+                                            $price1=$item['product']->prices->where('qty',1)->first()?$item['product']->prices->where('qty',1)->first()->value:0;
+                                            $price100=$item['product']->prices->where('qty',100)->first()?$item['product']->prices->where('qty',100)->first()->value:0;
+                                            $price1000=$item['product']->prices->where('qty',1000)->first()?$item['product']->prices->where('qty',1000)->first()->value:0;
+                                            if($item['quantity']>0 && $item['quantity']<100){
+                                                $price=$price1;
+                                            }elseif($item['quantity']>99 && $item['quantity']<1000){
+                                                $price=$price100;
+                                            }elseif($item['quantity']>999){
+                                                 $price=$price1000;
+                                            }else{
+                                                 $price=0;
+                                            }
+                                            $total+=$item['quantity']*$price;
+                                        @endphp
+                                        <tr>
 
-                                    <td>
-                                        <p>{{$item['product']->name}}</p>
-                                    </td>
-                                    <td>
-                                        <p class="cart-pro-price">x{{$item['quantity']}}</p>
-                                    </td>
-                                    <td>
-                                        <p class="cart-price-total">${{$item['quantity']*$price}}</p>
-                                    </td>
+                                            <td>
+                                                <p>{{$item['product']->name}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="cart-pro-price">x{{$item['quantity']}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="cart-price-total">${{$item['quantity']*$price}}</p>
+                                            </td>
 
-                                </tr>
+                                        </tr>
+                                    @elseif($item['type'] == 'external')
+                                        @php
+                                            $product = $item['product']['product'];
+                                            $data = price_external_product($product['Id'],1);
+                                            $f_price = $data['f_price'];
+                                            $total+=$item['quantity']*$f_price;
+                                        @endphp
+                                        <tr>
+
+                                            <td>
+                                                <p>{{$product['Title']}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="cart-pro-price">x{{$item['quantity']}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="cart-price-total">${{$item['quantity']*$f_price}}</p>
+                                            </td>
+
+                                        </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
@@ -234,7 +256,7 @@
 
 </script>
 <script>
-    var total ="{{$total}}";
+    var total =Math.round("{{$total}}");;
 </script>
 @include('payment::paypal')
 @endsection

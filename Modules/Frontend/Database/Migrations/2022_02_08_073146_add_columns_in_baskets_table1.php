@@ -17,6 +17,8 @@ class AddColumnsInBasketsTable1 extends Migration
             $table->integer('warehouse_id');
             $table->string('country');
             $table->string('shipping_method');
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
         });
     }
 

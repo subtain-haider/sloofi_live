@@ -29,15 +29,15 @@
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Name</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Email</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Payment Address</span></th>
-                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Payment City</span></th>
+{{--                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Payment City</span></th>--}}
                                             {{-- <th>Payment Country</th>
                                             <th>Shipping Address</th>
                                             <th>Shipping City</th>
                                             <th>Shipping Country</th>
                                             <th>Shipping Method</th>
                                             <th>Payment Method</th>
-                                            <th>Comment</th>
-                                            <th>Status</th> --}}
+                                            <th>Comment</th> --}}
+                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Status</span></th>
                                             <th class="nk-tb-col nk-tb-col-tools text-right">
                                             </th>
                                         </tr>
@@ -67,7 +67,7 @@
                                                     <span>{{$order->payment_address_1}} {{$order->payment_address_2}}</span>
                                                 </td>
                                                 <td class="nk-tb-col tb-col-md">
-                                                    <span>{{$order->payment_city}}</span>
+                                                    <span>{{$order->status}}</span>
                                                 </td>
 
                                                 {{-- <td>{{$order->payment_country}}</td>
@@ -82,7 +82,7 @@
                                                     <ul class="nk-tb-actions gx-1">
                                                         <li class="nk-tb-action-hidden">
                                                             <a role="button"  data-toggle="modal" onclick="orderDetail({{$order->id}})" data-target="#orderdetail" value="{{$order->id}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Order Detail">
-                                                                <em class="icon ni ni-edit-fill"></em>
+                                                                <em class="icon ni ni-eye-fill"></em>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -125,8 +125,12 @@
                             <table class="table table-striped table-bordered nowrap">
                                 <thead >
                                 <tr>
+                                    <th>Product Image</th>
                                     <th>Product Name</th>
-                                    <th>Available Stock</th>
+                                    <th>Product Vendor</th>
+                                    <th>Quantity</th>
+                                    <th>Color</th>
+                                    <th>Size</th>
                                 </tr>
                                 </thead>
                                 <tbody class="orderRows">
@@ -153,7 +157,6 @@
                     id: id
                 },
                 success: function(data) {
-                    console.log(data);
                    $('.orderRows').html(data)
                 },
                 error: function(jqxhr, status, exception) {

@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('payment')->group(function() {
+Route::prefix('payment')->middleware(['auth'])->group(function() {
     Route::get('stripe', 'PaymentController@stripe');
     Route::post('stripe', 'PaymentController@stripePost')->name('stripe.post');
     Route::get('paypal/create-transaction','PaymentController@createTransaction')->name('paypal.createTransaction');

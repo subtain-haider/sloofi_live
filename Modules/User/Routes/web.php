@@ -14,6 +14,8 @@
 Route::prefix('user')->middleware(['auth'])->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('all', 'index')->name('user.all');
+        Route::get('profile', 'profile')->name('user.profile');
+        Route::post('profile/update', 'profileUpdate')->name('user.profile.update');
         Route::get('detail/{id}', 'show')->name('user.detail');
         Route::get('deposit', 'deposit')->name('user.deposit');
         Route::get('my-wallet', 'myWallet')->name('user.my-wallet');

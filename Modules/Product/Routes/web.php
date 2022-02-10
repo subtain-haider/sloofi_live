@@ -20,6 +20,9 @@ Route::prefix('product')->middleware(['auth'])->group(function() {
         Route::put('update/{id}', 'update')->name('product.update');
         Route::delete('delete/{id}', 'destroy')->name('product.delete');
         Route::post('add/stock', 'addStock')->name('product.add-stock');
+        Route::any('connect/shopify', 'connectShopify')->name('product.connect.shopify');
+        Route::any('connect/woocommerce', 'connectWoocommerce')->name('product.connect.woocommerce');
+        Route::get('list', 'list')->name('product.list');
     });
 });
 Route::prefix('section')->middleware(['auth'])->group(function() {
