@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('thirdpartyapi')->group(function() {
+Route::prefix('thirdpartyapi')->middleware(['auth'])->group(function() {
     Route::controller(ThirdPartyApiController::class)->group(function () {
         Route::get('categories/{id}/{name}', 'categories')->name('thirdpartyapi.categories');
         Route::post('attach_tp', 'attach_tp')->name('thirdpartyapi.attach.tp');

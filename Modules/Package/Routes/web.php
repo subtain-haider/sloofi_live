@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('package')->group(function() {
+Route::prefix('package')->middleware(['auth'])->group(function() {
     Route::controller(PackageController::class)->group(function () {
         Route::get('index', 'index')->name('package.all');
         Route::get('create', 'create')->name('package.create');

@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('order')->group(function() {
+Route::prefix('order')->middleware(['auth'])->group(function() {
     Route::controller(OrderController::class)->group(function () {
         Route::get('all', 'index')->name('order.all');
         Route::get('sloofi', 'sloofiOrders')->name('order.sloofi');

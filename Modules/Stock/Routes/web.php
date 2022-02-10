@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('stock')->group(function() {
+Route::prefix('stock')->middleware(['auth'])->group(function() {
     Route::get('/', 'StockController@index');
 });
