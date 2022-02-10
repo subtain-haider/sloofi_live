@@ -276,6 +276,20 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
+                            @can('product_list')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Product List</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item {{ Request::is('product/list') ? 'active' : '' }}">
+                                            <a href="{{route('product.list')}}" class="nk-menu-link"><span class="">Product List</span></a>
+                                        </li>
+
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
 
 
 {{--                            <li class="nk-menu-item">--}}

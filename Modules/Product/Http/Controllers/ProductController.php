@@ -8,8 +8,9 @@ use Illuminate\Routing\Controller;
 use Modules\Product\Entities\Product;
 use Modules\Product\Interfaces\ProductInterface;
 use Modules\Shopify\Entities\Shopify;
+use Modules\Warehouse\Entities\Warehouse;
 use Modules\Woocommerce\Entities\Woocommerce;
-
+use Auth;
 class ProductController extends Controller
 {
     /**
@@ -209,6 +210,13 @@ class ProductController extends Controller
             // dd($th);
             return back()->with('error', 'Product Connection failed');
         }
+    }
+    public function list (){
+        $products = Product::get();
+        $warehouses=Warehouse::all();
+        $woocommerces = Woocommerce::where('user_id',Auth::user()->id)->get();
+        $shopify_strores= Shopify::where('user_id',Auth::user()->id)->get();
+        return view('product::list',compact('products','warehouses','woocommerces','shopify_strores'));
     }
 
 }

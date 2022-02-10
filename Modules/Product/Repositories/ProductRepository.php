@@ -26,8 +26,7 @@ class ProductRepository implements ProductInterface
         }
 
         $data['warehouses'] = Warehouse::where('status',1)->get();
-        $data['woocommerces'] = Woocommerce::where('user_id',Auth::user()->id)->get();
-        $data['shopify_strores'] = Shopify::where('user_id',Auth::user()->id)->get();
+
         return $data;
     }
     public function createProduct()
