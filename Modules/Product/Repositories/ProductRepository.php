@@ -10,9 +10,12 @@ use Modules\Product\Entities\ProductColor;
 use Modules\Product\Entities\ProductSize;
 use Modules\Product\Entities\Section;
 use Modules\Product\Interfaces\ProductInterface;
+use Modules\Shopify\Entities\Shopify;
 use Modules\Stock\Entities\StockRequest;
 use Modules\Warehouse\Entities\Warehouse;
 use Auth;
+use Modules\Woocommerce\Entities\Woocommerce;
+
 class ProductRepository implements ProductInterface
 {
     public function allProduct(){
@@ -23,6 +26,7 @@ class ProductRepository implements ProductInterface
         }
 
         $data['warehouses'] = Warehouse::where('status',1)->get();
+
         return $data;
     }
     public function createProduct()
@@ -161,5 +165,6 @@ class ProductRepository implements ProductInterface
         }
         return redirect()->route('product.all')->with('success', 'Stock Request Generated Successfully, Please wait for admin approval');
     }
+
 }
 

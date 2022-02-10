@@ -14,7 +14,16 @@
                                 <div class="nk-block-head-content">
                                     <h4 class="nk-block-title">Products</h4>
                                     <div class="nk-block-des">
-                                       
+                                        <div class="pull-right">
+                                            {{-- <a href="javascript(0)" data-url="{{ route('shopifyProducts.connect') }}" onclick="connectShPBtn(event,this)" class="pull-right btn-sm btn btn-primary mr-2"></a> --}}
+                                            <button type="button" onclick="connectWCBtn(this)" class="pull-right btn-sm btn btn-primary mr-2" >
+                                                Connect to Woocommerce
+                                            </button>
+                                            <button type="button" onclick="connectShPBtn(this)" class="pull-right btn-sm btn btn-primary mr-2" >
+                                                Connect to Shopify
+                                            </button>
+                                            {{-- <a href="javascript(0)" data-url="{{ route('woocommerceProducts.connect') }}" onclick="connectBtn(event,this)" class="pull-right btn-sm btn btn-primary">Connect to Woocommerce</a> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +180,128 @@
         </div>
     </div>
     <!-- content @e -->
+    <div class="modal fade" id="connectToWoocommerce" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Connect to Woocommerce </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  action="{{ route('product.connect.woocommerce') }}">
+                        <input type="hidden" name="products_ids" class="products_ids">
+                        <div class="form-group">
+                            <label for="warehouse">Select Woocimmerce store</label>
+                            <select class="form-control" name="woocommerce_id">
+                                @if($woocommerces && count($woocommerces))
+                                    @foreach($woocommerces as $item)
+                                        <option value="{{ $item->id }}">{{ $item->url }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="warehouse">Price Incraese by</label>
+                            <select class="form-control" name="increased_by">
+                                <option value="by_amount">By Amount</option>
+                                <option value="by_percencate">By Percentage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add In Price</label>
+                            <input type="number" class="form-control" id="increment_in_price" name="increment_in_price" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Connect to Woocommerce</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="connectToShopify" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Connect to Shopify </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  action="{{ route('product.connect.shopify') }}">
+                        <input type="hidden" name="products_ids" class="products_ids">
+                        <div class="form-group">
+                            <label for="warehouse">Select Shopify store</label>
+                            <select class="form-control" name="shopify_id">
+                                @if($shopify_strores && count($shopify_strores))
+                                    @foreach($shopify_strores as $item)
+                                        <option value="{{ $item->id }}">{{ $item->shop }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="warehouse">Price Incraese by</label>
+                            <select class="form-control" name="increased_by">
+                                <option value="by_amount">By Amount</option>
+                                <option value="by_percencate">By Percentage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add In Price</label>
+                            <input type="number" class="form-control" id="increment_in_price" name="increment_in_price" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Connect to Shopify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+@endsection
+@section('script')
+
+    <script src="{{url('/')}}/admin/backend/assets/js/libs/datatable-btns.js?ver=2.9.0"></script>
+    <script>
+
+        selected_products = [];
+        $(".product").on( 'change', function(){
+            if (this.checked) {
+                selected_products.push($(this).val());
+            }else{
+                selected_products= selected_products.filter(item => item !==  $(this).val())
+            }
+            $('.products_ids').val(selected_products);
+
+        });
+        function connectShPBtn(e){
+            // e.preventDefault();
+            if (selected_products === undefined || selected_products.length == 0) {
+                alert("None value selected, Please select at least one");
+                return false;
+            }else{
+                $('#connectToShopify').modal('toggle');
+            }
+        }
+        function connectWCBtn(e) {
+            console.log(selected_products)
+            // e.preventDefault();
+            // var url = $(d).attr('data-url');
+            // var val = [];
+            // $("input[name='selectData[]']").each(function(){
+            //     if (this.checked) {
+            //         val.push($(this).val());
+            //     }
+            // });
+            if (selected_products === undefined || selected_products.length == 0) {
+                alert("None value selected, Please select at least one");
+                return false;
+            }else{
+                $('#connectToWoocommerce').modal('toggle');
+            }
+        }
+
+    </script>
 
 @endsection

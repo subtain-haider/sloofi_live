@@ -5,6 +5,7 @@ namespace Modules\Woocommerce\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Entities\Product;
 use Modules\Woocommerce\Entities\Woocommerce;
 use Modules\Woocommerce\Interfaces\WoocommerceInterface;
 
@@ -98,4 +99,6 @@ class WoocommerceController extends Controller
         $data['storeId']=$storeId;
         return view('woocommerce::my-products')->with($data);
     }
+
+
 }
