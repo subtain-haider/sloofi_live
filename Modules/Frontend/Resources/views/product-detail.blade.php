@@ -38,9 +38,9 @@
             @endphp
             <div class="col-lg-5">
                 <div class="aboveSlider">
-                    <h5><a class="nav-link" type="button" onclick="price(1,{{ $price1 }})">1 Product <span>${{ $price1 }} </span></a></h5>
-                    @if($price100)<h5><a class="nav-link" onclick="price(100,{{ $price100 }})" type="button">100 Product <span>${{ $price100 }} </span></a></h5>@endif
-                    @if($price1000)<h5><a class="nav-link" onclick="price(1000,{{ $price1000 }})" type="button">1000 Product <span>${{ $price1000 }} </span></a></h5>@endif
+                    <h5><a class="nav-link" id="p1" type="button" onclick="price(1,{{ $price1 }})">1 Product <span>${{ $price1 }} </span></a></h5>
+                    @if($price100)<h5><a id="p100" class="nav-link" onclick="price(100,{{ $price100 }})" type="button">100 Product <span>${{ $price100 }} </span></a></h5>@endif
+                    @if($price1000)<h5><a id="p1000" class="nav-link" onclick="price(1000,{{ $price1000 }})" type="button">1000 Product <span>${{ $price1000 }} </span></a></h5>@endif
                 </div>
                 <div id="main" role="main">
                     <div class="slider">
@@ -803,7 +803,21 @@
     function price(qty,price){
         $('#product_price').html('$'+price)
         $('#price-cal').html(price*qty);
-        $('#qty').val(qty)
+        $('#qty').val(qty);
+        if(qty==1){
+            $('#p1').css('color','#d93644');
+            $('#p100').css('color','black')
+            $('#p1000').css('color','black')
+        }else if(qty==100){
+            $('#p1').css('color','black')
+            $('#p100').css('color','#d93644')
+            $('#p1000').css('color','black')
+        }else if(qty==1000){
+            $('#p1').css('color','black')
+            $('#p100').css('color','black')
+            $('#p1000').css('color','#d93644')
+        }
+
     }
 </script>
 <script defer src="{{ asset('/frontend/js/jquery.flexslider.js') }}"></script>
