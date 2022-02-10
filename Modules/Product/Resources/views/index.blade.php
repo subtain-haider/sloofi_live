@@ -46,7 +46,7 @@
                                                 </td>
                                                 <td class="nk-tb-col">
                                                     <div class="user-card">
-                                                        <span><img src="{{$product->getFirstMediaUrlgetFirstMediaUrl('thumbnail')}}" height="100" width="100" alt=""></span>
+                                                        <span><img src="{{$product->getFirstMediaUrl('thumbnail')}}" height="100" width="100" alt=""></span>
                                                     </div>
                                                 </td>
 

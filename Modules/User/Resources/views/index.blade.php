@@ -49,6 +49,7 @@
                         </div>
                     </div>
                     <div class="nk-tb-col"><span class="sub-text">User</span></div>
+                    <div class="nk-tb-col"><span class="sub-text">Roles</span></div>
                     <div class="nk-tb-col tb-col-md"><span class="sub-text">Sign Up Date</span></div>
                     <div class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></div>
                     <div class="nk-tb-col nk-tb-col-tools">
@@ -74,6 +75,12 @@
                                 </div>
                             </div>
                         </a>
+                    </div>
+                    <div class="nk-tb-col tb-col-lg">
+                        @php
+                            $roles=$row->getRoleNames()->toArray();
+                        @endphp
+                        <span>@foreach($roles as $key=>$role) {{str_replace('_',' ',$role)}} @if($key+1!=count($roles)) ,@endif @endforeach</span>
                     </div>
                     <div class="nk-tb-col tb-col-lg">
                         <span>{{ date_format($row->created_at,"d M Y H:i:s") }}</span>
