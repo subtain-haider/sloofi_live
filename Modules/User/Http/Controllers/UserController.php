@@ -118,4 +118,16 @@ class UserController extends Controller
 
         return redirect('/dashboard')->with('success','You successfully become a Dropshipper');
     }
+    public function profile(){
+        return view('user::profile');
+    }
+    public function profileUpdate(Request $request){
+        $user=User::find(Auth::user()->id);
+        $user->name=$request->name;
+        if($request->password){
+            $user->password=Hash::make($request->password);
+        }
+        $user->save();
+        return redirect('/dashboard')->with('success','Updated');
+    }
 }
