@@ -140,6 +140,24 @@
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                             @endcan
+                            @can('view_packages')
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                                        <span class="nk-menu-text">Packages</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        @can('add_package')
+                                            <li class="nk-menu-item {{ Request::is('package/create') ? 'active' : '' }}">
+                                                <a href="{{ route('package.create') }}" class="nk-menu-link"><span class="">Add Package</span></a>
+                                            </li>
+                                        @endcan
+                                        <li class="nk-menu-item {{ Request::is('package') ? 'active' : '' }}">
+                                            <a href="{{route('package.all')}}" class="nk-menu-link"><span class="">All Packages</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                            @endcan
                             @can('view_products')
                                 <li class="nk-menu-item">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -218,19 +236,24 @@
                                     <ul class="nk-menu-sub">
                                         @can('view_all_orders')
                                             <li class="nk-menu-item {{ Request::is('order/all') ? 'active' : '' }}">
-                                                <a href="{{ route('order.all') }}" class="nk-menu-link"><span class="">All Orders</span></a>
+                                                <a href="{{ route('order.all') }}" class="nk-menu-link"><span class="">My buy Orders</span></a>
                                             </li>
                                         @endcan
+                                        @can('view_sloofi_orders')
                                         <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
                                             <a href="{{route('order.sloofi')}}" class="nk-menu-link"><span class="">Sloofi Orders</span></a>
                                         </li>
-
+                                        @endcan
+                                        @can('view_vendor_internal_orders')
                                         <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
-                                            <a href="{{route('order.internal')}}" class="nk-menu-link"><span class="">Vendor Internal Orders</span></a>
+                                            <a href="{{route('order.internal')}}" class="nk-menu-link"><span class="">Vendor Internal Sell Orders</span></a>
                                         </li>
+                                        @endcan
+                                        @can('view_vendor_external_orders')
                                         <li class="nk-menu-item {{ Request::is('order') ? 'active' : '' }}">
-                                            <a href="{{route('order.external')}}" class="nk-menu-link"><span class="">Vendor External Orders</span></a>
+                                            <a href="{{route('order.external')}}" class="nk-menu-link"><span class="">Vendor External Sell Orders</span></a>
                                         </li>
+                                        @endcan
 
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->

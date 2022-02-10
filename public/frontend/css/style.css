@@ -299,7 +299,7 @@ top:0;
 .spacer{border-bottom:2px solid #d93644; padding-bottom:50px; margin-bottom:20px;}
 .productInfoo input[type=radio]{display:none;}
 .productInfoo input[type=radio]+label{display:inline-block; width:50px; height:50px; border:2px solid #484848; cursor:pointer; background:#484848;}
-.productInfoo input[type=radio]:checked~label{border-color:#d03744;}
+.productInfoo input[type=radio]:checked~label{ border: 5px solid black}
 .productInfoo .form-check{display:inline-block; min-height:initial; padding-left:0; margin-bottom:0;}
 .productInfoo .col-form-label{color:#929191; padding-left:30px; font-size:18px;}
 .productInfoo input[type=radio]+.StyleBox{display:inline-block; width:100px; height:50px; border:2px solid #f8f8f8; cursor:pointer; background:#f8f8f8;}

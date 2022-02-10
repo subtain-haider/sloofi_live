@@ -14,7 +14,7 @@
                     <div class="cart_list">
                         <h3><a href="#"><i class="fas fa-arrow-left"></i> Checkout</a></h3>
                         @if(!isset(Auth::user()->id))
-                            <h5 class="mt-4">FOR MAKE A ORDER YOU NEED TO <a href="{{url('/login')}}">LOGIN</a> FIRST</h5>
+                            <h5 class="mt-4">Please <a href="{{url('/login')}}">LOGIN</a> to complete the order</h5>
                         @endif
                         @if(\Session::has('error'))
                             <div class="alert alert-danger">{{ \Session::get('error') }}</div>

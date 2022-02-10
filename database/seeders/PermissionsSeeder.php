@@ -39,7 +39,9 @@ class PermissionsSeeder extends Seeder
             ['name' => 'view_properties','guard_name'=>'web'],
             ['name' => 'update_property','guard_name'=>'web'],
             ['name' => 'delete_property','guard_name'=>'web'],
+            ['name' => 'view_sections','guard_name'=>'web'],
             ['name' => 'view_products','guard_name'=>'web'],
+            ['name' => 'add_product','guard_name'=>'web'],
             ['name' => 'update_product','guard_name'=>'web'],
             ['name' => 'delete_product','guard_name'=>'web'],
             ['name' => 'view_woocommerces','guard_name'=>'web'],
@@ -58,6 +60,14 @@ class PermissionsSeeder extends Seeder
             ['name' => 'product_add_stock','guard_name'=>'web'],
             ['name' => 'Wallet','guard_name'=>'web'],
             ['name' => 'deposit_approve','guard_name'=>'web'],
+            ['name' => 'view_order','guard_name'=>'web'],
+            ['name' => 'view_all_orders','guard_name'=>'web'],
+            ['name' => 'view_sloofi_orders','guard_name'=>'web'],
+            ['name' => 'view_vendor_internal_orders','guard_name'=>'web'],
+            ['name' => 'view_vendor_external_orders','guard_name'=>'web'],
+            ['name' => 'view_packages','guard_name'=>'web'],
+            ['name' => 'add_package','guard_name'=>'web'],
+
         ];
         Permission::insert($permissions);
     }

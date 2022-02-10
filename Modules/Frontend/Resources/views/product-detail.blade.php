@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="page-title-content">
             <ul class="breadcrumb-nav">
-                <li><a href="/">{{$product->categories[0]->name}}</a></li>
+                <li><a href="{{route('category.products', $product->categories[0]->id)}}">{{$product->categories[0]->name}}</a></li>
             </ul>
         </div>
     </div>
@@ -38,7 +38,7 @@
             @endphp
             <div class="col-lg-5">
                 <div class="aboveSlider">
-                    <h5><a class="nav-link active" type="button" onclick="price(1,{{ $price1 }})">1 Product <span>${{ $price1 }} </span></a></h5>
+                    <h5><a class="nav-link" type="button" onclick="price(1,{{ $price1 }})">1 Product <span>${{ $price1 }} </span></a></h5>
                     @if($price100)<h5><a class="nav-link" onclick="price(100,{{ $price100 }})" type="button">100 Product <span>${{ $price100 }} </span></a></h5>@endif
                     @if($price1000)<h5><a class="nav-link" onclick="price(1000,{{ $price1000 }})" type="button">1000 Product <span>${{ $price1000 }} </span></a></h5>@endif
                 </div>
@@ -72,11 +72,11 @@
                     <li><a href="#">Wishlist</a></li>
                     <li><a href="#">Report</a></li>
                 </ul>
-                <div class="videoBox">
-                    <h6>Video ID: CJYZ1080928</h6>
-                    <p>Note: This video is available to be downloaded without the watermark and in high-resolution. Please before downloading. <br>Your recommendation will encourage us to roll out more services to you forfree!</p>
-                    <div class="readmore"><a href="#">Free Download</a></div>
-                </div>
+{{--                <div class="videoBox">--}}
+{{--                    <h6>Video ID: CJYZ1080928</h6>--}}
+{{--                    <p>Note: This video is available to be downloaded without the watermark and in high-resolution. Please before downloading. <br>Your recommendation will encourage us to roll out more services to you forfree!</p>--}}
+{{--                    <div class="readmore"><a href="#">Free Download</a></div>--}}
+{{--                </div>--}}
             </div>
             <div class="col-lg-7">
                 <div class="productDetailContent">
@@ -96,68 +96,36 @@
                     </div>
                     <form class="productInfoo" id="addToCart" method="get" action="{{ route('frontend.add-to-cart',['id'=>$product->id]) }}">
                        <input type="hidden" name="id" value="{{ $product->id }}">
-{{--                        <div class="row align-items-center pb-3 pt-4">--}}
-{{--                            <div class="col-lg-3 col-md-3">--}}
-{{--                                <label for="inputPassword6" class="col-form-label">Color:</label>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-lg-9  col-md-9">--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault1"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault2"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault3"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault4"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault5"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault6">--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault6"></label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault7">--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault7"></label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault8">--}}
-{{--                                    <label class="form-check-label" for="flexRadioDefault8"></label>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="row align-items-center pb-4">--}}
-{{--                            <div class="col-lg-3 col-md-3">--}}
-{{--                                <label for="inputPassword6" class="col-form-label">Style:</label>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-lg-9 col-md-9">--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault10">--}}
-{{--                                    <label class="form-check-label StyleBox" for="flexRadioDefault10"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault11" checked>--}}
-{{--                                    <label class="form-check-label StyleBox" for="flexRadioDefault11"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault12">--}}
-{{--                                    <label class="form-check-label StyleBox" for="flexRadioDefault12"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault13">--}}
-{{--                                    <label class="form-check-label StyleBox" for="flexRadioDefault13"> </label>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        @if(count($product->colors) > 0)
+                        <div class="row align-items-center pb-3 pt-4">
+                            <div class="col-lg-3 col-md-3">
+                                <label for="inputPassword6" class="col-form-label">Color:</label>
+                            </div>
+                            <div class="col-lg-9  col-md-9">
+                                @foreach($product->colors as $color)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="color" value="{{$color->color}}" id="color{{$color->id}}">
+                                    <label style="background:{{$color->color}}" class="form-check-label" for="color{{$color->id}}"> </label>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+                        @if(count($product->sizes) > 0)
+                        <div class="row align-items-center pb-4">
+                            <div class="col-lg-3 col-md-3">
+                                <label for="inputPassword6" class="col-form-label">Size:</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9">
+                                @foreach($product->sizes as $size)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="size" value="{{$size->size}}" id="size{{$size->id}}">
+                                    <label class="form-check-label StyleBox" for="size{{$size->id}}"> {{$size->size}} </label>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
 {{--                        <div class="row align-items-center pb-4">--}}
 {{--                            <div class="col-lg-3 col-md-3">--}}
 {{--                                <label for="inputPassword6" class="col-form-label">Quantity::</label>--}}

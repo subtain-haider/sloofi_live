@@ -101,7 +101,6 @@ class FrontendController extends Controller
         return view('frontend::product-detail',compact('product','shopifies','woocommerces','warehouses'));
     }
     public function addToCart(Request $request){
-//        dd($request->all());
         $cart = session()->get('cart', []);
         if(isset($cart[$request->id])) {
             $cart[$request->id]['quantity'] = $cart[$request->id]['quantity'] + $request->qty;
@@ -110,7 +109,9 @@ class FrontendController extends Controller
                 "quantity" => $request->qty,
                 "warehouse_id" => $request->warehouse_id,
                 "country"=>$request->country,
-                'shipping_method'=>$request->shipping_method
+                'shipping_method'=>$request->shipping_method,
+                'color'=>$request->color,
+                'size'=>$request->size,
             ];
         }
         session()->put('cart', $cart);
@@ -422,6 +423,8 @@ class FrontendController extends Controller
             $basket->warehouse_id=$item['warehouse_id'];
             $basket->country=$item['country'];
             $basket->shipping_method=$item['shipping_method'];
+            $basket->color=$item['color'];
+            $basket->size=$item['size'];
             $order->baskets()->save($basket);
         }
         session()->forget('cart');
