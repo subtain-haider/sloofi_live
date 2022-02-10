@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-10 col-md-9 col-sm-12"><img src="{{ asset('/frontend/images/s-logo.png')}}" />
-                <h2>Supplier:{{$product->user->shop->name??'Sloofi DropShipping Co. Ltd'}} </h2>
+                <h2>Supplier: Sloofi DropShipping Co. Ltd </h2>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12">
                 <div class="readmore"><a href="#">Visit Store</a></div>
@@ -15,53 +15,23 @@
         </div>
     </div>
 </section>
-<!-- detailsHeader End -->
-<!-- page-title-area Start -->
-<section class="page-title-area">
-    <div class="container-fluid">
-        <div class="page-title-content">
-            <ul class="breadcrumb-nav">
-                <li><a href="{{route('category.products', $product->categories[0]->id)}}">{{$product->categories[0]->name}}</a></li>
-            </ul>
-        </div>
-    </div>
-</section>
-<!-- page-title-area End -->
-<!-- productDetail Start -->
 <section class="productDetail">
     <div class="container-fluid">
         <div class="row">
-            @php
-                $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
-                $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
-                $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
-            @endphp
             <div class="col-lg-5">
-                <div class="aboveSlider">
-                    <h5><a class="nav-link" id="p1" type="button" onclick="price(1,{{ $price1 }})">1 Product <span>${{ $price1 }} </span></a></h5>
-                    @if($price100)<h5><a id="p100" class="nav-link" onclick="price(100,{{ $price100 }})" type="button">100 Product <span>${{ $price100 }} </span></a></h5>@endif
-                    @if($price1000)<h5><a id="p1000" class="nav-link" onclick="price(1000,{{ $price1000 }})" type="button">1000 Product <span>${{ $price1000 }} </span></a></h5>@endif
-                </div>
                 <div id="main" role="main">
                     <div class="slider">
                         <div id="slider" class="flexslider">
                             <ul class="slides linkk">
-                                @php
-                                    $images=$product->getMedia('images');
-                                @endphp
-                                @foreach ($images as $image)
-                                    <li><img src="{{ $image->getUrl()}}" /></li>
+                                @foreach($product['Pictures'] as $image)
+                                    <li><img src="{{$image['Url']}}" title="{{$product['Title']}}" alt="{{$product['Title']}}" /></li>
                                 @endforeach
                             </ul>
-                            <div class="downloadLink"><a href="{{$images[0]->getUrl()}}" download="Saloofi"><i class="fas fa-download"></i></a></div>
                         </div>
                         <div id="carousel" class="flexslider">
                             <ul class="slides">
-                                @php
-                                    $images=$product->getMedia('images');
-                                @endphp
-                                @foreach ($images as $image)
-                                    <li><img src="{{ $image->getUrl()}}" /></li>
+                                @foreach($product['Pictures'] as $image)
+                                    <li><img src="{{$image['Url']}}" title="{{$product['Title']}}" alt="{{$product['Title']}}" /></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -72,80 +42,33 @@
                     <li><a href="#">Wishlist</a></li>
                     <li><a href="#">Report</a></li>
                 </ul>
-{{--                <div class="videoBox">--}}
-{{--                    <h6>Video ID: CJYZ1080928</h6>--}}
-{{--                    <p>Note: This video is available to be downloaded without the watermark and in high-resolution. Please before downloading. <br>Your recommendation will encourage us to roll out more services to you forfree!</p>--}}
-{{--                    <div class="readmore"><a href="#">Free Download</a></div>--}}
-{{--                </div>--}}
             </div>
             <div class="col-lg-7">
                 <div class="productDetailContent">
-                    <h2>{{ $product->name }}</h2>
+                    <h2>{{ $product['Title'] }}</h2>
                     <div class="pricebox">
                         <div class="row align-items-center">
                             <div class="col-lg-3 col-md-3 col-sm-4">
                                 <h5>Product Price:</h5>
                             </div>
                             <div class="col-lg-9 col-md-9  col-sm-8">
-                                <h1 id="product_price">${{$price1}}
-{{--                                    @if($price100 || $price1000)-{{$price1000>0?$price1000:$price100}} @endif--}}
+                                @php
+                                    $data = price_external_product($product['Id'],1);
+                                    $f_price = $data['f_price'];
+                                    $l_price = $data['l_price'];
+                                    $sign = $data['sign'];
+                                @endphp
+                                <h1 id="product_price">{{$sign.$f_price}}
+                                    @if(!is_null($l_price))
+                                        - {{$sign.$l_price}}
+                                    @endif
                                 </h1>
-                                <p>Price Updated on {{$product->prices->where('qty',1)->first()->updated_at}} </p>
                             </div>
                         </div>
                     </div>
-                    <form class="productInfoo" id="addToCart" method="get" action="{{ route('frontend.add-to-cart',['id'=>$product->id]) }}">
-                       <input type="hidden" name="id" value="{{ $product->id }}">
-                        <input type="hidden" name="type" value="internal">
-                        @if(count($product->colors) > 0)
-                        <div class="row align-items-center pb-3 pt-4">
-                            <div class="col-lg-3 col-md-3">
-                                <label for="inputPassword6" class="col-form-label">Color:</label>
-                            </div>
-                            <div class="col-lg-9  col-md-9">
-                                @foreach($product->colors as $color)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="color" value="{{$color->color}}" id="color{{$color->id}}">
-                                    <label style="background:{{$color->color}}" class="form-check-label" for="color{{$color->id}}"> </label>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-                        @if(count($product->sizes) > 0)
-                        <div class="row align-items-center pb-4">
-                            <div class="col-lg-3 col-md-3">
-                                <label for="inputPassword6" class="col-form-label">Size:</label>
-                            </div>
-                            <div class="col-lg-9 col-md-9">
-                                @foreach($product->sizes as $size)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="size" value="{{$size->size}}" id="size{{$size->id}}">
-                                    <label class="form-check-label StyleBox" for="size{{$size->id}}"> {{$size->size}} </label>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-{{--                        <div class="row align-items-center pb-4">--}}
-{{--                            <div class="col-lg-3 col-md-3">--}}
-{{--                                <label for="inputPassword6" class="col-form-label">Quantity::</label>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-lg-9 col-md-9">--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault21">--}}
-{{--                                    <label class="form-check-label StyleBox" for="flexRadioDefault21"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault22" checked>--}}
-{{--                                    <label class="form-check-label StyleBox" for="flexRadioDefault22"> </label>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-check">--}}
-{{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault23">--}}
-{{--                                    <label class="form-check-label StyleBox" for="flexRadioDefault23"> </label>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                    <form class="productInfoo" id="addToCart" method="get" action="{{ route('frontend.add-to-cart',['id'=>$product['Id']]) }}">
+                       <input type="hidden" name="id" value="{{ $product['Id'] }}">
+                       <input type="hidden" name="type" value="external">
 
                         <div class="row align-items-center pb-4 my-2">
                             <div class="col-lg-3 col-md-3">
@@ -154,32 +77,16 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        @php($warehouses=[])
                                         <select name="warehouse_id" class="form-control" required>
-                                            @foreach($product->stocks as $stock)
-                                                @if(!in_array($stock->warehouse->name,$warehouses))
-                                                <option value="{{$stock->warehouse->id}}">{{$stock->warehouse->name}}</option>
-                                                @else
-                                                    @php(array_push($warehouses,$stock->warehouse->name))
-                                                    @endif
+                                            @foreach($warehouses as $warehouse)
+                                                <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-{{--                        <div class="row align-items-center pb-4">--}}
-{{--                            <div class="col-lg-3 col-md-3">--}}
-{{--                                <label for="inputPassword6" class="col-form-label">Platform:</label>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-lg-9 col-md-9">--}}
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-lg-6">--}}
-{{--                                        <input type="text"  name="platform" class="form-control" id="text" aria-describedby="text">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                         <div class="row align-items-center pb-4">
                             <div class="col-lg-3 col-md-3">
                                 <label for="inputPassword6" class="col-form-label">Shipping To:</label>
@@ -468,9 +375,7 @@
                             </div>
                             <div class="col-lg-9 col-md-9">
                                 <div class="quantity text-center">
-                                    {{-- <input type="button" class="minus priceCal" value="-"> --}}
-                                    <input type="number" class="input-text qty text" data-price1="{{$price1}}" data-price100="{{$price100}}" data-price1000="{{$price1000}}" id="qty" name="qty" title="Qty" value="1">
-                                    {{-- <input type="button" class="plus priceCal" value="+"> --}}
+                                    <input type="number" class="input-text qty text" data-price1="{{$f_price}}" id="qty" name="qty" title="Qty" value="1">
                                 </div>
                             </div>
                         </div>
@@ -479,7 +384,7 @@
                                 <label for="inputPassword6" class="col-form-label">Total Dropshipping Price:</label>
                             </div>
                             <div class="col-lg-9 col-md-9">
-                                <div class="col-form-label text-center ps-0">$<span id="price-cal"  >{{$price1}}</span></div>
+                                <div class="col-form-label text-center ps-0">{{$sign}}<span id="price-cal"  >{{$f_price}}</span></div>
                             </div>
                         </div>
                         <div class="row align-items-center pb-3 pt-4">
@@ -530,7 +435,15 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="content">
-                        <p>{{ $product->description }}</p>
+                        <p>
+                            @php
+                                $pattern = '/(?<=href\=")[^]]+?(?=")/';
+                                $replacedHrefHtml = preg_replace($pattern, '#', $product['Description']);
+                                echo $description = str_replace('target="_blank"', '', $replacedHrefHtml)
+
+
+                            @endphp
+                        </p>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -645,7 +558,7 @@
                     <form action="{{ route('frontend.shopify.products.connect') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <input type="hidden" name="product_id" value="{{$product['Id']}}">
                             <input type="hidden" name="type" value="internal">
                             <select name="shopify_id" class="form-control" id="exampleFormControlSelect1">
                                 @foreach($shopifies as $shopify)
@@ -685,7 +598,7 @@
                     <form action="{{ route('frontend.woocommerce.products.connect') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <input type="hidden" name="product_id" value="{{$product['Id']}}">
                             <input type="hidden" name="type" value="internal">
                             <select name="woocommerce_id" class="form-control" id="exampleFormControlSelect1">
                                 @foreach($woocommerces as $woocommerce)
@@ -731,24 +644,18 @@
                         @endif
                         <tr>
                             <td>Price 1 pcs:</td>
-                            <td>${{price_internal_product($product->id, 1)}}</td>
+                            @php
+                                $data = price_external_product($product['Id'],1);
+                                $f_price = $data['f_price'];
+                                $l_price = $data['l_price'];
+                                $sign = $data['sign'];
+                            @endphp
+                            <td>${{$sign.$f_price}}</td>
                         </tr>
-                        @if($product->price_100 > 0)
-                            <tr>
-                                <td>Price above 100 pcs:</td>
-                                <td>${{price_internal_product($product->id, 100)}}</td>
-                            </tr>
-                        @endif
-                        @if($product->price_1000 > 0)
-                            <tr>
-                                <td>Price above 1000 pcs:</td>
-                                <td>${{price_internal_product($product->id, 1000)}}</td>
-                            </tr>
-                        @endif
                     </table>
                     <form action="{{ route('frontend.add_to_stock_simple') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <input type="hidden" name="product_id" value="{{$product['Id']}}">
                         <div class="mb-3 row">
                             <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
                             <div class="col-sm-10">
@@ -778,18 +685,14 @@
 @section('js')
 <script>
     $('#qty').change(function(event) {
-       var qty=$(this).val();
-       var price1=$(this).data('price1');
-        var price100=$(this).data('price100');
-        var price1000=$(this).data('price1000');
+
+        var qty=$(this).val();
+        var price1=$(this).data('price1');
         var price=price1;
-        if(qty<100){
-            price=qty*price1;
-        }else if(qty>99 && qty<1000){
-            price=qty*price100;
-        }else if(qty>999){
-            price=qty*price1000;
-        }
+
+        price=qty*price1;
+        price = price.toFixed(2);
+
         $('#price-cal').html(price);
     });
     function openModel(type){

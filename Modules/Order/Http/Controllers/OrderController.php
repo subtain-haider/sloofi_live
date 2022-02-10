@@ -58,17 +58,24 @@ class OrderController extends Controller
         $html='';
         $user = Auth::user();
         foreach ($order->baskets as $item){
-            $pro=$item->product;
-            $vendor = $item->product->user->name;
-            if($user->hasRole('admin') || $user->hasRole('super_admin')){
 
+//            if($user->hasRole('admin') || $user->hasRole('super_admin')){
+//
+//            }else{
+//                if ($item->type == 'internal' && $user->email != $item->product->user->email)
+//                {
+//                    continue;
+//                }
+//            }
+            if ($item->type == 'internal'){
+                $pro=$item->product;
+                $vendor = $item->product->user->name;
+                $html=$html.'<tr><td><img width="100px" height="100px" src="'.$pro->getMedia('thumbnail')->first()->getUrl().'" alt=""></td><td>'.$pro->name.'</td><td>'.$vendor.'</td><td>'.$item->quantity.'</td><td><div style="width: 50px; height: 50px; background-color: '.$item->color.'"></div></td><td>'.$item->size.'</td></tr>';
             }else{
-                if ($user->email != $item->product->user->email)
-                {
-                    continue;
-                }
+                $data = external_product($item->product_id);
+                $product = $data['product'];
+                $html=$html.'<tr><td><img width="100px" height="100px" src="'.$product['Pictures'][0]['Url'].'" alt=""></td><td>'.$product['Title'].'</td><td>Sloofi</td><td>'.$item->quantity.'</td><td><div style="width: 50px; height: 50px; background-color: '.$item->color.'"></div></td><td>'.$item->size.'</td></tr>';
             }
-            $html=$html.'<tr><td><img width="100px" height="100px" src="'.$pro->getMedia('thumbnail')->first()->getUrl().'" alt=""></td><td>'.$pro->name.'</td><td>'.$vendor.'</td><td>'.$item->quantity.'</td><td><div style="width: 50px; height: 50px; background-color: '.$item->color.'"></div></td><td>'.$item->size.'</td></tr>';
         }
         return $html;
     }

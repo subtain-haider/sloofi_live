@@ -100,12 +100,21 @@ class FrontendController extends Controller
         $warehouses =Warehouse::all();
         return view('frontend::product-detail',compact('product','shopifies','woocommerces','warehouses'));
     }
+    public function external_productDetail($id){
+        $data = external_product($id);
+        $product = $data['product'];
+        $shopifies=Shopify::all();
+        $woocommerces=Woocommerce::all();
+        $warehouses =Warehouse::all();
+        return view('frontend::external-product-detail',compact('product','shopifies','woocommerces','warehouses'));
+    }
     public function addToCart(Request $request){
         $cart = session()->get('cart', []);
         if(isset($cart[$request->id])) {
             $cart[$request->id]['quantity'] = $cart[$request->id]['quantity'] + $request->qty;
         } else {
             $cart[$request->id] = [
+                "type" => $request->type,
                 "quantity" => $request->qty,
                 "warehouse_id" => $request->warehouse_id,
                 "country"=>$request->country,
@@ -115,7 +124,7 @@ class FrontendController extends Controller
             ];
         }
         session()->put('cart', $cart);
-        return redirect()->route('frontend.product-detail',['id'=>$request->id])->with('success','Product add successfully');
+        return redirect()->back()->with('success','Product add successfully');
     }
     public function cartList(){
         $cartItems = \Cart::getContent();
@@ -289,40 +298,45 @@ class FrontendController extends Controller
         $cartItems=[];
         $count=0;
         foreach (session()->get('cart', []) as $key=>$qty){
-//            dd($qty);
-            $cartItems[$count]['product']=Product::find($key);
-            $cartItems[$count]['quantity']=$qty['quantity'];
-            $cartItems[$count]['country']=$qty['country'];
-            $cartItems[$count]['shipping_method']=$qty['shipping_method'];
-            $cartItems[$count]['warehouse_id']=$qty['warehouse_id'];
-            $count++;
+            if(array_key_exists('type', $qty)){
+                if ($qty['type'] == 'internal'){
+                    $cartItems[$key]['product']=Product::find($key);
+                }else{
+                    $cartItems[$key]['product']=external_product($key);
+                }
+                $cartItems[$key]['type']=$qty['type'];
+                $cartItems[$key]['quantity']=$qty['quantity'];
+                $cartItems[$key]['country']=$qty['country'];
+                $cartItems[$key]['shipping_method']=$qty['shipping_method'];
+                $cartItems[$key]['warehouse_id']=$qty['warehouse_id'];
+                $count++;
+
+            }
+
         }
         return view('frontend::cart', compact('cartItems'));
     }
     public function checkout(){
         $cartItems=[];
-        $count=0;
 //        dd(session()->get('cart', []));
         foreach (session()->get('cart', []) as $key=>$qty){
-            $cartItems[$count]['product']=Product::find($key);
-            $cartItems[$count]['quantity']=$qty['quantity'];
-            $count++;
+            if(array_key_exists('type', $qty)) {
+                if ($qty['type'] == 'internal') {
+                    $cartItems[$key]['product'] = Product::find($key);
+                } else {
+                    $cartItems[$key]['product'] = external_product($key);
+                }
+                $cartItems[$key]['type'] = $qty['type'];
+                $cartItems[$key]['quantity'] = $qty['quantity'];
+            }
         }
         return view('frontend::checkout', compact('cartItems'));
     }
     public function removeCart($id){
-        $cartItems=[];
-        $count=0;
-        foreach (session()->get('cart', []) as $key=>$qty){
-            if($key!=$id){
-                $cartItems[$count]['product']=Product::find($key);;
-                $cartItems[$count]['quantity']=$qty['quantity'];
-                $count++;
-            }
-
-        }
+        $cartItems= session()->pull('cart', []);
+        unset($cartItems[$id]);
         session()->put('cart', $cartItems);
-        return view('frontend::cart', compact('cartItems'));
+        return redirect()->back();
     }
     public function paymentPage(Request $request){
 //        dd($request->all());
@@ -333,21 +347,29 @@ class FrontendController extends Controller
             return back();
         }
         foreach ($cartItems as $key=>$item){
-            $product=Product::find($key);
+            if(array_key_exists('type', $item)) {
+                if ($item['type'] == 'internal') {
+                    $product = Product::find($key);
 //            dd($product);
-            $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
-            $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
-            $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
-            if($item['quantity']>0 && $item['quantity']<100){
-                $price=$price1;
-            }elseif($item['quantity']>99 && $item['quantity']<1000){
-                $price=$price100;
-            }elseif($item['quantity']>999){
-                $price=$price1000;
-            }else{
-                $price=0;
+                    $price1 = $product->prices->where('qty', 1)->first() ? $product->prices->where('qty', 1)->first()->value : 0;
+                    $price100 = $product->prices->where('qty', 100)->first() ? $product->prices->where('qty', 100)->first()->value : 0;
+                    $price1000 = $product->prices->where('qty', 1000)->first() ? $product->prices->where('qty', 1000)->first()->value : 0;
+                    if ($item['quantity'] > 0 && $item['quantity'] < 100) {
+                        $price = $price1;
+                    } elseif ($item['quantity'] > 99 && $item['quantity'] < 1000) {
+                        $price = $price100;
+                    } elseif ($item['quantity'] > 999) {
+                        $price = $price1000;
+                    } else {
+                        $price = 0;
+                    }
+                    $total += $item['quantity'] * $price;
+                }else {
+                    $data = price_external_product($key,1);
+                    $f_price = $data['f_price'];
+                    $total+=$item['quantity']*$f_price;
+                }
             }
-            $total+=$item['quantity']*$price;
         }
         $order = new Order();
         $user = Auth::user();
@@ -383,49 +405,50 @@ class FrontendController extends Controller
 
         foreach ($cartItems as $key => $item){
             //todo remove this line
-            $item['type'] = 'internal';
-            if($item['type'] == 'internal'){
-                $product = Product::find($key);
-                $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
-                $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
-                $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
-                if($item['quantity']<100){
-                    $price=$price1;
-                }elseif($item['quantity']>99 && $item['quantity']<999){
-                  $price=  $price100>0?$price100:$price1;
-                }elseif ( $item['quantity']>999){
-                    if($price1000){
-                        $price=  $price1000;
-                    }elseif($price100){
-                        $price=  $price100;
-                    }else{
-                        $price=  $price1;
+            if(array_key_exists('type', $item)) {
+                if ($item['type'] == 'internal') {
+                    $product = Product::find($key);
+                    $price1 = $product->prices->where('qty', 1)->first() ? $product->prices->where('qty', 1)->first()->value : 0;
+                    $price100 = $product->prices->where('qty', 100)->first() ? $product->prices->where('qty', 100)->first()->value : 0;
+                    $price1000 = $product->prices->where('qty', 1000)->first() ? $product->prices->where('qty', 1000)->first()->value : 0;
+                    if ($item['quantity'] < 100) {
+                        $price = $price1;
+                    } elseif ($item['quantity'] > 99 && $item['quantity'] < 999) {
+                        $price = $price100 > 0 ? $price100 : $price1;
+                    } elseif ($item['quantity'] > 999) {
+                        if ($price1000) {
+                            $price = $price1000;
+                        } elseif ($price100) {
+                            $price = $price100;
+                        } else {
+                            $price = $price1;
+                        }
                     }
-                }
 
 
-                if ($product->user_id == 1){
+                    if ($product->user_id == 1) {
+                        $owner = 'sloofi';
+                    } else {
+                        $owner = 'vendor';
+                    }
+                } elseif ($item['type'] == 'external') {
                     $owner = 'sloofi';
-                }else{
-                    $owner = 'vendor';
+                    $data = price_external_product($key, 1);
+                    $price = $data['f_price'];
                 }
-            }elseif($item['type'] == 'external'){
-                $owner = 'sloofi';
-                $data = price_external_product($key,1);
-                $price = $data['f_price'];
+                $basket = new Basket();
+                $basket->price = $price;
+                $basket->quantity = $item['quantity'];
+                $basket->type = $item['type'];
+                $basket->owner = $owner;
+                $basket->product_id = $key;
+                $basket->warehouse_id = $item['warehouse_id'];
+                $basket->country = $item['country'];
+                $basket->shipping_method = $item['shipping_method'];
+                $basket->color = $item['color'];
+                $basket->size = $item['size'];
+                $order->baskets()->save($basket);
             }
-            $basket = new Basket();
-            $basket->price = $price;
-            $basket->quantity = $item['quantity'];
-            $basket->type = $item['type'];
-            $basket->owner = $owner;
-            $basket->product_id = $key;
-            $basket->warehouse_id=$item['warehouse_id'];
-            $basket->country=$item['country'];
-            $basket->shipping_method=$item['shipping_method'];
-            $basket->color=$item['color'];
-            $basket->size=$item['size'];
-            $order->baskets()->save($basket);
         }
         session()->forget('cart');
         return redirect()->route('order.all')->with('success','Order Created Successfully');
