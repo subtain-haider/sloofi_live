@@ -67,7 +67,7 @@ class PermissionsSeeder extends Seeder
             ['name' => 'view_vendor_external_orders','guard_name'=>'web'],
             ['name' => 'view_packages','guard_name'=>'web'],
             ['name' => 'add_package','guard_name'=>'web'],
-
+            ['name' => 'product_list','guard_name'=>'web'],
         ];
         Permission::insert($permissions);
     }

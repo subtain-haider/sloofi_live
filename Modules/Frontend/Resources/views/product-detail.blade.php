@@ -49,6 +49,7 @@
                                 @php
                                     $images=$product->getMedia('images');
                                 @endphp
+                                <li><img src="{{ $product->getMedia('thumbnail')->first()->getUrl()}}" /></li>
                                 @foreach ($images as $image)
                                     <li><img src="{{ $image->getUrl()}}" /></li>
                                 @endforeach
@@ -60,6 +61,7 @@
                                 @php
                                     $images=$product->getMedia('images');
                                 @endphp
+                                <li><img src="{{ $product->getMedia('thumbnail')->first()->getUrl()}}" /></li>
                                 @foreach ($images as $image)
                                     <li><img src="{{ $image->getUrl()}}" /></li>
                                 @endforeach
@@ -498,7 +500,7 @@
                             {{-- <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second"><a href="#">Text Here</a></div>
                             </div>--}}
-                            @can('product_add_stock')
+                            @can('product_add_stock' && isset(Auth::user()->id) && Auth::user()->id!=$product->user_id)
                             <div class="col-lg-4 col-md-4">
                                 <div class="readmore-second"><a href="java:void(0)" onclick="openModel('stock')" data-toggle="modal" data-target="#stockModal">Add Stock</a></div>
                             </div>
@@ -731,18 +733,18 @@
                         @endif
                         <tr>
                             <td>Price 1 pcs:</td>
-                            <td>${{price_internal_product($product->id, 1)}}</td>
+                            <td>${{$price1}}</td>
                         </tr>
-                        @if($product->price_100 > 0)
+                        @if($price100)
                             <tr>
                                 <td>Price above 100 pcs:</td>
-                                <td>${{price_internal_product($product->id, 100)}}</td>
+                                <td>${{$price100}}</td>
                             </tr>
                         @endif
-                        @if($product->price_1000 > 0)
+                        @if($price1000)
                             <tr>
                                 <td>Price above 1000 pcs:</td>
-                                <td>${{price_internal_product($product->id, 1000)}}</td>
+                                <td>${{$price1000}}</td>
                             </tr>
                         @endif
                     </table>

@@ -113,7 +113,7 @@
                                                     @if($stock->type == 'internal')
                                                         <tr>
 
-                                                            <td><img src="{{url('/')}}/{{$stock->product->thumbnail}}" height="100" width="100" alt=""></td>
+                                                            <td><img src="{{$stock->product->getFirstMediaUrl('thumbnail')}}" height="100" width="100" alt=""></td>
                                                             <td>{{$stock->product->name}}</td>
                                                             <td>{{$stock->type}}</td>
                                                             <td>{{$stock->user->name}}</td>
@@ -183,7 +183,7 @@
                                                 @foreach($stock_requests as $stock)
                                                     @if($stock->type == 'internal')
                                                         <tr>
-                                                            <td><img src="{{url('/')}}/{{$stock->product->thumbnail}}" height="100" width="100" alt=""></td>
+                                                            <td><img src="{{$stock->product->getFirstMediaUrl('thumbnail')}}" height="100" width="100" alt=""></td>
 
                                                             <td>{{$stock->product->name}}</td>
                                                             <td>{{$stock->type}}</td>
@@ -199,9 +199,9 @@
                                                             </td>
                                                             <td>{{$stock->created_at}}</td>
                                                             <td>
-                                                                @if($stock->status == 'pending' and \Illuminate\Support\Facades\Auth::user()->is_admin)
-                                                                    <a href="/admin/stock/approve/{{$stock->id}}" onclick="if (confirm('Are you sure you want to approve this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-success btn-sm">Approve</a>
-                                                                    <a href="/admin/stock/reject/{{$stock->id}}" onclick="if (confirm('Are you sure you want to reject this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger btn-sm">Reject</a>
+                                                                @if($stock->status == 'pending' && Auth::user()->hasRole('super_admin'))
+                                                                    <a href="{{route('stock.approve',['id'=>$stock->id])}}" onclick="if (confirm('Are you sure you want to approve this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-success btn-sm">Approve</a>
+                                                                    <a href="{{route('stock.reject',['id'=>$stock->id])}}" onclick="if (confirm('Are you sure you want to reject this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger btn-sm">Reject</a>
                                                                 @endif
                                                             </td>
 
@@ -228,9 +228,9 @@
                                                             </td>
                                                             <td>{{$stock->created_at}}</td>
                                                             <td>
-                                                                @if($stock->status == 'pending' and \Illuminate\Support\Facades\Auth::user()->is_admin)
-                                                                    <a href="/admin/stock/approve/{{$stock->id}}" onclick="if (confirm('Are you sure you want to approve this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-success">Approve</a>
-                                                                    <a href="/admin/stock/reject/{{$stock->id}}" onclick="if (confirm('Are you sure you want to reject this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger">Reject</a>
+                                                                @if($stock->status == 'pending' && Auth::user()->hasRole('super_admin'))
+                                                                    <a href="{{route('stock.approve',['id'=>$stock->id])}}" onclick="if (confirm('Are you sure you want to approve this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-success">Approve</a>
+                                                                    <a href="{{route('stock.reject',['id'=>$stock->id])}}" onclick="if (confirm('Are you sure you want to reject this request?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger">Reject</a>
                                                                 @endif
                                                             </td>
 
