@@ -80,6 +80,7 @@ class StockController extends Controller
         //
     }
     public function approve($id){
+//        dd($id);
         $p_stock = StockRequest::find($id);
         $stock = Stock::where('user_id', $p_stock->user_id)->where('product_id', $p_stock->product_id)->where('warehouse_id', $p_stock->warehouse_id)->first();
         if (!$stock){
@@ -96,7 +97,7 @@ class StockController extends Controller
         $p_stock->update([
             'status' => 'approved'
         ]);
-        return redirect()->route('warehouse.manage-stock',['id'=>$id])->with('success','updated');
+        return redirect()->route('warehouse.manage-stock',['id'=>$p_stock->warehouse_id])->with('success','updated');
     }
     public function reject($id){
         $p_stock = StockRequest::find($id);
