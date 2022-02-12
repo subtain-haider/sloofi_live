@@ -36,12 +36,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <button class="close-toggler" type="button" data-toggle="offcanvas"> <span><i class="fas fa-times" aria-hidden="true"></i></span> </button>
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{url('/register')}}">Sign Up</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{url('/login')}}">Login</a>
-                  </li>
+{{--                  @if(!Auth::user())--}}
+{{--                  <li class="nav-item">--}}
+{{--                      <a class="nav-link" href="{{url('/register')}}">Sign Up</a>--}}
+{{--                  </li>--}}
+{{--                  <li class="nav-item">--}}
+{{--                      <a class="nav-link" href="{{url('/login')}}">Login</a>--}}
+{{--                  </li>--}}
+{{--                  @else--}}
+{{--                      <li class="nav-item">--}}
+{{--                          <a class="nav-link" href="javascript:void(0)" onclick="$('#logout-form').submit();">--}}
+{{--                              Logout--}}
+{{--                          </a>--}}
+{{--                      </li>--}}
+{{--                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+{{--                          @csrf--}}
+{{--                      </form>--}}
+{{--                  @endif--}}
                   <li class="nav-item">
                       <a class="nav-link" href="#">Print on Demand</a>
                   </li>
@@ -276,11 +287,25 @@
 <!-- Footer Fix Start -->
 <div class="footer_fix">
   <div class="container">
+      @php
+      $menu='Home';
+      $url=URL::full();
+        if(str_contains($url,'cart')){
+            $menu='Cart';
+        }
+        elseif(str_contains($url,'profile')){
+            $menu='Profile';
+        }elseif(str_contains($url,'search-product')){
+            $menu='Products';
+        }
+
+
+      @endphp
     <ul>
-      <li><a href="{{url('/')}}"><img src="{{ asset('/frontend/images/home-icon.png')}}"></a></li>
-      <li class="product-box"><a href="#"><img src="{{ asset('/frontend/images/product-icon.png')}}"> Products</a></li>
-      <li><a href="{{route('frontend.cart')}}"><img src="{{ asset('/frontend/images/cart-icon.png')}}"></a></li>
-      <li><a href=""><img src="{{ asset('/frontend/images/user-icon.png')}}"></a></li>
+      <li class="menu-item @if($menu=='Home') product-box  @endif " id="home_li" onclick="mobileMenu('Home')"><a href="{{url('/')}}"><img src="{{ asset('/frontend/images/home-icon.png')}}"><span class="menu-item-text">@if($menu=='Home'){{$menu}}@endif</span></a></li>
+      <li class="menu-item @if($menu=='Products') product-box @endif " id="products_li" onclick="mobileMenu('Products')"><a href="{{route('frontend.search-product')}}"><img src="{{ asset('/frontend/images/product-icon.png')}}"><span class="menu-item-text">@if($menu=='Products'){{$menu}}@endif</span></a></li>
+      <li class="menu-item @if($menu=='Cart')product-box @endif " id="cart_li" onclick="mobileMenu('Cart')"><a href="{{route('frontend.cart')}}"><img src="{{ asset('/frontend/images/cart-icon.png')}}"><span class="menu-item-text">@if($menu=='Cart'){{$menu}}@endif</span></a></li>
+      <li class="menu-item @if($menu=='Profile') product-box @endif " id="profile_li" onclick="mobileMenu('Profile')"><a href="{{route('user.profile')}}"><img src="{{ asset('/frontend/images/user-icon.png')}}"><span class="menu-item-text">@if($menu=='Profile'){{$menu}}@endif</span></a></li>
     </ul>
   </div>
 </div>
@@ -297,6 +322,28 @@
     <!-- Load JS siles -->
     <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
     <script src="{{ asset('frontend/js/script.js') }}"></script>
+    <script>
+        function mobileMenu(menu){
+            $('.menu-item').each(function (){
+                $(this).removeClass('product-box')
+            })
+            $('.menu-item-text').each(function (){
+                $(this).html('')
+            })
+            if(menu=='Products'){
+                $('#products_li').addClass('product-box');
+            }
+            if(menu=='Cart'){
+                $('#cart_li').addClass('product-box');
+            }
+            if(menu=='Profile'){
+                $('#profile_li').addClass('product-box');
+            }
+            if(menu=='Home'){
+                $('#home_li').addClass('product-box');
+            }
+        }
+    </script>
     @yield('js')
   </body>
 </html>

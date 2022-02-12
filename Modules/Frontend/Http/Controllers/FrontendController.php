@@ -458,7 +458,7 @@ class FrontendController extends Controller
         if ($request->search){
             $products = $products->where('name', 'like', '%'.$request->search.'%')->get();;
         }else{
-            $products=[];
+            $products=$products->all();
         }
         return view('frontend::search',compact('products'));
     }

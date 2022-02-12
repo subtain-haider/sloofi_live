@@ -39,19 +39,19 @@
                                         <label class="custom-control-label" for="{{$row->id}}"></label>
                                     </div>
                                 </td>
-                                <td class="nk-tb-col tb-col-md">
+                                <td class="nk-tb-col  ">
                                     {{ $row->name }}
                                 </td>
-                                <td class="nk-tb-col tb-col-md">
+                                <td class="nk-tb-col  ">
                                     {{ $row->users()->count() }}
                                 </td>
-                                <td class="nk-tb-col tb-col-md">
+                                <td class="nk-tb-col  ">
                                     <span class="tb-status text-success"><a href="{{ route('rolepermission.edit',["id"=>$row->id]) }}" class="project-title">
                                         Role Permissions
                                     </a>
                                     </span>
                                 </td>
-                                <td class="nk-tb-col tb-col-md">
+                                <td class="nk-tb-col  ">
                                     <ul class="nk-tb-actions gx-1">
                                         <li>
                                             <div class="drodown">

@@ -85,6 +85,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepository->updateCategory($request->except('_token','_method'),$id);
         if($request->hasFile('icon') && $request->file('icon')->isValid()){
+            $category->media()->delete();
             $category->addMediaFromRequest('icon')->toMediaCollection('icon');
         }
         return redirect('/category/all')->with('success', 'Category Updated Successfully');

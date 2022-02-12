@@ -39,10 +39,10 @@
                                         <label class="custom-control-label" for="{{$row->id}}"></label>
                                     </div>
                                 </td>
-                                <td class="nk-tb-col tb-col-md">
+                                <td class="nk-tb-col">
                                     {{ str_replace('_',' ',$row->name,) }}
                                 </td>
-                                <td class="nk-tb-col tb-col-md">
+                                <td class="nk-tb-col">
                                     <ul class="nk-tb-actions gx-1">
                                         <li>
                                             <div class="drodown">
