@@ -36,6 +36,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <button class="close-toggler" type="button" data-toggle="offcanvas"> <span><i class="fas fa-times" aria-hidden="true"></i></span> </button>
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{url('/register')}}">Sign Up</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{url('/login')}}">Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Print on Demand</a>
+                  </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Authorization
@@ -268,10 +277,10 @@
 <div class="footer_fix">
   <div class="container">
     <ul>
-      <li><a href="#"><img src="{{ asset('/frontend/images/home-icon.png')}}"></a></li>
+      <li><a href="{{url('/')}}"><img src="{{ asset('/frontend/images/home-icon.png')}}"></a></li>
       <li class="product-box"><a href="#"><img src="{{ asset('/frontend/images/product-icon.png')}}"> Products</a></li>
-      <li><a href="#"><img src="{{ asset('/frontend/images/cart-icon.png')}}"></a></li>
-      <li><a href="#"><img src="{{ asset('/frontend/images/user-icon.png')}}"></a></li>
+      <li><a href="{{route('frontend.cart')}}"><img src="{{ asset('/frontend/images/cart-icon.png')}}"></a></li>
+      <li><a href=""><img src="{{ asset('/frontend/images/user-icon.png')}}"></a></li>
     </ul>
   </div>
 </div>
