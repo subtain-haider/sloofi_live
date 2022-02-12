@@ -42,9 +42,16 @@
                                 <div class="col-sm-10">
                                    <select name="type" class="form-control" id="type">
                                        <option value="card">Paypal or Credit card</option>
+                                       <option value="stripe">Pay Stripe</option>
                                        <option value="bank">Bank Transfer</option>
+
                                    </select>
                                 </div>
+                            </div>
+                            <div class="form-group row" id="stripe" style="display: none">
+                                <label class="col-sm-2 col-form-label">Card Info</label>
+                                <div > @include('payment::stripe-card')</div>
+
                             </div>
                             <div class="form-group row" id="card">
                                 <label class="col-sm-2 col-form-label">Amount</label>
@@ -78,15 +85,22 @@
 
     </script>
     @include('payment::paypal')
+    @include('payment::stripe')
     <script>
         $('#type').change(function (){
            var type=$(this).val();
            if(type=='bank'){
                $('#card').hide();
                $('#bank_transfer').show();
+               $('#stripe').hide();
+           }else if(type=='stripe') {
+               $('#card').hide();
+               $('#bank_transfer').hide();
+               $('#stripe').show();
            }else{
                $('#card').show();
                $('#bank_transfer').hide();
+               $('#stripe').hide();
            }
         });
     </script>
