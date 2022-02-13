@@ -3155,6 +3155,7 @@ return array(
     'Nwidart\\Modules\\Commands\\MailMakeCommand' => $vendorDir . '/nwidart/laravel-modules/src/Commands/MailMakeCommand.php',
     'Nwidart\\Modules\\Commands\\MiddlewareMakeCommand' => $vendorDir . '/nwidart/laravel-modules/src/Commands/MiddlewareMakeCommand.php',
     'Nwidart\\Modules\\Commands\\MigrateCommand' => $vendorDir . '/nwidart/laravel-modules/src/Commands/MigrateCommand.php',
+    'Nwidart\\Modules\\Commands\\MigrateFreshCommand' => $vendorDir . '/nwidart/laravel-modules/src/Commands/MigrateFreshCommand.php',
     'Nwidart\\Modules\\Commands\\MigrateRefreshCommand' => $vendorDir . '/nwidart/laravel-modules/src/Commands/MigrateRefreshCommand.php',
     'Nwidart\\Modules\\Commands\\MigrateResetCommand' => $vendorDir . '/nwidart/laravel-modules/src/Commands/MigrateResetCommand.php',
     'Nwidart\\Modules\\Commands\\MigrateRollbackCommand' => $vendorDir . '/nwidart/laravel-modules/src/Commands/MigrateRollbackCommand.php',

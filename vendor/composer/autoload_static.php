@@ -3762,6 +3762,7 @@ class ComposerStaticInit050e42bde1151a7f7eb2147629af0cb9
         'Nwidart\\Modules\\Commands\\MailMakeCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MailMakeCommand.php',
         'Nwidart\\Modules\\Commands\\MiddlewareMakeCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MiddlewareMakeCommand.php',
         'Nwidart\\Modules\\Commands\\MigrateCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateCommand.php',
+        'Nwidart\\Modules\\Commands\\MigrateFreshCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateFreshCommand.php',
         'Nwidart\\Modules\\Commands\\MigrateRefreshCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateRefreshCommand.php',
         'Nwidart\\Modules\\Commands\\MigrateResetCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateResetCommand.php',
         'Nwidart\\Modules\\Commands\\MigrateRollbackCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateRollbackCommand.php',
