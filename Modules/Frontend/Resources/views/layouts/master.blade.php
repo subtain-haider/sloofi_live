@@ -12,6 +12,21 @@
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=61fd9f8e97a9c5001998eb2b&product=inline-share-buttons" async="async"></script>
     <title>Sloofi</title>
       @yield('css')
+      <style>
+          @media screen and (max-width : 1920px){
+              .div-only-mobile{
+                  visibility:hidden;
+              }
+          }
+          @media screen and (max-width : 906px){
+              .desk{
+                  visibility:hidden;
+              }
+              .div-only-mobile{
+                  visibility:visible;
+              }
+          }
+      </style>
   </head>
   <body>
     <!-- Topbar Start -->
@@ -36,23 +51,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <button class="close-toggler" type="button" data-toggle="offcanvas"> <span><i class="fas fa-times" aria-hidden="true"></i></span> </button>
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-{{--                  @if(!Auth::user())--}}
-{{--                  <li class="nav-item">--}}
-{{--                      <a class="nav-link" href="{{url('/register')}}">Sign Up</a>--}}
-{{--                  </li>--}}
-{{--                  <li class="nav-item">--}}
-{{--                      <a class="nav-link" href="{{url('/login')}}">Login</a>--}}
-{{--                  </li>--}}
-{{--                  @else--}}
-{{--                      <li class="nav-item">--}}
-{{--                          <a class="nav-link" href="javascript:void(0)" onclick="$('#logout-form').submit();">--}}
-{{--                              Logout--}}
-{{--                          </a>--}}
-{{--                      </li>--}}
-{{--                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-{{--                          @csrf--}}
-{{--                      </form>--}}
-{{--                  @endif--}}
+                  @if(!Auth::user())
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{url('/register')}}">Sign Up</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{url('/login')}}">Login</a>
+                  </li>
+                  @else
+                      <li class="nav-item">
+                          <a class="nav-link" href="javascript:void(0)" onclick="$('#logout-form').submit();">
+                              Logout
+                          </a>
+                      </li>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          @csrf
+                      </form>
+                  @endif
                   <li class="nav-item">
                       <a class="nav-link" href="#">Print on Demand</a>
                   </li>
