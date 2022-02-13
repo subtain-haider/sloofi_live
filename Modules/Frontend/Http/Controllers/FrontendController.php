@@ -160,7 +160,7 @@ class FrontendController extends Controller
             $path = url('/').'/'.$product->thumbnail;
             $image_query = [
                 [
-                    "src" => "$path"
+                    "src" => $path
                 ]
             ];
 

@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="page-title-content">
             <ul class="breadcrumb-nav">
-                <li><a href="{{route('category.products', $product->categories[0]->id)}}">{{$product->categories[0]->name}}</a></li>
+                <li><a href="{{route('category.products', $product->categories[0]->id??'')}}">{{$product->categories[0]->name??''}}</a></li>
             </ul>
         </div>
     </div>
