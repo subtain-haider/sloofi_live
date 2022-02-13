@@ -146,6 +146,7 @@ class FrontendController extends Controller
         return view('frontend::category_products', compact('category', 'products', 'e_products', 'f_size'));
     }
     public function connectToWoocommerce(Request $request){
+
         $woocommerce = Woocommerce::connect($request->woocommerce_id);
         if ($request->type == 'internal'){
             $product = Product::find($request->product_id);
@@ -157,7 +158,8 @@ class FrontendController extends Controller
             $slug = 'SLI_'.$product->id;
 
             // for image
-            $path = url('/').'/'.$product->thumbnail;
+            $path =$product->getMedia('thumbnail')->first()->getUrl()??'';
+
             $image_query = [
                 [
                     "src" => $path
