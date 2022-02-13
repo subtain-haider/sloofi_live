@@ -12,6 +12,21 @@
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=61fd9f8e97a9c5001998eb2b&product=inline-share-buttons" async="async"></script>
     <title>Sloofi</title>
       @yield('css')
+      <style>
+          @media screen and (max-width : 1920px){
+              .div-only-mobile{
+                  visibility:hidden;
+              }
+          }
+          @media screen and (max-width : 906px){
+              .desk{
+                  visibility:hidden;
+              }
+              .div-only-mobile{
+                  visibility:visible;
+              }
+          }
+      </style>
   </head>
   <body>
     <!-- Topbar Start -->
