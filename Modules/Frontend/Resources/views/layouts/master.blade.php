@@ -52,14 +52,14 @@
               <button class="close-toggler" type="button" data-toggle="offcanvas"> <span><i class="fas fa-times" aria-hidden="true"></i></span> </button>
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   @if(!Auth::user())
-                  <li class="nav-item">
+                  <li class="nav-item div-only-mobile desk">
                       <a class="nav-link" href="{{url('/register')}}">Sign Up</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item div-only-mobile desk">
                       <a class="nav-link" href="{{url('/login')}}">Login</a>
                   </li>
                   @else
-                      <li class="nav-item">
+                      <li class="nav-item div-only-mobile desk">
                           <a class="nav-link" href="javascript:void(0)" onclick="$('#logout-form').submit();">
                               Logout
                           </a>
