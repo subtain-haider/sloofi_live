@@ -20,6 +20,6 @@ class WoocommerceProduct extends Model
 
     public function woocommerce()
     {
-        return $this->belongsTo(\App\Models\Woocommerce::class);
+        return $this->belongsTo(Woocommerce::class);
     }
 }

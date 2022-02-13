@@ -29,8 +29,8 @@ Route::prefix('frontend')->group(function() {
     });
     Route::controller(OrderController::class)->group(function () {
         Route::any('orders/all', 'allOrders')->name('frontend.order.all');
-        Route::post('product/connect/woocommerce', 'connectToWoocommerce')->name('frontend.woocommerce.products.connect');
-        Route::post('add-stock', 'addStock')->name('frontend.add_to_stock_simple');
+//        Route::post('product/connect/woocommerce', 'connectToWoocommerce')->name('frontend.woocommerce.products.connect');
+//        Route::post('add-stock', 'addStock')->name('frontend.add_to_stock_simple');
 
 
     });

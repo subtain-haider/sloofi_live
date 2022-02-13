@@ -57,4 +57,5 @@
         var total=10;
     </script>
    @include('payment::paypal')
+
 @endsection

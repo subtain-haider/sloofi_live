@@ -70,6 +70,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Old Thumbnail</label>
+                                <div class="form-control-wrap col-sm-10">
+                                        <img src="{{$product->getMedia('thumbnail')->first()->getUrl()}}" style="width: 100px;">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Select Multiple Images*</label>
                                 <div class="form-control-wrap col-sm-10">
                                     <div class="custom-file">
@@ -78,6 +84,21 @@
                                     </div>
                                 </div>
                             </div>
+                            @php
+                                $images=$product->getMedia('images');
+                            @endphp
+                            @if($images && count($images)>0)
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Old Images</label>
+                                <div class="form-control-wrap col-sm-10">
+
+                                    @foreach ($images as $image)
+                                        <img src="{{$image->getUrl()??''}}" style="width: 100px;">
+                                    @endforeach
+
+                                </div>
+                            </div>
+                            @endif
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Product Description*</label>
                                 <div class="col-sm-10">
@@ -163,9 +184,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Meta description</label>
                                 <div class="col-sm-10">
-                                    <textarea rows="5" cols="5" class="form-control" name="meta_description" placeholder="Meta description" >
-                                        {{$product->meta_description}}
-                                    </textarea>
+                                    <textarea rows="5" cols="5" class="form-control" name="meta_description" placeholder="Meta description" >{{$product->meta_description}}</textarea>
                                 </div>
                             </div>
                             <hr>

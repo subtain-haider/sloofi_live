@@ -1052,3 +1052,16 @@ input[type=radio]:after {
 .buy_now:hover{
     cursor: pointer;
 }
+@media screen and (max-width : 1920px){
+    .div-only-mobile{
+        visibility:hidden;
+    }
+}
+@media screen and (max-width : 906px){
+    .desk{
+        visibility:hidden;
+    }
+    .div-only-mobile{
+        visibility:visible;
+    }
+}

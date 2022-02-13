@@ -73,6 +73,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user=User::find($request->id);
+        $user->syncRoles($request->roles);
         $user->name=$request->name;
         if($request->password){
             $user->password=Hash::make($request->password);

@@ -158,7 +158,8 @@ class FrontendController extends Controller
             $slug = 'SLI_'.$product->id;
 
             // for image
-            $path = url('/').'/'.$product->thumbnail;
+            $path =$product->getMedia('thumbnail')->first()->getUrl()??'';
+
             $image_query = [
                 [
                     "src" => $path
@@ -459,7 +460,7 @@ class FrontendController extends Controller
         if ($request->search){
             $products = $products->where('name', 'like', '%'.$request->search.'%')->get();;
         }else{
-            $products=[];
+            $products=$products->all();
         }
         return view('frontend::search',compact('products'));
     }

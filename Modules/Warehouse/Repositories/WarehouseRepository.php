@@ -31,6 +31,7 @@ class WarehouseRepository implements WarehouseInterface
     }
     public function manageStock($warehouseData,$warehouseId){
         $products = [];
+//        dd($warehouseId,$warehouseData);
         $warehouse = Warehouse::find($warehouseId);
         $filters = [];
         if (count($warehouseData) > 0){

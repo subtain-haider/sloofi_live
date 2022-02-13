@@ -41,6 +41,23 @@
                                     <input name="password" type="password" class="form-control" placeholder="New Password" >
                                 </div>
                             </div><!-- data-item -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">User Roles</label>
+                                <div class="col">
+                                    <div class="form-control-wrap">
+                                        <select class="form-select" multiple="multiple" name="roles[]" data-placeholder="Select user Roles">
+                                            @php
+                                                $user_roles = $user->roles()->pluck('id')->toArray();
+                                                $roles = \Spatie\Permission\Models\Role::all();
+                                            @endphp
+                                            @foreach($roles as  $role)
+                                                <option @if(in_array($role->id,$user_roles)) selected @endif value="{{$role->name}}">{{$role->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- Published: <input type="checkbox" class="js-single" name="published" value="1" checked /> -->
+                                </div>
+                            </div>
                             @if($user->id!=1)
                                 @can('user_update')
                                     <button type="submit" class="btn btn-lg btn-primary my-3 right-pull">Save Changes</button>

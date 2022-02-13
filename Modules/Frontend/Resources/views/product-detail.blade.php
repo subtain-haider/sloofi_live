@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="page-title-content">
             <ul class="breadcrumb-nav">
-                <li><a href="{{route('category.products', $product->categories[0]->id)}}">{{$product->categories[0]->name}}</a></li>
+                <li><a href="{{route('category.products', $product->categories[0]->id??'')}}">{{$product->categories[0]->name??''}}</a></li>
             </ul>
         </div>
     </div>
@@ -156,13 +156,13 @@
                             <div class="col-lg-9 col-md-9">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        @php($warehouses=[])
+                                        @php($warehouses_q=[])
                                         <select name="warehouse_id" class="form-control" required>
                                             @foreach($product->stocks as $stock)
-                                                @if(!in_array($stock->warehouse->name,$warehouses))
-                                                <option value="{{$stock->warehouse->id}}">{{$stock->warehouse->name}}</option>
+                                                @if(!in_array($stock->warehouse->name,$warehouses_q) && $stock->quantity>0)
+                                                <option value="{{$stock->warehouse->id??''}}">{{$stock->warehouse->name??''}}</option>
                                                 @else
-                                                    @php(array_push($warehouses,$stock->warehouse->name))
+                                                    @php(array_push($warehouses_q,$stock->warehouse->name))
                                                     @endif
                                             @endforeach
                                         </select>
@@ -762,7 +762,7 @@
                             <div class="col-sm-10">
                                 <select name="warehouse_id" class="form-control" required>
                                     @foreach($warehouses as $warehouse)
-                                        <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                        <option value="{{$warehouse->id??''}}">{{$warehouse->name??''}}</option>
                                     @endforeach
                                 </select>
                             </div>
