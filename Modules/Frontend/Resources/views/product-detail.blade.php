@@ -32,9 +32,19 @@
     <div class="container-fluid">
         <div class="row">
             @php
-                $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
-                $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
-                $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
+
+
+                    $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
+                    $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
+                    $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
+
+                $value = 0;
+                if($product->categories[0]->prices()->where('qty',1)->first()){
+                    $value = $product->categories[0]->prices()->where('qty',1)->first()->value;
+                }
+                $price1 += $value;
+                $price100 += $value;
+                $price1000 += $value;
             @endphp
             <div class="col-lg-5">
                 <div class="aboveSlider">
