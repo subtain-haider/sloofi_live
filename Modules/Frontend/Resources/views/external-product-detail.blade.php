@@ -9,9 +9,13 @@
             <div class="col-lg-10 col-md-9 col-sm-12"><img src="{{ asset('/frontend/images/s-logo.png')}}" />
                 <h2>Supplier: Sloofi DropShipping Co. Ltd </h2>
             </div>
+            @if(\Illuminate\Support\Facades\Auth::user())
+            @if(Auth::user()->can('edit_api_product'))
             <div class="col-lg-2 col-md-3 col-sm-12">
-                <div class="readmore"><a href="#">Visit Store</a></div>
+                <div class="readmore"><a href="{{route('api_product.edit', $product['Id'])}}">Edit Product</a></div>
             </div>
+            @endif
+            @endif
         </div>
     </div>
 </section>

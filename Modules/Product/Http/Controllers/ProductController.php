@@ -5,7 +5,9 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Section;
 use Modules\Product\Interfaces\ProductInterface;
 use Modules\Shopify\Entities\Shopify;
 use Modules\Warehouse\Entities\Warehouse;
@@ -68,6 +70,19 @@ class ProductController extends Controller
     public function edit($id)
     {
         $data= $this->productRepository->editProduct($id);
+        return view('product::edit')->with($data);
+    }
+    public function edit_api_product($id)
+    {
+        $data['categories'] = Category::all();
+        $data['sections']=Section::all();
+        $data['warehouses']=Warehouse::all();
+        $data['product'] = Product::where('external_id', $id)->first();
+        if (!$data['product']){
+            $ex_product = external_product($id);
+            $product = $ex_product['product'];
+            $data['product'] = $this->productRepository->storeExternalProduct($product);
+        }
         return view('product::edit')->with($data);
     }
 

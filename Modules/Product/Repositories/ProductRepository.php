@@ -81,6 +81,38 @@ class ProductRepository implements ProductInterface
         }
         return $product;
     }
+    public function storeExternalProduct(array $ProductData){
+        $product=new Product();
+        $product->name = $ProductData['Title'];
+        $product->tags =  '';
+        $product->user_id=Auth::user()->id;
+        $product->description = '';
+        $product->meta_description = '';
+        $product->purchase_price = 0;
+        $product->meta_title = '';
+        $product->external_id = $ProductData['Id'];
+        $product->save();
+
+        if(count($ProductData['ConfiguredItems']) > 0){
+            $first = $ProductData['ConfiguredItems'][0];
+            $f_price = $first['Price']['ConvertedPriceList']['Internal']['Price'];
+        }else{
+            $f_price = $ProductData['Price']['ConvertedPriceList']['Internal']['Price'];
+        }
+
+        $price=Price::create(['qty'=>'1','value'=>$f_price,'type'=>'amount']);
+        $product->prices()->save($price);
+
+        if($ProductData['MainPictureUrl']){
+            $product->addMediaFromUrl($ProductData['MainPictureUrl'])->toMediaCollection('thumbnail');
+        }
+        if($ProductData['Pictures']){
+            foreach($ProductData['Pictures'] as $image){
+                $product->addMediaFromUrl($image['Url'])->toMediaCollection('images');
+            }
+        }
+        return $product;
+    }
     public function editProduct($ProductId){
         $data['categories'] = Category::all();
         $data['product']= Product::findOrFail($ProductId);
@@ -101,10 +133,17 @@ class ProductRepository implements ProductInterface
         $product->save();
         if(isset($ProductData['properties']) && count($ProductData['properties'])>0)
             $product->properties()->sync($ProductData['properties']);
-        $product->categories()->sync([$ProductData['category_id']]);
-
+        if(isset($ProductData['category_id']) && count($ProductData['category_id'])>0){
+            $product->categories()->sync([$ProductData['category_id']]);
+        }
         foreach ($ProductData['price'] as $key=>$price){
-            $product->prices->where('qty',$key)->first()->update(['value'=>$price]);
+            $temp = $product->prices->where('qty',$key)->first();
+            if ($temp){
+                $product->prices->where('qty',$key)->first()->update(['value'=>$price]);
+            }else{
+                $price=Price::create(['qty'=>$key,'value'=>$price,'type'=>'amount']);
+                $product->prices()->save($price);
+            }
         }
         $product->colors()->delete();
         $product->sizes()->delete();
