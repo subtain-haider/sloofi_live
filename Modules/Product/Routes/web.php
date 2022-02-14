@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/api_product/edit/{id}', [\Modules\Product\Http\Controllers\ProductController::class, 'edit_api_product'])->name('api_product.edit');
+Route::post('/api_product/update/{id}', [\Modules\Product\Http\Controllers\ProductController::class, 'update_api_product'])->name('api_product.update');
 Route::prefix('product')->middleware(['auth'])->group(function() {
     Route::controller(ProductController::class)->group(function () {
         Route::get('all', 'index')->name('product.all');
