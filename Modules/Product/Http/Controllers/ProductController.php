@@ -82,6 +82,7 @@ class ProductController extends Controller
             $ex_product = external_product($id);
             $product = $ex_product['product'];
             $data['product'] = $this->productRepository->storeExternalProduct($product);
+            $data['product']->categories()->attach([$ex_product['category']->id]);
         }
         return view('product::edit')->with($data);
     }

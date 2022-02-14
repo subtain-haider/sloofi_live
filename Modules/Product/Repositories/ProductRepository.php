@@ -133,7 +133,7 @@ class ProductRepository implements ProductInterface
         $product->save();
         if(isset($ProductData['properties']) && count($ProductData['properties'])>0)
             $product->properties()->sync($ProductData['properties']);
-        if(isset($ProductData['category_id']) && count($ProductData['category_id'])>0){
+        if(isset($ProductData['category_id']) ){
             $product->categories()->sync([$ProductData['category_id']]);
         }
         foreach ($ProductData['price'] as $key=>$price){
