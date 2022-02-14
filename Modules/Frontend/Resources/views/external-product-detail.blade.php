@@ -61,6 +61,17 @@
                                     $f_price = $data['f_price'];
                                     $l_price = $data['l_price'];
                                     $sign = $data['sign'];
+
+                                $value = 0;
+                                if ($category){
+                                    if ($category->prices){
+                                        if($category->prices()->where('qty',1)->first()){
+                                            $value = $category->prices()->where('qty',1)->first()->value;
+                                        }
+                                    }
+                                }
+
+                                $f_price += $value;
                                 @endphp
                                 <h1 id="product_price">{{$sign.$f_price}}
                                     @if(!is_null($l_price))
@@ -648,12 +659,7 @@
                         @endif
                         <tr>
                             <td>Price 1 pcs:</td>
-                            @php
-                                $data = price_external_product($product['Id'],1);
-                                $f_price = $data['f_price'];
-                                $l_price = $data['l_price'];
-                                $sign = $data['sign'];
-                            @endphp
+
                             <td>${{$sign.$f_price}}</td>
                         </tr>
                     </table>

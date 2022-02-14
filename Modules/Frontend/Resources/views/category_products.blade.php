@@ -195,7 +195,14 @@
                         @if(!empty($e_products[$tp]))
                             @foreach($e_products[$tp] as $product)
                                 <li class="col-lg-3 col-md-6">
-                                    @include('frontend::includes.external_product_card')
+                                    @if(\Modules\Product\Entities\Product::where('external_id', $product['Id'])->first())
+                                        <?php
+                                         $product = \Modules\Product\Entities\Product::where('external_id', $product['Id'])->first();
+                                        ?>
+                                        @include('frontend::includes.product_card')
+                                    @else
+                                        @include('frontend::includes.external_product_card')
+                                    @endif
                                 </li>
                             @endforeach
                         @endif

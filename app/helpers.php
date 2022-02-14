@@ -74,17 +74,27 @@ if (!function_exists('external_product')){
         curl_close($ch);
         $results = json_decode($result, true);
         $product = $results['Result']['Item'];
+        $contents =  $results['Result']['RootPath']['Content'];
+        $category = [];
+        foreach ($contents as $content){
+            $api_category = \Modules\ThirdPartyApi\Entities\ApiCategory::where('external_id', $content['ParentId'])->first();
+            if ($api_category){
+                $category = \Modules\Category\Entities\Category::find($api_category->category_id);
+                break;
+            }
+        }
+
 
         // for related products
-        $instance_key = env('otp_instanceKey');
-        $url = 'http://otapi.net/service-json/BatchSearchItemsFrame?instanceKey='.$instance_key. '&language=en&signature=&timestamp=&sessionId=&xmlParameters=<SearchItemsParameters><CategoryId>'.$product['CategoryId'].'<%2FCategoryId><%2FSearchItemsParameters>&framePosition=0&frameSize=4&blockList=';
-        // Configure curl client and execute request
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        $results = json_decode($result, true);
+//        $instance_key = env('otp_instanceKey');
+//        $url = 'http://otapi.net/service-json/BatchSearchItemsFrame?instanceKey='.$instance_key. '&language=en&signature=&timestamp=&sessionId=&xmlParameters=<SearchItemsParameters><CategoryId>'.$product['CategoryId'].'<%2FCategoryId><%2FSearchItemsParameters>&framePosition=0&frameSize=4&blockList=';
+//        // Configure curl client and execute request
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        $result = curl_exec($ch);
+//        curl_close($ch);
+//        $results = json_decode($result, true);
         $r_products = [];
         if (!$results['ErrorCode']){
             $results = $results['Result'];
@@ -96,7 +106,8 @@ if (!function_exists('external_product')){
         return array(
             'product' => $product,
             'r_products' => $r_products,
-            'results' =>$results
+            'results' =>$results,
+            'category' =>$category,
         );
     }
 }

@@ -102,11 +102,12 @@ class FrontendController extends Controller
     }
     public function external_productDetail($id){
         $data = external_product($id);
+        $category = $data['category'];
         $product = $data['product'];
         $shopifies=Shopify::all();
         $woocommerces=Woocommerce::all();
         $warehouses =Warehouse::all();
-        return view('frontend::external-product-detail',compact('product','shopifies','woocommerces','warehouses'));
+        return view('frontend::external-product-detail',compact('product','shopifies','woocommerces','warehouses','category'));
     }
     public function addToCart(Request $request){
         $cart = session()->get('cart', []);

@@ -1,3 +1,9 @@
+@php
+    $value = 0;
+    if($category->prices()->where('qty',1)->first()){
+        $value = $category->prices()->where('qty',1)->first()->value;
+    }
+@endphp
 <div class="product_list">
     <div class="product_img">
         <a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}">
@@ -12,6 +18,10 @@
                 $price1=$product->prices->where('qty',1)->first()?$product->prices->where('qty',1)->first()->value:0;
                 $price100=$product->prices->where('qty',100)->first()?$product->prices->where('qty',100)->first()->value:0;
                 $price1000=$product->prices->where('qty',1000)->first()?$product->prices->where('qty',1000)->first()->value:0;
+
+            $price1 += $value;
+            $price100 += $value;
+            $price1000 += $value;
             @endphp
             <div class="pricetext">${{$price1}}@if($price100 || $price1000)-{{$price1000>0?$price1000:$price100}} @endif</div>
             <div class="readmore"><a href="{{ route('frontend.product-detail',['id'=>$product->id]) }}">Connect</a> <a class="btn_bg" href="{{ route('frontend.product-detail',['id'=>$product->id]) }}">Buy Now</a></div>
